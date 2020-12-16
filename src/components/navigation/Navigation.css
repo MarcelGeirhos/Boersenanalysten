@@ -1,0 +1,36 @@
+nav {
+    background-color: #282c34;
+    height: 55px;
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    color: white;
+    flex-grow: 1;
+}
+
+.title h1 {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.search {
+    flex-grow: 2;
+}
+
+.search input {
+    width: 300px;
+}
+
+.search button {
+    margin-left: 10px;
+}
+
+.loginAndRegister {
+    flex-grow: 1;
+}
+
+.loginAndRegister button {
+    margin-right: 20px;
+}
