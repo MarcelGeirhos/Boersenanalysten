@@ -1,5 +1,5 @@
 nav {
-    background-color: #282c34;
+    background-color: #333333;
     height: 55px;
     display: flex;
     align-items: center;
@@ -27,10 +27,7 @@ nav {
     margin-left: 10px;
 }
 
-.loginAndRegister {
-    flex-grow: 1;
-}
-
-.loginAndRegister button {
-    margin-right: 20px;
+.login-and-register button {
+    margin-right: 24px;
+    font-weight: bold;
 }

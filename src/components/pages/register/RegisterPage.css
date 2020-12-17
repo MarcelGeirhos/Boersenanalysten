@@ -1,0 +1,30 @@
+.register-form {
+    height: 320px;
+    width: 320px;
+    display: flex;
+    justify-content: center;
+    margin: 150px auto;
+    padding: 10px;
+    background-color: #333333;
+    box-shadow: 6px 6px 6px 6px rgba(0, 0, 0, 0.4);
+}
+
+.register-form form {
+    width: 80%;
+}
+
+.register-form h1 {
+    color: white;
+    text-align: center;
+    text-decoration: underline white;
+}
+
+.register-form input {
+    width: 100%;
+    display: block;
+    margin: 25px 0;
+}
+
+.register-form button {
+    width: 106%;
+}

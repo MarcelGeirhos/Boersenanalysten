@@ -1,6 +1,7 @@
-.mainButton {
-    background-color: darkturquoise;
+.main-button {
+    background-color: #82B6DF;
     padding: 7px 20px;
     color: white;
     border: none;
+    border-radius: 3px;
 }
