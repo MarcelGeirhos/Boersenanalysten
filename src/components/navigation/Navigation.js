@@ -1,12 +1,15 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom'
+// own module imports
+import Inputfield from '../gui/inputs/Inputfield';
+import Mainbutton from '../gui/buttons/Mainbutton';
+import Secondbutton from '../gui/buttons/Secondbutton';
 
 // css imports
 import './Navigation.css';
-import '../gui/inputs/Inputfield.css';
-import '../gui/buttons/Mainbutton.css';
-import '../gui/buttons/Secondbutton.css';
+
+// third party imports
+import { Link } from 'react-router-dom';
 
 function Navigation() {
     return (
@@ -18,16 +21,12 @@ function Navigation() {
                     </Link>
                 </div>
                 <div className="search">
-                    <input type="text" className="inputfield" placeholder="Suchen..." />
-                    <button className="second-button">Suchen</button>
+                    <Inputfield type="text" placeholder="Suchen..." />
+                    <Secondbutton>Suchen</Secondbutton>
                 </div>
                 <div className="login-and-register">
-                    <Link to="/login">
-                        <button className="main-button">Login</button>
-                    </Link>
-                    <Link to="/register">
-                        <button className="main-button">Registrieren</button>
-                    </Link>
+                    <Mainbutton link="/login">Login</Mainbutton>
+                    <Mainbutton link="/register">Registrieren</Mainbutton>
                 </div>
             </nav>
         </header>

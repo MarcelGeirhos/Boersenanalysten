@@ -1,5 +1,3 @@
-import { Route, BrowserRouter as Router } from 'react-router-dom'
-
 // own module imports
 import Navigation from './components/navigation/Navigation';
 import ArticleListPage from './components/pages/articleList/ArticleListPage';
@@ -9,6 +7,9 @@ import LoginPage from './components/pages/login/LoginPage';
 // css imports
 import './App.css';
 
+// third party imports
+import { Route, BrowserRouter as Router } from 'react-router-dom'
+
 function App() {
   return (
     <Router>
@@ -17,8 +18,8 @@ function App() {
           <Navigation />
         </div>
         <Route path="/articleList" component={ArticleListPage} />
-        <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
+        <Route path="/login" component={LoginPage} />
       </div>
     </Router>
   );

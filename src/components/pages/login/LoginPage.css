@@ -21,9 +21,9 @@
 }
 
 .login-form input {
-    width: 100%;
-    display: block;
     margin-top: 25px;
+    display: block;
+    width: 100%;
 }
 
 .login-form p {

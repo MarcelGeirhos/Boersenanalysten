@@ -3,6 +3,7 @@ nav {
     align-items: center;
     display: flex;
     height: 55px;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.4);
 }
 
 .title a {
@@ -12,8 +13,7 @@ nav {
 }
 
 .title h1 {
-    margin-left: 20px;
-    text-align: left;
+    margin-left: 24px;
 }
 
 .search {
@@ -21,11 +21,11 @@ nav {
 }
 
 .search input {
-    width: 300px;
+    width: 400px;
 }
 
 .search button {
-    margin-left: 10px;
+    margin-left: 8px;
 }
 
 .login-and-register button {
