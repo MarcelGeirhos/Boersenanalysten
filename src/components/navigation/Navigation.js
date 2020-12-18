@@ -13,7 +13,9 @@ function Navigation() {
         <header>
             <nav>
                 <div className="title">
-                    <h1>Boersenanalysten</h1>
+                    <Link to="/articleList">
+                        <h1>Boersenanalysten</h1>
+                    </Link>
                 </div>
                 <div className="search">
                     <input type="text" className="inputfield" placeholder="Suchen..." />
