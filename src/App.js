@@ -1,5 +1,6 @@
 // own module imports
 import Navigation from './components/navigation/Navigation';
+import ForgotPasswordPage from './components/pages/forgotPassword/ForgotPasswordPage';
 import CreateArticlePage from './components/pages/createArticle/CreateArticlePage';
 import ArticleListPage from './components/pages/articleList/ArticleListPage';
 import RegisterPage from './components/pages/register/RegisterPage';
@@ -18,6 +19,7 @@ function App() {
         <div className="navigation">
           <Navigation />
         </div>
+        <Route path="/forgotPassword" component={ForgotPasswordPage} />
         <Route path="/createArticle" component={CreateArticlePage} />
         <Route path="/articleList" component={ArticleListPage} />
         <Route path="/register" component={RegisterPage} />

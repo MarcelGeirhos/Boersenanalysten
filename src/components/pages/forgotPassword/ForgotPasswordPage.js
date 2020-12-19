@@ -5,25 +5,24 @@ import Inputfield from '../../gui/inputs/Inputfield';
 import Mainbutton from '../../gui/buttons/Mainbutton';
 
 // css imports
-import './LoginPage.css';
+import './ForgotPasswordPage.css';
 
 // third party imports
 import { Link } from 'react-router-dom';
 
-function LoginPage() {
+function ForgotPasswordPage() {
     return (
-        <div className="login-form">
+        <div className="forgot-password-form">
             <form>
-                <h1>Login</h1>
+                <h1>Passwort zurücksetzen</h1>
                 <Inputfield type="email" placeholder="E-Mail..." />
-                <Inputfield type="password" placeholder="Passwort..." />
-                <Link to="/forgotPassword">
-                    <p>Passwort vergessen?</p>
+                <Link to="/login">
+                    <p>Zurück zum Login</p>
                 </Link>
-                <Mainbutton>Einloggen</Mainbutton>
+                <Mainbutton>E-Mail senden</Mainbutton>
             </form>
         </div>
     );
 }
 
-export default LoginPage;
+export default ForgotPasswordPage;
