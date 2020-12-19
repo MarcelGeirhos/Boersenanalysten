@@ -1,0 +1,15 @@
+.articlelist-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    margin: 20px auto;
+}
+
+.articlelist-header h1 {
+    color: white;
+}
+
+.articlelist {
+    padding-inline-start: 0;
+}
