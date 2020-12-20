@@ -5,6 +5,7 @@ import CreateArticlePage from './components/pages/createArticle/CreateArticlePag
 import ArticleListPage from './components/pages/articleList/ArticleListPage';
 import RegisterPage from './components/pages/register/RegisterPage';
 import LoginPage from './components/pages/login/LoginPage';
+import HomePage from './components/pages/home/HomePage';
 
 // css imports
 import './App.css';
@@ -24,6 +25,7 @@ function App() {
         <Route path="/articleList" component={ArticleListPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />
+        <Route exact path="/" component={HomePage} />
       </div>
     </Router>
   );

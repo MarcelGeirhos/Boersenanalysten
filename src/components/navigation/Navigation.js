@@ -16,11 +16,12 @@ function Navigation() {
         <header>
             <nav>
                 <div className="title">
-                    <Link to="/articleList">
+                    <Link to="/">
                         <h1>Boersenanalysten</h1>
                     </Link>
                 </div>
                 <div className="search">
+                    <Mainbutton link="/articleList">Beiträge</Mainbutton>
                     <Inputfield type="text" placeholder="Suchen..." />
                     <Secondbutton>Suchen</Secondbutton>
                 </div>
