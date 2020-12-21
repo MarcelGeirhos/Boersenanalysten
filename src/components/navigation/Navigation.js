@@ -1,9 +1,9 @@
 import React from 'react';
 
 // own module imports
-import Inputfield from '../gui/inputs/Inputfield';
 import Mainbutton from '../gui/buttons/Mainbutton';
 import Secondbutton from '../gui/buttons/Secondbutton';
+import InputfieldDark from '../gui/inputs/InputfieldDark';
 
 // css imports
 import './Navigation.css';
@@ -22,8 +22,8 @@ function Navigation() {
                 </div>
                 <div className="search">
                     <Mainbutton link="/articleList">Beiträge</Mainbutton>
-                    <Inputfield type="text" placeholder="Suchen..." />
-                    <Secondbutton>Suchen</Secondbutton>
+                    <InputfieldDark type="text" placeholder="Suchen..." />
+                    <Secondbutton link="/">Suchen</Secondbutton>
                 </div>
                 <div className="login-and-register">
                     <Mainbutton link="/login">Login</Mainbutton>

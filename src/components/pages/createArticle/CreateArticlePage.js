@@ -34,7 +34,7 @@ function CreateArticlePage() {
 
     const renderPhotos = (source) => {
         return source.map((photo) => {
-            return <img src={photo} key={photo} />
+            return <img src={photo} alt="Bild" key={photo} />
         })
     }
 

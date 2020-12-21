@@ -7,7 +7,7 @@ import './Mainbutton.css';
 import { Link } from 'react-router-dom';
 
 function Mainbutton(props) {
-    function clickAnimation() {
+    /*function clickAnimation() {
         const buttons = document.querySelectorAll('a');
         buttons.forEach(btn => {
             btn.addEventListener('click', function(e) {
@@ -24,7 +24,7 @@ function Mainbutton(props) {
                 }, 1000);
             })
         })
-    } 
+    }*/
 
     return (
         <Link to={props.link}>
@@ -34,3 +34,4 @@ function Mainbutton(props) {
 }
 
 export default Mainbutton;
+
