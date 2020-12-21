@@ -8,6 +8,7 @@
 
 .second-button:hover {
     background-color:rgba(130, 182, 223, 0.25);
+    cursor: pointer;
 }
 
 .second-button:focus {

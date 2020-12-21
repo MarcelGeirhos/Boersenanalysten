@@ -9,6 +9,7 @@
 
 .main-button:hover {
     background-color:rgba(130, 182, 223, 0.7);
+    cursor: pointer;
 }
 
 .main-button:focus {
