@@ -1,0 +1,10 @@
+.inputfieldDark {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    color: white;
+    padding: 6px;
+}
+
+.inputfieldDark:focus {
+    outline: none;
+}
