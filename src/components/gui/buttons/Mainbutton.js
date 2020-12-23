@@ -28,7 +28,7 @@ function Mainbutton(props) {
 
     return (
         <Link to={props.link}>
-            <button className="main-button">{props.children}</button>
+            <button className="main-button" onClick={props.onClick}>{props.children}</button>
         </Link>
     )
 }

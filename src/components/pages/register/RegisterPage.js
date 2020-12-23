@@ -3,6 +3,7 @@ import React from 'react';
 // own module imports
 import Inputfield from '../../gui/inputs/Inputfield';
 import Mainbutton from '../../gui/buttons/Mainbutton';
+import { registerUser } from '../../../redux/actions/AuthActions';
 
 // css imports
 import './RegisterPage.css';

@@ -10,6 +10,7 @@ import './Navigation.css';
 
 // third party imports
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 function Navigation() {
     return (
@@ -34,4 +35,11 @@ function Navigation() {
     );
 }
 
-export default Navigation;
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps)(Navigation);
