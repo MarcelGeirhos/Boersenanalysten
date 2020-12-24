@@ -43,7 +43,7 @@ function CreateArticlePage() {
     }
 
     return (
-        <div className="create-article-form">
+        <div className="create-article">
             <h1>Beitrag erstellen</h1>
             <div>
                 <label>Titel:</label>

@@ -1,37 +1,41 @@
-.create-article-form {
+.create-article {
     width: 45%;
-    margin: 30px auto;
+    margin: 0 auto 40px auto;
+    padding: 0 50px 20px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.create-article-form h1 {
+.create-article h1 {
     text-decoration: underline;
 }
 
-.create-article-form label {
+.create-article label {
     margin-bottom: 6px;
     font-size: 18px;
     display: block;
 }
 
-.create-article-form input {
+.create-article input {
     margin-bottom: 6px;
     display: block;
     width: 100%;
 }
 
-.create-article-form div {
+.create-article div {
     margin-top: 20px;
 }
 
-.create-article-form svg {
+.create-article svg {
     color: rgba(130, 182, 223, 1.0);
 }
 
-.create-article-form img {
+.create-article img {
     width: 320px;
     height: 180px;
     object-fit: cover;

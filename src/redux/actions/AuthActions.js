@@ -1,4 +1,4 @@
-export const registerUser = (newUser) => {
+export const createUser = (newUser) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
         const firestore = getFirestore();
