@@ -31,7 +31,7 @@ function Navigation(props) {
         console.log("logout user");
         setUserState(null);
         await logoutUserAction();
-        props.history.replace("/");
+        //props.history.replace("/");
     }
 
     let buttons;
@@ -44,10 +44,12 @@ function Navigation(props) {
             </React.Fragment>
         )
     } else {
-        <div className="login-and-register">
-            <Mainbutton link="/login">Login</Mainbutton>
-            <Mainbutton link="/register">Registrieren</Mainbutton>
-        </div>
+        buttons = (
+            <div className="login-and-register">
+                <Mainbutton link="/login">Login</Mainbutton>
+                <Mainbutton link="/register">Registrieren</Mainbutton>
+            </div>
+        )
     }
 
     return (
@@ -63,10 +65,7 @@ function Navigation(props) {
                     <InputfieldDark type="text" placeholder="Suchen..." />
                     <Secondbutton link="/">Suchen</Secondbutton>
                 </div>
-                <div className="login-and-register">
-                    <Mainbutton link="/login">Login</Mainbutton>
-                    <Mainbutton link="/register">Registrieren</Mainbutton>
-    </div>
+                {buttons}
             </nav>
         </header>
     );
