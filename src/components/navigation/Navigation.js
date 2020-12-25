@@ -5,6 +5,7 @@ import Mainbutton from '../gui/buttons/Mainbutton';
 import Secondbutton from '../gui/buttons/Secondbutton';
 import InputfieldDark from '../gui/inputs/InputfieldDark';
 import { logoutUser } from '../../redux/actions/LogoutAction';
+import firebase from '../../firebase/config';
 
 // css imports
 import './Navigation.css';
@@ -12,7 +13,6 @@ import './Navigation.css';
 // third party imports
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import firebase from '../../firebase/config';
 
 function Navigation(props) {
     const loginSelector = useSelector((state) => state.logIn);
@@ -28,7 +28,7 @@ function Navigation(props) {
     })
 
     const logout = async() => {
-        console.log("logout user");
+        console.log("Benutzer wird ausgeloggt");
         setUserState(null);
         await logoutUserAction();
         //props.history.replace("/");
@@ -39,9 +39,10 @@ function Navigation(props) {
         (signinSelector.user && signinSelector.user.hasOwnProperty("user")) ||
         userState != null) {
         buttons = (
-            <React.Fragment>
-                <li><button className="logout" onClick={logout}>Logout</button></li>
-            </React.Fragment>
+            <div className="login-and-register">
+                <Mainbutton link="/userprofile">Profil</Mainbutton>
+                <Secondbutton onClick={logout}>Logout</Secondbutton>
+            </div>
         )
     } else {
         buttons = (

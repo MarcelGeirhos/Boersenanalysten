@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 const Secondbutton = (props) => {
     return (
         <Link to={props.link}>
-            <button className="second-button">{props.children}</button>
+            <button className="second-button" onClick={props.onClick}>{props.children}</button>
         </Link>
     );
 }

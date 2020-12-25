@@ -3,6 +3,7 @@ import Navigation from './components/navigation/Navigation';
 import ForgotPasswordPage from './components/pages/forgotPassword/ForgotPasswordPage';
 import CreateArticlePage from './components/pages/createArticle/CreateArticlePage';
 import ArticleListPage from './components/pages/articleList/ArticleListPage';
+import UserprofilePage from './components/pages/userprofile/UserprofilePage';
 import RegisterPage from './components/pages/register/RegisterPage';
 import LoginPage from './components/pages/login/LoginPage';
 import HomePage from './components/pages/home/HomePage';
@@ -22,6 +23,7 @@ function App() {
         </div>
         <Route path="/forgotPassword" component={ForgotPasswordPage} />
         <Route path="/createArticle" component={CreateArticlePage} />
+        <Route path="/userprofile" component={UserprofilePage} />
         <Route path="/articleList" component={ArticleListPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />
