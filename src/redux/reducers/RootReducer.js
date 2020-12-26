@@ -1,4 +1,4 @@
-import createUser from './AuthReducer';
+import createUser from './SignInReducer';
 import loginUser from './LoginReducer';
 import logoutUser from './LogoutReducer';
 import { combineReducers } from 'redux';

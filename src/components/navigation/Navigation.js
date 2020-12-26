@@ -5,7 +5,7 @@ import Mainbutton from '../gui/buttons/Mainbutton';
 import Secondbutton from '../gui/buttons/Secondbutton';
 import InputfieldDark from '../gui/inputs/InputfieldDark';
 import { logoutUser } from '../../redux/actions/LogoutAction';
-import firebase from '../../firebase/config';
+import firebase from '../../firebase/Config';
 
 // css imports
 import './Navigation.css';
@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from 'react-redux';
 function Navigation(props) {
     const loginSelector = useSelector((state) => state.logIn);
     const signinSelector = useSelector((state) => state.signIn);
+
     const [userState, setUserState] = useState(null);
     const dispatch = useDispatch();
     const logoutUserAction = () => dispatch(logoutUser());
@@ -28,7 +29,7 @@ function Navigation(props) {
     })
 
     const logout = async() => {
-        console.log("Benutzer wird ausgeloggt");
+        console.log("Benutzer wird ausgeloggt.");
         setUserState(null);
         await logoutUserAction();
         //props.history.replace("/");

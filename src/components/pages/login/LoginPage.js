@@ -22,6 +22,7 @@ function LoginPage() {
 
     const login = async (e) => {
         e.preventDefault();
+        // TODO
         if (email !== "" && password !== "") {
             let user = await logInUserAction(email, password);
             console.log(user);
@@ -31,7 +32,7 @@ function LoginPage() {
         } else {
             console.log("Leere Eingabefelder");
         }
-        console.log('Benutzer eingeloggt');
+        console.log('Benutzer wurde eingeloggt.');
     }
 
     const redirectTo = routeRedirect;
@@ -43,15 +44,12 @@ function LoginPage() {
         <div className="login-form">
             <form onSubmit={login}>
                 <h1>Login</h1>
-                <input type="email" placeholder="E-Mail..." className="inputfield" onChange={(e) => setEmail(e.target.value)} />
-                <input type="password" placeholder="Passwort..." className="inputfield" onChange={(e) => setPassword(e.target.value)} />
-                <input type="submit" value="Einloggen" />
-                {/*<Inputfield type="email" placeholder="E-Mail..." />
-                <Inputfield type="password" placeholder="Passwort..." />
+                <Inputfield type="email" placeholder="E-Mail..." onChange={(e) => setEmail(e.target.value)}/>
+                <Inputfield type="password" placeholder="Passwort..." onChange={(e) => setPassword(e.target.value)} />
                 <Link to="/forgotPassword">
                     <p>Passwort vergessen?</p>
                 </Link>
-                <Mainbutton>Einloggen</Mainbutton>*/}
+                <input type="submit" value="Einloggen" id="login-button" className="main-button" />
             </form>
         </div>
     );

@@ -1,4 +1,4 @@
-import firebase from '../../firebase/config';
+import firebase from '../../firebase/Config';
 
 export const createUser = (email, password) => {
     return async function(dispatch) {

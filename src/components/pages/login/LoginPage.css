@@ -36,6 +36,6 @@
     text-decoration: none;
 }
 
-.login-form button {
+#login-button {
     width: 106%;
 }
