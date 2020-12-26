@@ -7,7 +7,7 @@ import Mainbutton from '../../gui/buttons/Mainbutton';
 // css imports
 import './CreateArticlePage.css';
 
-// material-ui icons
+// material-ui icon imports
 import {
     AddAPhoto,
     FormatListBulleted,
@@ -38,6 +38,8 @@ function CreateArticlePage() {
         })
     }
 
+    // Setzt die Eigenschaft die übergeben wird
+    // Beispiel: bold = fetter Text (<b></b>)
     function editorButtonsHandler(property) {
         document.execCommand(property, false);
     }
@@ -47,6 +49,7 @@ function CreateArticlePage() {
             <h1>Beitrag erstellen</h1>
             <div>
                 <label>Titel:</label>
+                {/* TODO durch canvas ersetzen für einheitliches Styling? */}
                 <InputfieldDark type="text" placeholder="Beitragstitel..."></InputfieldDark>
             </div>
             <div>
@@ -65,6 +68,7 @@ function CreateArticlePage() {
             </div>
             <div>
                 <label>Tags:</label>
+                 {/* TODO durch canvas ersetzen für einheitliches Styling? */}
                 <InputfieldDark type="text" placeholder="Tags..."></InputfieldDark>
             </div>
             <div>

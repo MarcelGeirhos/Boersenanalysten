@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 // own module imports
 import Inputfield from '../../gui/inputs/Inputfield';
-import Mainbutton from '../../gui/buttons/Mainbutton';
 import { loginUser } from '../../../redux/actions/LoginAction';
 
 // css imports

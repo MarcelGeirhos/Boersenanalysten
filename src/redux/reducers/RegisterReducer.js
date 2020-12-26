@@ -1,12 +1,12 @@
-const createUser = (
+const registerUser = (
     state = {
         user: {}
     },
     action) => {
-        if (action.type === 'CREATE_USER') {
+        if (action.type === 'REGISTER_USER') {
             state = {...state, user: action.payload}
         }
         return state;
     }
 
-export default createUser;
+export default registerUser;

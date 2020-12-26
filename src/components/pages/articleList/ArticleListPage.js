@@ -8,6 +8,7 @@ import Mainbutton from '../../gui/buttons/Mainbutton';
 import './ArticleListPage.css';
 
 function ArticleListPage() {
+    // TODO
     const list = ['a', 'b', 'c'];
 
     return (

@@ -1,8 +1,5 @@
 import React from 'react';
 
-// own module imports
-//import Mainbutton from '../../gui/buttons/Mainbutton';
-
 // css imports
 import './HomePage.css';
 

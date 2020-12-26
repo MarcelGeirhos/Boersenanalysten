@@ -7,6 +7,7 @@ import './Mainbutton.css';
 import { Link } from 'react-router-dom';
 
 function Mainbutton(props) {
+    // TODO Animation bei Click implementieren
     /*function clickAnimation() {
         const buttons = document.querySelectorAll('a');
         buttons.forEach(btn => {
@@ -34,4 +35,3 @@ function Mainbutton(props) {
 }
 
 export default Mainbutton;
-

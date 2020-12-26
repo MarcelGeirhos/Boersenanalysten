@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // own module imports
 import Inputfield from '../../gui/inputs/Inputfield';
-import { createUser } from '../../../redux/actions/SignInAction';
+import { registerUser } from '../../../redux/actions/RegisterAction';
 
 // css imports
 import './RegisterPage.css';
@@ -17,13 +17,13 @@ function RegisterPage() {
     
     const [routeRedirect, setRedirect] = useState(false);
     const dispatch = useDispatch();
-    const createUserAction = (email, password) => dispatch(createUser(email, password));
+    const registerUserAction = (email, password) => dispatch(registerUser(email, password));
 
-    const signin = async (e) => {
+    const register = async (e) => {
         e.preventDefault();
         // TODO
         if (email !== "" && password !== "") {
-            await createUserAction(email, password);
+            await registerUserAction(email, password);
             setRedirect(true);
         } else {
             console.log("Leere Eingabefelder");
@@ -38,7 +38,7 @@ function RegisterPage() {
 
     return (
         <div className="register-form">
-            <form onSubmit={signin}>
+            <form onSubmit={register}>
                 <h1>Registrieren</h1>
                 <Inputfield type="email" placeholder="E-Mail..." onChange={(e) => setEmail(e.target.value)} />
                 <Inputfield type="password" placeholder="Passwort..." onChange={(e) => setPassword(e.target.value)} />

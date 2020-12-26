@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function Navigation(props) {
     const loginSelector = useSelector((state) => state.logIn);
-    const signinSelector = useSelector((state) => state.signIn);
+    const registerSelector = useSelector((state) => state.register);
 
     const [userState, setUserState] = useState(null);
     const dispatch = useDispatch();
@@ -32,22 +32,22 @@ function Navigation(props) {
         console.log("Benutzer wird ausgeloggt.");
         setUserState(null);
         await logoutUserAction();
-        //props.history.replace("/");
+        // TODO props.history.replace("/");
     }
 
     let buttons;
     if ((loginSelector.user && loginSelector.user.hasOwnProperty("user")) ||
-        (signinSelector.user && signinSelector.user.hasOwnProperty("user")) ||
+        (registerSelector.user && registerSelector.user.hasOwnProperty("user")) ||
         userState != null) {
         buttons = (
-            <div className="login-and-register">
+            <div className="navbar-right">
                 <Mainbutton link="/userprofile">Profil</Mainbutton>
                 <Secondbutton onClick={logout}>Logout</Secondbutton>
             </div>
         )
     } else {
         buttons = (
-            <div className="login-and-register">
+            <div className="navbar-right">
                 <Mainbutton link="/login">Login</Mainbutton>
                 <Mainbutton link="/register">Registrieren</Mainbutton>
             </div>
