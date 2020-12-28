@@ -25,6 +25,12 @@
     margin-bottom: 6px;
     display: block;
     width: 100%;
+    border: none;
+    border-radius: 4px;
+}
+
+.create-article input:focus {
+    outline: 1px solid rgba(130, 182, 223, 1.0);
 }
 
 .create-article div {
@@ -61,7 +67,7 @@
     outline: none;
 }
 
-.editor-canvas {
+.editor-for-article-text {
     background-color: rgba(255, 255, 255, 0.03);
     width: 100%;
     height: 200px;
@@ -69,9 +75,14 @@
     font-size: 16px;
     color: #ffffff;
     font-family: arial;
-    line-height: 1.5em;
+    line-height: 1.2em;
+    border-radius: 4px;
 }
 
-.editor-canvas:focus {
+.editor-for-article-text:focus {
     outline: 1px solid rgba(130, 182, 223, 1.0);
+}
+
+.create-article .main-button {
+    width: 150px;
 }

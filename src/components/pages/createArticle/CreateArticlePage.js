@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // own module imports
 import InputfieldDark from '../../gui/inputs/InputfieldDark';
-import Mainbutton from '../../gui/buttons/Mainbutton';
+import { createArticle } from '../../../redux/actions/ArticleActions';
 
 // css imports
 import './CreateArticlePage.css';
@@ -17,8 +17,19 @@ import {
     FormatUnderlined,
 } from '@material-ui/icons';
 
+// third party imports
+import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 function CreateArticlePage() {
+    const [title, setTitle] = useState("");
+    const [articleText, setArticleText] = useState("");
+    const [tags, setTags] = useState("");
     const [selectedImages, setSelectedImage] = useState([])
+
+    const [routeRedirect, setRedirect] = useState(false);
+    const dispatch = useDispatch();
+    const createArticleAction = (title, articleText, tags) => dispatch(createArticle(title, articleText, tags));
 
     const imageChangeHandler = (e) => {
         console.log(e.target.files)
@@ -44,36 +55,55 @@ function CreateArticlePage() {
         document.execCommand(property, false);
     }
 
+    // Der Artikel Text wird mit allen Eigenschaften die vom
+    // Benutzer mit dem Editor gesetzt wurden in die Datenbank
+    // geschrieben z.B. fetter Text oder unnummerierte Listen.
+    const createNewArticle = async (e) => {
+        e.preventDefault();
+        if (title !== "" && document.getElementById('articleText').innerHTML !== "" && tags !== "") {
+            await createArticleAction(title, document.getElementById('articleText').innerHTML, tags);
+            setRedirect(true);
+        } else {
+            console.log("Leere Eingabefelder");
+        }
+        console.log('Neuer Artikel wurde erstellt.');
+    }
+
+    const redirectTo = routeRedirect;
+    if (redirectTo) {
+        return <Redirect to="/articleList" />
+    }
+
     return (
         <div className="create-article">
-            <h1>Beitrag erstellen</h1>
-            <div>
-                <label>Titel:</label>
-                {/* TODO durch canvas ersetzen für einheitliches Styling? */}
-                <InputfieldDark type="text" placeholder="Beitragstitel..."></InputfieldDark>
-            </div>
-            <div>
-                <div className="editor-menuebar">
-                    <button className="editor-button" onClick={() => editorButtonsHandler('bold')}><FormatBold /></button>
-                    <button className="editor-button" onClick={() => editorButtonsHandler('italic')}><FormatItalic /></button>
-                    <button className="editor-button" onClick={() => editorButtonsHandler('underline')}><FormatUnderlined /></button>
-                    <button className="editor-button" onClick={() => editorButtonsHandler('insertunorderedlist')}><FormatListBulleted /></button>
-                    <button className="editor-button" onClick={() => editorButtonsHandler('insertorderedlist')}><FormatListNumbered /></button>
-                    <button className="editor-button" ><AddAPhoto /></button>
-                    <input type="file" multiple id="file" onChange={imageChangeHandler}></input>
-                    {renderPhotos(selectedImages)}
+            <form onSubmit={createNewArticle}>
+                <h1>Beitrag erstellen</h1>
+                <div>
+                    <label>Titel:</label>
+                    <InputfieldDark type="text" placeholder="Beitragstitel..." onChange={(e) => setTitle(e.target.value)} ></InputfieldDark>
                 </div>
-                <label>Beitrag:</label>
-                <div className="editor-canvas" id="canvas" contentEditable></div>
-            </div>
-            <div>
-                <label>Tags:</label>
-                 {/* TODO durch canvas ersetzen für einheitliches Styling? */}
-                <InputfieldDark type="text" placeholder="Tags..."></InputfieldDark>
-            </div>
-            <div>
-                <Mainbutton>Beitrag erstellen</Mainbutton>
-            </div>
+                <div>
+                    <div className="editor-menuebar">
+                        <button className="editor-button" onClick={() => editorButtonsHandler('bold')}><FormatBold /></button>
+                        <button className="editor-button" onClick={() => editorButtonsHandler('italic')}><FormatItalic /></button>
+                        <button className="editor-button" onClick={() => editorButtonsHandler('underline')}><FormatUnderlined /></button>
+                        <button className="editor-button" onClick={() => editorButtonsHandler('insertunorderedlist')}><FormatListBulleted /></button>
+                        <button className="editor-button" onClick={() => editorButtonsHandler('insertorderedlist')}><FormatListNumbered /></button>
+                        <button className="editor-button" ><AddAPhoto /></button>
+                        <input type="file" multiple id="file" onChange={imageChangeHandler}></input>
+                        {renderPhotos(selectedImages)}
+                    </div>
+                    <label>Beitrag:</label>
+                    <div className="editor-for-article-text" id="articleText" onSubmit={(e) => setArticleText(document.getElementById('articleText').innerHTML)} contentEditable></div>
+                </div>
+                <div>
+                    <label>Tags:</label>
+                    <InputfieldDark type="text" placeholder="Tags..." onChange={(e) => setTags(e.target.value)}></InputfieldDark>
+                </div>
+                <div>
+                    <input type="submit" value="Beitrag erstellen" id="create-article-button" className="main-button" />
+                </div>
+            </form>
         </div>
     );
 }
