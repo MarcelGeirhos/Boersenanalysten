@@ -22,14 +22,13 @@ function RegisterPage() {
 
     const register = async (e) => {
         e.preventDefault();
-        // TODO
-        if (email !== "" && password !== "" && username !== "") {
+        /*let isEmailValid = checkEmail();
+        let isPasswordValid = checkPassword();
+        if (isEmailValid && isPasswordValid && isUsernameValid) {
             await registerUserAction(email, password, username);
             setRedirect(true);
-        } else {
-            console.log("Leere Eingabefelder");
-        }
-        console.log('Benutzer wurde registriert.');
+            console.log('Benutzer wurde erfolgreich registriert.');
+        }*/
     }
 
     const redirectTo = routeRedirect;

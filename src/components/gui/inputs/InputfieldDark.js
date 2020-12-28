@@ -5,7 +5,7 @@ import './InputfieldDark.css';
 
 const InputfieldDark = (props) => {
     return (
-        <input type={props.type} className="inputfieldDark" placeholder={props.placeholder} onChange={props.onChange} />           
+        <input type={props.type} className="inputfieldDark" placeholder={props.placeholder} onChange={props.onChange} />
     );
 }
 

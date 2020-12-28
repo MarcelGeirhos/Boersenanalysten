@@ -1,5 +1,5 @@
 .login-form {
-    height: 280px;
+    height: 320px;
     width: 320px;
     display: flex;
     justify-content: center;
@@ -14,6 +14,7 @@
 }
 
 .login-form h1 {
+    margin-bottom: 30px;
     margin-left: 14px;
     color: white;
     text-align: center;
@@ -21,21 +22,28 @@
 }
 
 .login-form input {
-    margin-top: 25px;
+    margin-top: 15px;
     display: block;
     width: 100%;
-}
-
-.login-form p {
-    margin: 4px 0 20px 0;
-    text-align: right;
-    color: white;
 }
 
 .login-form a {
     text-decoration: none;
 }
 
+#forgot-password-link {
+    margin: 4px 0 20px 0;
+    text-align: right;
+    color: white;
+}
+
 #login-button {
     width: 106%;
+}
+
+#test {
+    margin: 3px 0 0 4px;
+    color: red;
+    font-size: 13px;
+    visibility: hidden;
 }
