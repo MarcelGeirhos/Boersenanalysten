@@ -1,10 +1,12 @@
 // own module imports
-import Navigation from './components/navigation/Navigation';
+import EditingprofilePage from './components/pages/userprofile/editingprofile/EditingprofilePage';
 import ForgotPasswordPage from './components/pages/forgotPassword/ForgotPasswordPage';
+import UserprofilePage from './components/pages/userprofile/profile/UserprofilePage';
 import CreateArticlePage from './components/pages/createArticle/CreateArticlePage';
 import ArticleListPage from './components/pages/articleList/ArticleListPage';
-import UserprofilePage from './components/pages/userprofile/UserprofilePage';
+import Settings from './components/pages/userprofile/settings/SettingsPage';
 import RegisterPage from './components/pages/register/RegisterPage';
+import Navigation from './components/navigation/Navigation';
 import LoginPage from './components/pages/login/LoginPage';
 import HomePage from './components/pages/home/HomePage';
 
@@ -21,11 +23,13 @@ function App() {
         <div className="navigation">
           <Navigation />
         </div>
+        <Route path="/editinguserprofile" component={EditingprofilePage} />
         <Route path="/forgotPassword" component={ForgotPasswordPage} />
         <Route path="/createArticle" component={CreateArticlePage} />
         <Route path="/userprofile" component={UserprofilePage} />
         <Route path="/articleList" component={ArticleListPage} />
         <Route path="/register" component={RegisterPage} />
+        <Route path="/settings" component={Settings} />
         <Route path="/login" component={LoginPage} />
         <Route exact path="/" component={HomePage} />
       </div>

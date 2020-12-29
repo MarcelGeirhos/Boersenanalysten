@@ -1,7 +1,7 @@
 import React from 'react';
 
 // own module imports
-import Listitem from './listitem/listitem';
+import Listitem from './listitem/Listitem';
 import Mainbutton from '../../gui/buttons/Mainbutton';
 
 // css imports

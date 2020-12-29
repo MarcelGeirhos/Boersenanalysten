@@ -1,20 +1,15 @@
 import React from 'react';
 
+// own module imports
+import UserprofileNavigation from '../UserprofileNavigation';
+
 // css imports
 import './UserprofilePage.css';
 
 function UserprofilePage() {
     return (
         <div className="user-profile-grid-container">
-            <div className="user-profile-grid navigation">
-                <nav>
-                    <ul>
-                        <li>Profil</li>
-                        <li>Profil editieren</li>
-                        <li>Einstellungen</li>
-                    </ul>
-                </nav>
-            </div>
+            <UserprofileNavigation />
             <div className="user-profile-grid overview">
                 Item 2
             </div>

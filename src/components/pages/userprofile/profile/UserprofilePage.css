@@ -8,16 +8,6 @@
     padding: 20px;
 }
 
-.navigation {
-    grid-column: 1 / 4;
-}
-
-.navigation nav ul li {
-    display: inline-block;
-    padding-right: 30px;
-    border: 1px solid green;
-}
-
 .overview {
     grid-column: 1 / 3;
 }
