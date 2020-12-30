@@ -2,6 +2,7 @@ import React from 'react';
 
 // own module imports
 import UserprofileNavigation from '../UserprofileNavigation';
+import TopTagSection from './topTagSection/TopTagSection';
 
 // css imports
 import './UserprofilePage.css';
@@ -23,9 +24,7 @@ function UserprofilePage() {
                 <p>[Standort]</p>
                 <p>Mitglied seit: [Datum im Format Tag.Monat.Jahr z.B. 13.12.2020]</p>
             </div>
-            <div className="user-profile-grid top-tags">
-                {/* TODO Grid Layout implementieren für Top Tags Ansicht. */}
-            </div>
+            <TopTagSection />
             <div className="user-profile-grid article-list">
                 {/* TODO Liste + Auswahl implementieren. */}
             </div>
