@@ -11,16 +11,23 @@ function UserprofilePage() {
         <div className="user-profile-grid-container">
             <UserprofileNavigation />
             <div className="user-profile-grid overview">
-                Item 2
+                <p>Benutzername: [Benutzername]</p>
+                <p>Portfolio: [Portfolio Beitragslink]</p>
+                <p>Beschreibung: [Beschreibung des Benutzers]</p>
             </div>
             <div className="user-profile-grid stats">
-                Item 3
+                <p>[Aktienanteile] Aktien</p>
+                <p>[Anzahl Antworten] Antworten</p>
+                <p>[Anzahl Beiträge] Beiträge</p>
+                <p>[Anzahl Portfoliobeiträge] Portfoliobeiträge</p>
+                <p>[Standort]</p>
+                <p>Mitglied seit: [Datum im Format Tag.Monat.Jahr z.B. 13.12.2020]</p>
             </div>
             <div className="user-profile-grid top-tags">
-                Item 4
+                {/* TODO Grid Layout implementieren für Top Tags Ansicht. */}
             </div>
             <div className="user-profile-grid article-list">
-                Item 5
+                {/* TODO Liste + Auswahl implementieren. */}
             </div>
         </div>
     );

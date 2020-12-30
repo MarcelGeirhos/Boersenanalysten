@@ -4,7 +4,7 @@
 }
 
 .user-profile-grid {
-    border: 4px solid #333333;
+    border: 2px solid rgba(255, 255, 255, 0.1);
     padding: 20px;
 }
 

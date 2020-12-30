@@ -23,7 +23,7 @@ import { useDispatch } from 'react-redux';
 
 function CreateArticlePage() {
     const [title, setTitle] = useState("");
-    const [articleText, setArticleText] = useState("");
+    
     const [tags, setTags] = useState("");
     const [selectedImages, setSelectedImage] = useState([])
 
@@ -63,10 +63,10 @@ function CreateArticlePage() {
         if (title !== "" && document.getElementById('articleText').innerHTML !== "" && tags !== "") {
             await createArticleAction(title, document.getElementById('articleText').innerHTML, tags);
             setRedirect(true);
+            console.log('Neuer Artikel wurde erstellt.');
         } else {
             console.log("Leere Eingabefelder");
         }
-        console.log('Neuer Artikel wurde erstellt.');
     }
 
     const redirectTo = routeRedirect;
@@ -94,7 +94,8 @@ function CreateArticlePage() {
                         {renderPhotos(selectedImages)}
                     </div>
                     <label>Beitrag:</label>
-                    <div className="editor-for-article-text" id="articleText" onSubmit={(e) => setArticleText(document.getElementById('articleText').innerHTML)} contentEditable></div>
+                    {/*onSubmit={(e) => setArticleText(document.getElementById('articleText').innerHTML)*/}
+                    <div className="editor-for-article-text" id="articleText" contentEditable></div>
                 </div>
                 <div>
                     <label>Tags:</label>

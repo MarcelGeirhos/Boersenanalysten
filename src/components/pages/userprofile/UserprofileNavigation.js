@@ -1,26 +1,18 @@
 import React from 'react';
 
+// own module imports
+import Secondbutton from '../../gui/buttons/Secondbutton';
+
 // css imports
 import './UserprofileNavigation.css';
-
-// third party imports
-import { Link } from 'react-router-dom';
 
 function UserprofileNavigation() {
     return (
         <div className="user-profile-grid navigation">
             <nav>
-                <ul>
-                    <Link to="/userprofile">
-                        <li>Profil</li>
-                    </Link>
-                    <Link to="/editinguserprofile">
-                        <li>Profil editieren</li>
-                    </Link>
-                    <Link to="/settings">
-                        <li>Einstellungen</li>
-                    </Link>
-                </ul>
+                <Secondbutton link="/userprofile">Profil</Secondbutton>
+                <Secondbutton link="/editinguserprofile">Profil editieren</Secondbutton>
+                <Secondbutton link="/settings">Einstellungen</Secondbutton>
             </nav>
         </div>
     );

@@ -42,7 +42,7 @@ function Navigation(props) {
         buttons = (
             <div className="navbar-right">
                 <Mainbutton link="/userprofile">Profil</Mainbutton>
-                <Secondbutton onClick={logout}>Logout</Secondbutton>
+                <Secondbutton link="/" onClick={logout}>Logout</Secondbutton>
             </div>
         )
     } else {

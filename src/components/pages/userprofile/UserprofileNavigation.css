@@ -2,12 +2,10 @@
     grid-column: 1 / 4;
 }
 
-.navigation nav ul li {
-    display: inline-block;
-    padding: 5px 15px;
-    border: 1px solid green;
+.user-profile-grid nav {
+    padding-left: 50px;
 }
 
-.navigation nav ul a {
-    color: white;
+.user-profile-grid nav a {
+    padding-left: 5px;
 }

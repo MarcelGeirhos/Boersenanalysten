@@ -8,7 +8,7 @@ import Mainbutton from '../../gui/buttons/Mainbutton';
 import './ArticleListPage.css';
 
 function ArticleListPage() {
-    // TODO
+    // TODO durch richtige Daten aus der Datenbank ersetzen.
     const list = ['a', 'b', 'c'];
 
     return (
