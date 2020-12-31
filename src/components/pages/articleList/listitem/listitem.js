@@ -9,7 +9,7 @@ const Listitem = (props) => {
             <li>
                 {/* TODO durch Daten aus der Datenbank ersetzen */}
                 <p>[5] Voting [3] Antworten [58] Ansichten</p>
-                <p>[Beitragstitel]</p>
+                <p>{props.titel}</p>
                 <p>[Tags]</p>
             </li>
         </div>
