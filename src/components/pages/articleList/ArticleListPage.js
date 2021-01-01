@@ -14,9 +14,7 @@ import { useDispatch } from 'react-redux';
 
 function ArticleListPage() {
     // TODO durch richtige Daten aus der Datenbank ersetzen.
-    let article = [];
     const [articleList, setArticleList] = useState([]);
-
     const getArticles = async () => {
         const list = [];
         let snapshot = firebase.getArticleList().then(articleList => {
@@ -25,7 +23,7 @@ function ArticleListPage() {
         //snapshot.forEach(element => {
         //    list.push(element.data())
         //});
-        setArticleList([...articleList]);
+        setArticleList([articleList]);
     }
 
     useEffect(() => {
@@ -37,6 +35,20 @@ function ArticleListPage() {
         getArticles();
     }, []);
 
+    function getArticleListFunction(item) {
+        let title = item.title;
+        console.log("Title: " + title);
+        return title;
+    }
+
+    function test() {
+        console.log("Test " + articleList.length);
+        for (let i = 0; i < articleList.length; i++) {
+            console.log(articleList);
+            return <p>{articleList[i].title}</p>
+        }
+    }
+
     return (
         <div>
             <div className="articlelist-header">
@@ -47,11 +59,13 @@ function ArticleListPage() {
                 {/*{list.map(item => {
                     return <Listitem key={item}>{item}</Listitem>
                 })}*/}
-                {console.log("Test" + articleList)}
-                {articleList.map(item => {
-                    console.log("Title: " + item.title);
+                
+                {/*{articleList.map(item => {
+                    console.log("Title: " + item);
                     return <Listitem title={item.title} key={item.title}>{item.title}</Listitem>
-                })}
+                })}*/}
+                {test()}
+            
             </ul>
         </div>
     );
