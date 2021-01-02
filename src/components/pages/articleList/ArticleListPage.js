@@ -4,10 +4,11 @@ import React, { useState, useEffect } from 'react';
 import Listitem from './listitem/Listitem';
 import Mainbutton from '../../gui/buttons/Mainbutton';
 import { getArticleList } from '../../../redux/actions/ArticleActions';
-import firebase from '../../../firebase/Config';
+//import firebase from '../../../firebase/Config';
 
 // css imports
 import './ArticleListPage.css';
+import firebase from 'firebase/app';
 
 // third party imports
 import { useDispatch } from 'react-redux';
@@ -15,7 +16,17 @@ import { useDispatch } from 'react-redux';
 function ArticleListPage() {
     // TODO durch richtige Daten aus der Datenbank ersetzen.
     const [articleList, setArticleList] = useState([]);
-    const getArticles = async () => {
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await firebase.firestore().collection('articles').get()
+            console.log(data);
+            setArticleList(data.docs.map(doc => ({...doc.data()})))
+        }
+        fetchData()
+    }, [])
+
+    {/*const getArticles = async () => {
         const list = [];
         let snapshot = firebase.getArticleList().then(articleList => {
             console.log(articleList);
@@ -27,13 +38,13 @@ function ArticleListPage() {
     }
 
     useEffect(() => {
-        {/*firebase.getArticleList().then(articleList => {
+        {firebase.getArticleList().then(articleList => {
             console.log(articleList);
             article = articleList;
             console.log(article);
-        })*/}
+        })}
         getArticles();
-    }, []);
+    }, []);*/}
 
     function getArticleListFunction(item) {
         let title = item.title;
@@ -64,7 +75,13 @@ function ArticleListPage() {
                     console.log("Title: " + item);
                     return <Listitem title={item.title} key={item.title}>{item.title}</Listitem>
                 })}*/}
-                {test()}
+                {/*{test()}*/}
+                {
+                    articleList.map(article => (
+                        <li>{article.title}</li>
+                    ))
+                }
+                
             
             </ul>
         </div>
