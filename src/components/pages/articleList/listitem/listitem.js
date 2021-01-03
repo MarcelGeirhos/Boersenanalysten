@@ -1,16 +1,14 @@
 // css imports
 import './Listitem.css';
 
-// TODO
 const Listitem = (props) => {
     return (
         <div className="listitem">
             {/* TODO key={props.key} implementieren in li Element? */}
             <li>
-                {/* TODO durch Daten aus der Datenbank ersetzen */}
-                <p>[5] Voting [3] Antworten [58] Ansichten</p>
-                <p>{props.titel}</p>
-                <p>[Tags]</p>
+                <p>{props.voting} Voting {props.answerCounter} Antworten {props.views} Ansichten</p>
+                <p>{props.title}</p>
+                <p>{props.tags}</p>
             </li>
         </div>
     );

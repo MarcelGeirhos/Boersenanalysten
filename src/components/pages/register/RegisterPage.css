@@ -1,5 +1,5 @@
 .register-form {
-    height: 320px;
+    height: 350px;
     width: 320px;
     display: flex;
     justify-content: center;
@@ -14,7 +14,8 @@
 }
 
 .register-form h1 {
-    margin-left: 18px;
+    margin-bottom: 30px;
+    margin-left: 14px;
     color: white;
     text-align: center;
     text-decoration: underline white;
@@ -23,7 +24,7 @@
 .register-form input {
     width: 100%;
     display: block;
-    margin: 25px 0;
+    margin-top: 15px;
 }
 
 #register-button {

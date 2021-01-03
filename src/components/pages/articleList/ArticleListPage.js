@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 // own module imports
 import Listitem from './listitem/Listitem';
 import Mainbutton from '../../gui/buttons/Mainbutton';
-import { getArticleList } from '../../../redux/actions/ArticleActions';
 
 // css imports
 import './ArticleListPage.css';
@@ -32,7 +31,11 @@ function ArticleListPage() {
             <ul className="articlelist">
                 {
                 articleList.map(article => (
-                    <li>{article.title}</li>
+                    <Listitem title={article.title}
+                        tags={article.tags}
+                        voting={article.voting}
+                        answerCounter={article.answerCounter}
+                        views={article.views}></Listitem>
                 ))
                 }
             </ul>

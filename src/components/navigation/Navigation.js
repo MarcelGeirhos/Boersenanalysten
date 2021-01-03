@@ -25,6 +25,8 @@ function Navigation(props) {
     useEffect(() => {
         firebase.getUserState().then(user => {
             setUserState(user);
+            // TODO console.log() entfernen
+            console.log(user);
         })
     })
 
