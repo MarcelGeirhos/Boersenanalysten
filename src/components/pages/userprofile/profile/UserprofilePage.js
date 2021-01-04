@@ -13,6 +13,8 @@ import firebase from 'firebase/app';
 
 function UserprofilePage() {
     const [userData, setUserData] = useState([]);
+    const [memberSince, setMemberSince] = useState("");
+    const options = { weekday: 'short', year: 'numeric', month: '2-digit', day: '2-digit' };
 
     useEffect(() => {
         firebaseConfig.getUserState().then(user => {
@@ -21,6 +23,7 @@ function UserprofilePage() {
                     snapshot => {
                         console.log(snapshot.data());
                         setUserData(snapshot.data());
+                        setMemberSince(snapshot.data().createdAt.toDate().toLocaleDateString("de-DE", options));
                     }).catch(error => {
                         console.log('Error getting userData ', error);
                     })
@@ -34,19 +37,20 @@ function UserprofilePage() {
             <UserprofileNavigation />
             <div className="user-profile-grid overview">
                 <p>Benutzername: {userData.username}</p>
-                <p>Portfolio: [Portfolio Beitragslink]</p>
-                <p>Beschreibung: [Beschreibung des Benutzers]</p>
+                <p>Portfolio: {userData.portfolioLink}</p>
+                <p>Beschreibung: {userData.userDescription}</p>
             </div>
             <div className="user-profile-grid stats">
-                <p>[Aktienanteile] Aktien</p>
-                <p>[Anzahl Antworten] Antworten</p>
-                <p>[Anzahl Beiträge] Beiträge</p>
-                <p>[Anzahl Portfoliobeiträge] Portfoliobeiträge</p>
-                <p>[Standort]</p>
-                <p>Mitglied seit: [Datum im Format Tag.Monat.Jahr z.B. 13.12.2020]</p>
+                <p>Aktien: <br/>{userData.shareCounter}</p>
+                <p>Antworten: <br/>{userData.answerCounter}</p>
+                <p>Beiträge: <br/>{userData.articleCounter}</p>
+                <p>Portfoliobeiträge: <br/>{userData.portfolioArticleCounter}</p>
+                <p>Standort: {userData.location}</p>
+                <p>Mitglied seit: {memberSince}</p>
             </div>
             <TopTagSection />
             <div className="user-profile-grid article-list">
+                <h1>Beitragsliste</h1>
                 {/* TODO Liste + Auswahl implementieren. */}
             </div>
         </div>

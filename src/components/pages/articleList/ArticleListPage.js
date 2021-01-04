@@ -15,9 +15,8 @@ function ArticleListPage() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await firebase.firestore().collection('articles').get()
-            console.log(data);
-            setArticleList(data.docs.map(doc => ({...doc.data()})))
+            const data = await firebase.firestore().collection('articles').get();
+            setArticleList(data.docs.map(doc => ({...doc.data()})));
         }
         fetchData();
     }, [])
