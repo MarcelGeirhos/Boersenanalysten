@@ -1,0 +1,27 @@
+.filter-settings {
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.filter-settings p {
+    margin: 0 12px;
+    display: inline;
+    color: white;
+}
+
+.filter-settings label {
+    margin: 12px 0 4px 0;
+    display: block;
+    color: white;
+}
+
+.filter-settings a button {
+    margin-top: 16px;
+}
+
+.filter-settings fieldset label {
+    margin: 0 12px 0 2px;
+    display: inline;
+}
