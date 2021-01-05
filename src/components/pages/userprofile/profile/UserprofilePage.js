@@ -21,7 +21,6 @@ function UserprofilePage() {
             const fetchData = async () => {
                 await firebase.firestore().collection('users').doc(user.uid).get().then(
                     snapshot => {
-                        console.log(snapshot.data());
                         setUserData(snapshot.data());
                         setMemberSince(snapshot.data().createdAt.toDate().toLocaleDateString("de-DE", options));
                     }).catch(error => {
@@ -30,6 +29,7 @@ function UserprofilePage() {
             }
             fetchData();
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

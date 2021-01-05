@@ -6,6 +6,7 @@ import CreateArticlePage from './components/pages/createArticle/CreateArticlePag
 import ArticleListPage from './components/pages/articleList/ArticleListPage';
 import Settings from './components/pages/userprofile/settings/SettingsPage';
 import RegisterPage from './components/pages/register/RegisterPage';
+import ArticlePage from './components/pages/article/ArticlePage';
 import Navigation from './components/navigation/Navigation';
 import LoginPage from './components/pages/login/LoginPage';
 import HomePage from './components/pages/home/HomePage';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/createArticle" component={CreateArticlePage} />
         <Route path="/userprofile" component={UserprofilePage} />
         <Route path="/articleList" component={ArticleListPage} />
+        <Route path="/article/:id" component={ArticlePage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/settings" component={Settings} />
         <Route path="/login" component={LoginPage} />

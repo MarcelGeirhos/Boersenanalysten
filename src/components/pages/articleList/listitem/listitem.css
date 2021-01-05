@@ -6,3 +6,12 @@
     list-style-type: none;
     margin: 10px auto;
 }
+
+.listitem a {
+    text-decoration: none;
+    color: #6389A8;
+}
+
+.listitem a:hover {
+    color: #386A96;
+}

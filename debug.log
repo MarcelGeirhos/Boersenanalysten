@@ -41,3 +41,10 @@
 [0104/175814.197:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
 [0104/203811.525:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
 [0105/004718.232:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
+[0105/012218.074:ERROR:process_reader_win.cc(151)] SuspendThread: Zugriff verweigert (0x5)
+[0105/012218.074:ERROR:process_reader_win.cc(151)] SuspendThread: Zugriff verweigert (0x5)
+[0105/012218.074:ERROR:exception_snapshot_win.cc(99)] thread ID 18176 not found in process
+[0105/130017.571:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
+[0105/145021.219:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
+[0105/162755.585:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
+[0105/232313.944:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)

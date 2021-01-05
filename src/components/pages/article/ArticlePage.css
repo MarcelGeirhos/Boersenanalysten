@@ -1,0 +1,11 @@
+.article-page {
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+    width: 50%;
+    margin: 20px auto 0 auto;
+}
+
+.article-page h1, .article-page p {
+    color: white;
+}

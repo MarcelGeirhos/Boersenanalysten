@@ -42,7 +42,8 @@ function ArticleListPage() {
             <ul className="articlelist">
                 {
                 articleList.map(article => (
-                    <Listitem title={article.title}
+                    <Listitem id={article.id}
+                        title={article.title}
                         tags={article.tags}
                         voting={article.voting}
                         answerCounter={article.answerCounter}
