@@ -1,0 +1,48 @@
+label {
+    margin-bottom: 6px;
+    font-size: 18px;
+    display: block;
+    color: white;
+}
+
+img {
+    width: 320px;
+    height: 180px;
+    object-fit: cover;
+    padding: 0.75rem;
+}
+
+.editor-button {
+    color: #ffffff;
+    font-size: 18px;
+    padding: 8px 16px 3px 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 250ms;
+    border: none;
+    border-right: 1px solid black;
+}
+
+.editor-button:hover {
+    background-color: rgba(130, 182, 223, 0.7);
+}
+
+.editor-button:focus {
+    outline: none;
+}
+
+.editor-for-article-text {
+    background-color: rgba(255, 255, 255, 0.03);
+    width: 100%;
+    height: 200px;
+    padding: 12px 0 12px 12px;
+    font-size: 16px;
+    color: #ffffff;
+    font-family: arial;
+    line-height: 1.2em;
+    border-radius: 4px;
+}
+
+.editor-for-article-text:focus {
+    outline: 1px solid rgba(130, 182, 223, 1.0);
+}

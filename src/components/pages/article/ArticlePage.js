@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// own module imports
+import TextEditor from '../../gui/inputs/textEditor/TextEditor';
+
 // css imports
 import './ArticlePage.css';
 
@@ -25,6 +28,7 @@ function ArticlePage() {
             <h1>{articleData.title}</h1>
             <p>{articleData.articleText}</p>
             <p>{articleData.tags}</p>
+            <TextEditor />
         </div>
     );
 }
