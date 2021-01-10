@@ -10,13 +10,17 @@ const Listitem = (props) => {
     return (
         <div className="listitem">
             {/* TODO key={props.key} implementieren in li Element? */}
-            <li>
-                <p>{props.voting} Voting {props.answerCounter} Antworten {props.views} Ansichten</p>
+            <div className="listitem-left-section">
+                <p>{props.voting}<br></br>Votes</p>
+                <p>{props.answerCounter}<br></br>Antworten</p>
+                <p>{props.views}<br></br>Ansichten</p>
+            </div>
+            <div className="listitem-right-section">
                 <Link to={{pathname: `/article/${props.id}`}}>
                     <p>{props.title}</p>
                 </Link>
                 <p>{props.tags}</p>
-            </li>
+            </div>
         </div>
     );
 }

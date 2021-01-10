@@ -26,8 +26,8 @@ function CreateArticlePage() {
     // geschrieben z.B. fetter Text oder unnummerierte Listen.
     const createNewArticle = async (e) => {
         e.preventDefault();
-        if (title !== "" && document.getElementById('articleText').innerHTML !== "" && tags !== "") {
-            await createArticleAction(title, document.getElementById('articleText').innerHTML, tags);
+        if (title !== "" && document.getElementById('text').innerHTML !== "" && tags !== "") {
+            await createArticleAction(title, document.getElementById('text').innerHTML, tags);
             setRedirect(true);
             console.log('Neuer Artikel wurde erstellt.');
         } else {

@@ -39,7 +39,6 @@ function ArticleListPage() {
             <button type="submit" value="Filter" onClick={onClick}><Tune />Filter</button>
             </div>
             { showFilterSettings ? <FilterSettings /> : null }
-            <ul className="articlelist">
                 {
                 articleList.map(article => (
                     <Listitem id={article.id}
@@ -50,7 +49,6 @@ function ArticleListPage() {
                         views={article.views}></Listitem>
                 ))
                 }
-            </ul>
         </div>
     );
 }

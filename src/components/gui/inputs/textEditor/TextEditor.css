@@ -31,7 +31,7 @@ img {
     outline: none;
 }
 
-.editor-for-article-text {
+.editor-for-text {
     background-color: rgba(255, 255, 255, 0.03);
     width: 100%;
     height: 200px;
@@ -43,6 +43,6 @@ img {
     border-radius: 4px;
 }
 
-.editor-for-article-text:focus {
+.editor-for-text:focus {
     outline: 1px solid rgba(130, 182, 223, 1.0);
 }

@@ -54,7 +54,7 @@ function TextEditor() {
             </div>
             <label>Beitrag:</label>
             {/*onSubmit={(e) => setArticleText(document.getElementById('articleText').innerHTML)*/}
-            <div className="editor-for-article-text" id="articleText" contentEditable></div>
+            <div className="editor-for-text" id="text" contentEditable></div>
         </div>
     )
 }

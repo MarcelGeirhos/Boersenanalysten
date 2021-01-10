@@ -17,10 +17,6 @@
     color: white;
 }
 
-.articlelist {
-    padding-inline-start: 0;
-}
-
 .articlelist-filter button {
     background-color:rgba(0, 0, 0, 0.0);
     border: 2px solid #82B6DF;

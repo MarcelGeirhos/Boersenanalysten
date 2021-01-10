@@ -23,12 +23,33 @@ function ArticlePage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    // Der Kommentar Text wird mit allen Eigenschaften die vom
+    // Benutzer mit dem Editor gesetzt wurden in die Datenbank
+    // geschrieben z.B. fetter Text oder unnummerierte Listen.
+    const createNewComment = async (e) => {
+        e.preventDefault();
+        if (document.getElementById('text').innerHTML !== "") {
+            // TODO Kommentar implementieren Datenstruktur überlegen
+            //await createArticleAction(title, document.getElementById('text').innerHTML, tags);
+            //setRedirect(true);
+            console.log('Neuer Kommentar wurde erstellt.');
+        } else {
+            console.log("Leere Eingabefelder");
+        }
+    }
+
     return (
         <div className="article-page">
             <h1>{articleData.title}</h1>
             <p>{articleData.articleText}</p>
             <p>{articleData.tags}</p>
-            <TextEditor />
+            <p>Kommentar:</p>
+            <form onSubmit={createNewComment}>
+                <TextEditor />
+                <div>
+                    <input type="submit" value="Kommentar erstellen" id="create-comment-button" className="main-button" />
+                </div>
+            </form>
         </div>
     );
 }
