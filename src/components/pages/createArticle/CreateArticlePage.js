@@ -14,7 +14,6 @@ import { useDispatch } from 'react-redux';
 
 function CreateArticlePage() {
     const [title, setTitle] = useState("");
-    
     const [tags, setTags] = useState("");
 
     const [routeRedirect, setRedirect] = useState(false);

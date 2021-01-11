@@ -41,10 +41,12 @@ function UserprofilePage() {
                 <p>Beschreibung: {userData.userDescription}</p>
             </div>
             <div className="user-profile-grid stats">
-                <p>Aktien: <br/>{userData.shareCounter}</p>
-                <p>Antworten: <br/>{userData.answerCounter}</p>
-                <p>Beiträge: <br/>{userData.articleCounter}</p>
-                <p>Portfoliobeiträge: <br/>{userData.portfolioArticleCounter}</p>
+                <div className="counter-stats">
+                    <p>{userData.shareCounter}<br/>Aktien</p>
+                    <p>{userData.answerCounter}<br/>Antworten</p>
+                    <p>{userData.articleCounter}<br/>Beiträge</p>
+                    <p>{userData.portfolioArticleCounter}<br/>Portfoliobeiträge</p>
+                </div>
                 <p>Standort: {userData.location}</p>
                 <p>Mitglied seit: {memberSince}</p>
             </div>

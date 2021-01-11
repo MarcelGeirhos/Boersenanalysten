@@ -29,9 +29,15 @@ function ArticlePage() {
     const createNewComment = async (e) => {
         e.preventDefault();
         if (document.getElementById('text').innerHTML !== "") {
-            // TODO Kommentar implementieren Datenstruktur überlegen
-            //await createArticleAction(title, document.getElementById('text').innerHTML, tags);
-            //setRedirect(true);
+            const article = await firebase.firestore().collection('articles').doc(id);
+            const articleRef = await article.get();
+            const newCommentRef = await firebase.firestore().collection('articles').doc(articleRef.id).collection('comments').doc();
+            await firebase.firestore().collection('articles').doc(articleRef.id).collection('comments').doc(newCommentRef.id).set({
+                commentText: document.getElementById('text').innerHTML,
+                voting: 0,
+                createdAt: new Date(),
+                id: newCommentRef.id,
+            })
             console.log('Neuer Kommentar wurde erstellt.');
         } else {
             console.log("Leere Eingabefelder");

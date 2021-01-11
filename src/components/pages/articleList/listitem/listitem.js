@@ -11,9 +11,9 @@ const Listitem = (props) => {
         <div className="listitem">
             {/* TODO key={props.key} implementieren in li Element? */}
             <div className="listitem-left-section">
-                <p>{props.voting}<br></br>Votes</p>
-                <p>{props.answerCounter}<br></br>Antworten</p>
-                <p>{props.views}<br></br>Ansichten</p>
+                <p>{props.voting}<br/>Votes</p>
+                <p>{props.answerCounter}<br/>Antworten</p>
+                <p>{props.views}<br/>Ansichten</p>
             </div>
             <div className="listitem-right-section">
                 <Link to={{pathname: `/article/${props.id}`}}>

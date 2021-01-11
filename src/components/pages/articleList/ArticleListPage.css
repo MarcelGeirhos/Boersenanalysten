@@ -19,14 +19,14 @@
 
 .articlelist-filter button {
     background-color:rgba(0, 0, 0, 0.0);
-    border: 2px solid #82B6DF;
+    border: 2px solid rgba(105, 105, 255, 1.0);
     border-radius: 3px;
     padding: 2px 10px;
     color: white;
 }
 
 .articlelist-filter button:hover {
-    background-color:rgba(130, 182, 223, 0.25);
+    background-color:rgba(105, 105, 255, 0.25);
     cursor: pointer;
 }
 
