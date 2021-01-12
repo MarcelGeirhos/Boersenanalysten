@@ -52,3 +52,7 @@
 [0109/192701.897:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
 [0110/150028.590:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
 [0110/223626.472:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
+[0111/175516.209:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
+[0111/192430.334:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
+[0112/202531.276:ERROR:directory_reader_win.cc(43)] FindFirstFile: Das System kann den angegebenen Pfad nicht finden. (0x3)
+[0112/202531.287:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\Marce\AppData\Local\AVG\Browser\User Data\Crashpad\attachments\59744209-9ba3-4db6-b393-a08521b93466: Das System kann den angegebenen Pfad nicht finden. (0x3)

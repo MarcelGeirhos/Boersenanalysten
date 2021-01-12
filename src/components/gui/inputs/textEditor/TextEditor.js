@@ -13,7 +13,7 @@ import {
     FormatUnderlined,
 } from '@material-ui/icons';
 
-function TextEditor() {
+function TextEditor(props) {
     const [selectedImages, setSelectedImage] = useState([])
 
     const imageChangeHandler = (e) => {
@@ -42,6 +42,7 @@ function TextEditor() {
 
     return (
         <div>
+            <label>{props.title}</label>
             <div className="editor-menuebar">
                 <button className="editor-button" onClick={() => editorButtonsHandler('bold')}><FormatBold /></button>
                 <button className="editor-button" onClick={() => editorButtonsHandler('italic')}><FormatItalic /></button>
@@ -52,7 +53,6 @@ function TextEditor() {
                 <input type="file" multiple id="file" onChange={imageChangeHandler}></input>
                 {renderPhotos(selectedImages)}
             </div>
-            <label>Beitrag:</label>
             {/*onSubmit={(e) => setArticleText(document.getElementById('articleText').innerHTML)*/}
             <div className="editor-for-text" id="text" contentEditable></div>
         </div>

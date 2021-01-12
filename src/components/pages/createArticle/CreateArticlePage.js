@@ -47,7 +47,7 @@ function CreateArticlePage() {
                     <label>Titel:</label>
                     <InputfieldDark type="text" placeholder="Beitragstitel..." onChange={(e) => setTitle(e.target.value)} ></InputfieldDark>
                 </div>
-                <TextEditor />
+                <TextEditor title="Beitrag:" />
                 <div>
                     <label>Tags:</label>
                     <InputfieldDark type="text" placeholder="Tags..." onChange={(e) => setTags(e.target.value)}></InputfieldDark>

@@ -3,7 +3,13 @@
     align-items: left;
     flex-direction: column;
     width: 50%;
-    margin: 20px auto 0 auto;
+    margin: 40px auto 0 auto;
+}
+
+.article-section {
+    margin: 10px 0;
+    padding: 0 0 0 20px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .article-page h1, .article-page p {
