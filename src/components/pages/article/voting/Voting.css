@@ -1,0 +1,8 @@
+.voting-section {
+    display: inline-block;
+}
+
+.voting-section p {
+    margin: 6px auto;
+    text-align: center;
+}

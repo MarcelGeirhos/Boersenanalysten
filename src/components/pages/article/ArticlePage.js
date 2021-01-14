@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 // own module imports
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
 import Answeritem from './answeritem/Answeritem';
+import Voting from './voting/Voting';
 
 // css imports
 import './ArticlePage.css';
@@ -58,6 +59,7 @@ function ArticlePage() {
                 <h1>{articleData.title}</h1>
                 <p>{articleData.articleText}</p>
                 <p>{articleData.tags}</p>
+                <Voting voting={articleData.voting} />
             </div>
             <p>Antworten:</p>
             {
