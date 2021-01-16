@@ -10,6 +10,7 @@ import ArticlePage from './components/pages/article/ArticlePage';
 import Navigation from './components/navigation/Navigation';
 import LoginPage from './components/pages/login/LoginPage';
 import HomePage from './components/pages/home/HomePage';
+import TagsPage from './components/pages/tags/TagsPage';
 
 // css imports
 import './App.css';
@@ -33,6 +34,7 @@ function App() {
         <Route path="/register" component={RegisterPage} />
         <Route path="/settings" component={Settings} />
         <Route path="/login" component={LoginPage} />
+        <Route path="/tags" component={TagsPage} />
         <Route exact path="/" component={HomePage} />
       </div>
     </Router>

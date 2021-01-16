@@ -9,9 +9,8 @@ import './Answeritem.css';
 const Answeritem = (props) => {
     return (
         <div className="answeritem">
-            <p>{props.answerText}</p>
-            <p>{props.voting} Votes</p>
             <Voting voting={props.voting} />
+            <p className="answertext">{props.answerText}</p>
         </div>
     );
 }

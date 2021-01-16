@@ -1,0 +1,16 @@
+.tag-button {
+    background-color:rgba(70, 70, 70, 1.0);
+    border: 1px solid rgba(105, 105, 105, 1.0);
+    border-radius: 6px;
+    padding: 4px 8px;
+    color: white;
+}
+
+.tag-button:hover {
+    background-color:rgba(105, 105, 105, 0.25);
+    cursor: pointer;
+}
+
+.tag-button:focus {
+    outline: none;
+}

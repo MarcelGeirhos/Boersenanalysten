@@ -63,6 +63,7 @@ function Navigation(props) {
                     </Link>
                 </div>
                 <div className="search">
+                    <Secondbutton link="/tags">Tags</Secondbutton>
                     <Mainbutton link="/articleList">Beiträge</Mainbutton>
                     <InputfieldDark type="text" placeholder="Suchen..." />
                     <Secondbutton link="/">Suchen</Secondbutton>
