@@ -26,14 +26,16 @@ function TagsPage() {
             <h1>Tags</h1>
             <label>Tags:</label>
             <InputfieldDark type="text" placeholder="Tags..." />
+            <div className="tag-section">
             {
             tagList.map(tag => (
-                <div className="tag-section">
+                <div className="tag">  
                     <Tagbutton id={tag.id}>{tag.name}</Tagbutton>
-                    <p>{tag.counter}</p>
+                    <p>{tag.counter} Beiträge</p>
                 </div>
             ))
             }
+            </div>
         </div>
     );
 }
