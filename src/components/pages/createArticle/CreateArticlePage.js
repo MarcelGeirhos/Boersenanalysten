@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 // own module imports
+import TagInput from '../../gui/inputs/tagInput/TagInput';
 import InputfieldDark from '../../gui/inputs/InputfieldDark';
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
 import { createArticle } from '../../../redux/actions/ArticleActions';
@@ -13,8 +14,8 @@ import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 function CreateArticlePage() {
+    const selectedTags = tags => console.log(tags);
     const [title, setTitle] = useState("");
-    const [tags, setTags] = useState("");
 
     const [routeRedirect, setRedirect] = useState(false);
     const dispatch = useDispatch();
@@ -25,8 +26,8 @@ function CreateArticlePage() {
     // geschrieben z.B. fetter Text oder unnummerierte Listen.
     const createNewArticle = async (e) => {
         e.preventDefault();
-        if (title !== "" && document.getElementById('text').innerHTML !== "" && tags !== "") {
-            await createArticleAction(title, document.getElementById('text').innerHTML, tags);
+        if (title !== "" && document.getElementById('text').innerHTML !== "" && selectedTags !== "") {
+            await createArticleAction(title, document.getElementById('text').innerHTML, selectedTags);
             setRedirect(true);
             console.log('Neuer Artikel wurde erstellt.');
         } else {
@@ -43,15 +44,13 @@ function CreateArticlePage() {
         <div className="create-article">
             <form onSubmit={createNewArticle}>
                 <h1>Beitrag erstellen</h1>
-                <div>
+                <div className="create-article-title">
                     <label>Titel:</label>
                     <InputfieldDark type="text" placeholder="Beitragstitel..." onChange={(e) => setTitle(e.target.value)} ></InputfieldDark>
                 </div>
                 <TextEditor title="Beitrag:" />
-                <div>
-                    <label>Tags:</label>
-                    <InputfieldDark type="text" placeholder="Tags..." onChange={(e) => setTags(e.target.value)}></InputfieldDark>
-                </div>
+                <label>Tags:</label>
+                <TagInput selectedTags={selectedTags}/>
                 <div>
                     <input type="submit" value="Beitrag erstellen" id="create-article-button" className="main-button" />
                 </div>

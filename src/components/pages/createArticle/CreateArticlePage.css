@@ -21,7 +21,7 @@
     display: block;
 }
 
-.create-article input {
+.create-article-title input {
     margin-bottom: 6px;
     display: block;
     width: 100%;
@@ -34,5 +34,7 @@
 }
 
 .create-article .main-button {
+    background-color: rgba(105, 105, 255, 0.7);
+    margin-top: 16px;
     width: 150px;
 }

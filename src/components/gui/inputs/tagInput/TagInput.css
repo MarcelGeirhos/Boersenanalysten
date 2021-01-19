@@ -1,0 +1,51 @@
+.tags-input input {
+    background-color: rgba(255, 255, 255, 0.03);
+    width: 280px;
+    border-radius: 6px;
+    color: white;
+    border: none;
+    padding: 6px;
+}
+
+.tags-input input:focus {
+    outline: none;
+}
+
+.tags-input:focus-within {
+    border: none;
+}
+
+#tags {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0;
+	margin: 8px 0 0 0;
+}
+
+.tag-listitem {
+	width: auto;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	padding: 0 8px;
+	font-size: 14px;
+	list-style: none;
+	border-radius: 6px;
+	margin: 0 8px 8px 0;
+	background-color: rgba(105, 105, 255, 0.7);
+}
+
+.tag-listitem .tag-close-icon {
+    width: 16px;
+    height: 16px;
+    margin: 0 8px 8px 8px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 567px) {
+	.tags-input {
+		width: calc(100vw - 32px);
+	}
+}
