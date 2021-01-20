@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 // own module imports
-import ErrorText from '../../gui/outputs/ErrorText';
-import Inputfield from '../../gui/inputs/Inputfield';
+import ErrorText from '../../gui/outputs/errorText/ErrorText';
+import Inputfield from '../../gui/inputs/inputfield/Inputfield';
 import { registerUser } from '../../../redux/actions/RegisterAction';
 
 // css imports

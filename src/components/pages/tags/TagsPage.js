@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // own module imports
 import Tagbutton from '../../gui/buttons/tagbutton/Tagbutton';
-import InputfieldDark from '../../gui/inputs/InputfieldDark';
+import InputfieldDark from '../../gui/inputs/inputfieldDark/InputfieldDark';
 
 // css imports
 import './TagsPage.css';

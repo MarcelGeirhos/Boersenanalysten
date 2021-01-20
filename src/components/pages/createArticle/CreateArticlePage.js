@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // own module imports
 import TagInput from '../../gui/inputs/tagInput/TagInput';
-import InputfieldDark from '../../gui/inputs/InputfieldDark';
+import InputfieldDark from '../../gui/inputs/inputfieldDark/InputfieldDark';
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
 import { createArticle } from '../../../redux/actions/ArticleActions';
 
@@ -12,6 +12,7 @@ import './CreateArticlePage.css';
 // third party imports
 import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import firebase from 'firebase/app';
 
 function CreateArticlePage() {
     const selectedTags = tags => console.log(tags);
@@ -19,7 +20,7 @@ function CreateArticlePage() {
 
     const [routeRedirect, setRedirect] = useState(false);
     const dispatch = useDispatch();
-    const createArticleAction = (title, articleText, tags) => dispatch(createArticle(title, articleText, tags));
+    const createArticleAction = (title, articleText, selectedTags) => dispatch(createArticle(title, articleText, selectedTags));
 
     // Der Artikel Text wird mit allen Eigenschaften die vom
     // Benutzer mit dem Editor gesetzt wurden in die Datenbank
@@ -27,7 +28,20 @@ function CreateArticlePage() {
     const createNewArticle = async (e) => {
         e.preventDefault();
         if (title !== "" && document.getElementById('text').innerHTML !== "" && selectedTags !== "") {
-            await createArticleAction(title, document.getElementById('text').innerHTML, selectedTags);
+            console.log(selectedTags);
+            const newArticle = await firebase.firestore().collection('articles').doc();
+            const newArticleRef = await newArticle.get();
+            await firebase.firestore().collection('articles').doc(newArticleRef.id).set({
+            title: title,
+            articleText: document.getElementById('text').innerHTML,
+            tags: ['Test'],
+            views: 0,
+            voting: 0,
+            answerCounter: 0,
+            createdAt: new Date(),
+            id: newArticleRef.id,
+        })
+            //await createArticleAction(title, document.getElementById('text').innerHTML, selectedTags.document);
             setRedirect(true);
             console.log('Neuer Artikel wurde erstellt.');
         } else {

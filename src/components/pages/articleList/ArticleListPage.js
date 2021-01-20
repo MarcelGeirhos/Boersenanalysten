@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // own module imports
 import Listitem from './listitem/Listitem';
-import Mainbutton from '../../gui/buttons/Mainbutton';
+import Mainbutton from '../../gui/buttons/mainbutton/Mainbutton';
 import FilterSettings from './filterSettings/FilterSettings';
 
 // css imports

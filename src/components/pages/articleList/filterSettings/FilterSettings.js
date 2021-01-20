@@ -1,8 +1,8 @@
 import React from 'react';
 
 // own module imports
-import Mainbutton from '../../../gui/buttons/Mainbutton';
-import InputfieldDark from '../../../gui/inputs/InputfieldDark';
+import Mainbutton from '../../../gui/buttons/mainbutton/Mainbutton';
+import InputfieldDark from '../../../gui/inputs/inputfieldDark/InputfieldDark';
 
 // css imports
 import './FilterSettings.css';

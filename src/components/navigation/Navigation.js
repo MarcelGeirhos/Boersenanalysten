@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 // own module imports
-import Mainbutton from '../gui/buttons/Mainbutton';
-import Secondbutton from '../gui/buttons/Secondbutton';
-import InputfieldDark from '../gui/inputs/InputfieldDark';
+import Mainbutton from '../gui/buttons/mainbutton/Mainbutton';
+import Secondbutton from '../gui/buttons/secondbutton/Secondbutton';
+import InputfieldDark from '../gui/inputs/inputfieldDark/InputfieldDark';
 import { logoutUser } from '../../redux/actions/LogoutAction';
 import firebase from '../../firebase/Config';
 

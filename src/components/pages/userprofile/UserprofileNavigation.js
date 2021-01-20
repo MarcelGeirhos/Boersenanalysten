@@ -1,7 +1,7 @@
 import React from 'react';
 
 // own module imports
-import Secondbutton from '../../gui/buttons/Secondbutton';
+import Secondbutton from '../../gui/buttons/secondbutton/Secondbutton';
 
 // css imports
 import './UserprofileNavigation.css';

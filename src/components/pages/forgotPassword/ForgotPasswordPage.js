@@ -1,8 +1,8 @@
 import React from 'react';
 
 // own module imports
-import Inputfield from '../../gui/inputs/Inputfield';
-import Mainbutton from '../../gui/buttons/Mainbutton';
+import Inputfield from '../../gui/inputs/inputfield/Inputfield';
+import Mainbutton from '../../gui/buttons/mainbutton/Mainbutton';
 
 // css imports
 import './ForgotPasswordPage.css';

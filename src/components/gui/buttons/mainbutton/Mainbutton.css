@@ -1,0 +1,17 @@
+.main-button {
+    background-color:rgba(105, 105, 255, 1.0);
+    border-radius: 3px;
+    padding: 7px 20px;
+    font-weight: bold;
+    color: white;
+    border: none;
+}
+
+.main-button:hover {
+    background-color:rgba(105, 105, 255, 0.7);
+    cursor: pointer;
+}
+
+.main-button:focus {
+    outline: none;
+}
