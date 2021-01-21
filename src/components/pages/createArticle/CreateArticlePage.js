@@ -15,7 +15,27 @@ import { useDispatch } from 'react-redux';
 import firebase from 'firebase/app';
 
 function CreateArticlePage() {
-    const selectedTags = tags => console.log(tags);
+    const selectedTags = async tags => {
+        if (title !== "" && document.getElementById('text').innerHTML !== "" && tags !== "") {
+            console.log(tags);
+            const newArticle = await firebase.firestore().collection('articles').doc();
+            const newArticleRef = await newArticle.get();
+            await firebase.firestore().collection('articles').doc(newArticleRef.id).set({
+            title: title,
+            articleText: document.getElementById('text').innerHTML,
+            tags: tags,
+            views: 0,
+            voting: 0,
+            answerCounter: 0,
+            createdAt: new Date(),
+            id: newArticleRef.id,
+        })
+            setRedirect(true);
+            console.log('Neuer Artikel wurde erstellt.');
+        } else {
+            console.log("Leere Eingabefelder");
+        }
+    }
     const [title, setTitle] = useState("");
 
     const [routeRedirect, setRedirect] = useState(false);
@@ -27,14 +47,14 @@ function CreateArticlePage() {
     // geschrieben z.B. fetter Text oder unnummerierte Listen.
     const createNewArticle = async (e) => {
         e.preventDefault();
-        if (title !== "" && document.getElementById('text').innerHTML !== "" && selectedTags !== "") {
+        /*if (title !== "" && document.getElementById('text').innerHTML !== "" && selectedTags !== "") {
             console.log(selectedTags);
             const newArticle = await firebase.firestore().collection('articles').doc();
             const newArticleRef = await newArticle.get();
             await firebase.firestore().collection('articles').doc(newArticleRef.id).set({
             title: title,
             articleText: document.getElementById('text').innerHTML,
-            tags: ['Test'],
+            tags: selectedTags,
             views: 0,
             voting: 0,
             answerCounter: 0,
@@ -46,7 +66,7 @@ function CreateArticlePage() {
             console.log('Neuer Artikel wurde erstellt.');
         } else {
             console.log("Leere Eingabefelder");
-        }
+        }*/
     }
 
     const redirectTo = routeRedirect;
@@ -66,7 +86,7 @@ function CreateArticlePage() {
                 <label>Tags:</label>
                 <TagInput selectedTags={selectedTags}/>
                 <div>
-                    <input type="submit" value="Beitrag erstellen" id="create-article-button" className="main-button" />
+                    <input type="submit" value="Beitrag erstellen" id="create-article-button" className="main-button" /*onClick={() => createNewArticle(selectedTags)}*//>
                 </div>
             </form>
         </div>
