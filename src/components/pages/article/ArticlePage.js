@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // own module imports
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
+import Tagbutton from '../../gui/buttons/tagbutton/Tagbutton';
 import Answeritem from './answeritem/Answeritem';
 import Voting from './voting/Voting';
 
@@ -14,6 +15,7 @@ import { useParams } from "react-router-dom";
 
 function ArticlePage() {
     const { id } = useParams();
+    const [tagList, setTagList] = useState([]);
     const [answerList, setAnswerList] = useState([]);
     const [articleData, setArticleData] = useState("");
     
@@ -23,6 +25,7 @@ function ArticlePage() {
             setArticleData({...data.data()});
             const answerData = await firebase.firestore().collection('articles').doc(id).collection('answers').get();
             setAnswerList(answerData.docs.map(doc => ({...doc.data()})));
+            setTagList(data.data().tags);
             console.log('Daten werden geladen...');
         }
         fetchData();
@@ -56,14 +59,18 @@ function ArticlePage() {
     return (
         <div className="article-page">
             <div className="article-section">
+                <Voting voting={articleData.voting} />
                 <h1>{articleData.title}</h1>
                 <p>{articleData.articleText}</p>
-                <p>{articleData.tags}</p>
-                <Voting voting={articleData.voting} />
+                {
+                tagList.map(tag => (
+                    <Tagbutton>{tag}</Tagbutton>
+                ))
+                }
             </div>
             <p>Antworten:</p>
             {
-            answerList.map(answer => (
+            answerList.map((answer, index) => (
                 <Answeritem id={answer.id}
                     answerText={answer.answerText}
                     voting={answer.voting}></Answeritem>

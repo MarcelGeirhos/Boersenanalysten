@@ -1,8 +1,8 @@
 import React from 'react';
 
 // own module imports
+import TagInput from '../../../gui/inputs/tagInput/TagInput';
 import Mainbutton from '../../../gui/buttons/mainbutton/Mainbutton';
-import InputfieldDark from '../../../gui/inputs/inputfieldDark/InputfieldDark';
 
 // css imports
 import './FilterSettings.css';
@@ -12,7 +12,7 @@ function FilterSettings() {
         <div className="filter-settings">
             <div>
                 <label>Tags:</label>
-                <InputfieldDark type="text" placeholder="Tags..." />
+                <TagInput />
                 <label>Zeitraum:</label>
                 <input type="date" id="filter-start-date" min="01.01.2021" max="04.01.2021" />
                 <p>bis</p>

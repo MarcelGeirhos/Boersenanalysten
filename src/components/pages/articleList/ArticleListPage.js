@@ -39,14 +39,16 @@ function ArticleListPage() {
             <button type="submit" value="Filter" onClick={onClick}><Tune />Filter</button>
             </div>
             { showFilterSettings ? <FilterSettings /> : null }
-                {
-                articleList.map(article => (
-                    <Listitem id={article.id}
-                        title={article.title}
-                        tags={article.tags}
-                        voting={article.voting}
-                        answerCounter={article.answerCounter}
-                        views={article.views}></Listitem>
+                {  
+                articleList.map((article, index) => (
+                    <div key={index}>
+                        <Listitem id={article.id}
+                            title={article.title}
+                            tags={article.tags}
+                            voting={article.voting}
+                            answerCounter={article.answerCounter}
+                            views={article.views}></Listitem>
+                    </div>
                 ))
                 }
         </div>

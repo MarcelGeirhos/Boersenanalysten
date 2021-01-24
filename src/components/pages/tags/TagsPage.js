@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 // own module imports
+import TagInput from '../../gui/inputs/tagInput/TagInput';
 import Tagbutton from '../../gui/buttons/tagbutton/Tagbutton';
-import InputfieldDark from '../../gui/inputs/inputfieldDark/InputfieldDark';
 
 // css imports
 import './TagsPage.css';
@@ -25,7 +25,7 @@ function TagsPage() {
         <div className="tags">
             <h1>Tags</h1>
             <label>Tags:</label>
-            <InputfieldDark type="text" placeholder="Tags..." />
+            <TagInput />
             <div className="tag-section">
             {
             tagList.map(tag => (

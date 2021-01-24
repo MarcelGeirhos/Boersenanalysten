@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
 // own module imports
-import TagInput from '../../gui/inputs/tagInput/TagInput';
 import InputfieldDark from '../../gui/inputs/inputfieldDark/InputfieldDark';
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
-import { createArticle } from '../../../redux/actions/ArticleActions';
 
 // css imports
 import './CreateArticlePage.css';
+import '../../gui/inputs/tagInput/TagInput.css';
 
 // third party imports
 import { Redirect } from 'react-router-dom';

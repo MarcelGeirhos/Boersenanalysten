@@ -23,6 +23,10 @@
     grid-column: 2 / 4;
 }
 
+.listitem-right-section button {
+    margin: 0 12px 16px 0;
+}
+
 .listitem a {
     text-decoration: none;
     color: #6389A8;
