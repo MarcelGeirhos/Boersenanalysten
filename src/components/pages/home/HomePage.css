@@ -1,0 +1,10 @@
+.home-page-content {
+    text-align: center;
+    width: 40%;
+    margin: 150px auto 0 auto;
+    color: white;
+}
+
+.home-page-tags button {
+    margin: 5px;
+}
