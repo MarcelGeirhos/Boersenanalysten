@@ -13,36 +13,33 @@ import {
 import firebase from 'firebase/app';
 import { useParams } from "react-router-dom";
 
-const Voting = (props) => {
+const Voting = () => {
     const { id } = useParams();
     const [voting, setVoting] = useState(0);
 
-    useEffect((vote) => {
-        const fetchData = async () => {
-            console.log(voting);
-            const article = await firebase.firestore().collection('articles').doc(id).get();
-            await firebase.firestore().collection('articles').doc(id).update({
-                voting: article.data().voting + voting,
-            });
-            console.log('Voting wurde erfolgreich gewertet.');
-        }
-        fetchData(vote);
-    }, [voting]);
-
-    /*const setVoting = async (vote) => {
-        const article = await firebase.firestore().collection('articles').doc(id).get();
+    async function setNewVoting(voting) {
         await firebase.firestore().collection('articles').doc(id).update({
-            voting: article.data().voting + vote,
+            voting: voting,
         });
-        setArticle({article});
+        setVoting(voting);
         console.log('Voting wurde erfolgreich gewertet.');
-    }*/
+    }
+
+    // Wird durch [] beim Start einmalig aufgerufen.
+    useEffect(() => {
+        const getVoting = async () => {
+            const currentVoting = await (await firebase.firestore().collection('articles').doc(id).get()).data().voting;
+            setVoting(currentVoting);
+            console.log('CurrentVoting: ' + currentVoting);
+        }
+        getVoting();
+    }, []);
     
     return (
         <div className="voting-section">
-            <button className="voting-button" onClick={() => setVoting(1)/*setVoting(1)*/}><ArrowDropUp /></button>
-            <p>{props.voting}</p>
-            <button className="voting-button" onClick={() => setVoting(-1)/*setVoting(-1)*/}><ArrowDropDown /></button>
+            <button className="voting-button" onClick={() => setNewVoting(voting + 1)}><ArrowDropUp /></button>
+            <p>{voting}</p>
+            <button className="voting-button" onClick={() => setNewVoting(voting - 1)}><ArrowDropDown /></button>
         </div>
     );
 }

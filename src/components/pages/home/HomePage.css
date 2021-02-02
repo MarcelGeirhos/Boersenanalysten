@@ -5,6 +5,16 @@
     color: white;
 }
 
+.home-page-content h1 {
+    font-size: 64px;
+    text-shadow: 0 0 5px black;
+}
+
+.home-page-content h2 {
+    font-size: 40px;
+    text-shadow: 0 0 5px black;
+}
+
 .home-page-tags button {
     margin: 5px;
 }

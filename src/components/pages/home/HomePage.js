@@ -30,6 +30,12 @@ function HomePage() {
                     <TagButton>Depots</TagButton>
                     <TagButton>Lebensversicherungen</TagButton>
                     <TagButton>Tenbagger</TagButton>
+
+                    <TagButton>Portfolio</TagButton>
+                    <TagButton>Staatsanleihen</TagButton>
+                    <TagButton>Unternehmensanleihen</TagButton>
+                    <TagButton>Bitcoin</TagButton>
+                    <TagButton>Gold</TagButton>
                 </div>
             </div>
         </div>
