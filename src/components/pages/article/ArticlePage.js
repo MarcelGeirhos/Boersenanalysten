@@ -37,7 +37,10 @@ function ArticlePage() {
     // geschrieben z.B. fetter Text oder unnummerierte Listen.
     const createNewAnswer = async (e) => {
         e.preventDefault();
-        if (document.getElementById('text').innerHTML !== "") {
+        // TODO hier weitermachen Link zu StackOverflow Beitrag:
+        // https://stackoverflow.com/questions/38402025/how-to-create-helper-file-full-of-functions-in-react-native
+        //checkText();
+        if (true) {
             const article = await firebase.firestore().collection('articles').doc(id);
             const articleRef = await article.get();
             const newAnswerRef = await firebase.firestore().collection('articles').doc(articleRef.id).collection('answers').doc();
@@ -50,11 +53,21 @@ function ArticlePage() {
             await firebase.firestore().collection('articles').doc(id).update({
                 answerCounter: articleData.answerCounter + 1,
             });
-            console.log('Neue Antwort wurde erstellt.');
+            console.log('Neue Antwort wurde erfolgreich erstellt.');
         } else {
             console.log("Leere Eingabefelder");
         }
     }
+
+    /*const checkText = () => {
+        if (text === "") {
+            setErrorText('Bitte geben Sie einen Text ein.');
+            document.getElementById("error-text").style.visibility = "visible";
+            return false;
+        }
+        document.getElementById("error-text").style.visibility = "hidden";
+        return true;
+    }*/
 
     return (
         <div className="article-page">
@@ -70,7 +83,7 @@ function ArticlePage() {
             </div>
             <p>Antworten:</p>
             {
-            answerList.map((answer, index) => (
+            answerList.map((answer) => (
                 <Answeritem id={answer.id}
                     answerText={answer.answerText}
                     voting={answer.voting}></Answeritem>

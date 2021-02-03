@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// own module imports
+import ErrorText from '../../outputs/errorText/ErrorText';
+
 // css imports
 import './TextEditor.css';
 
@@ -15,6 +18,8 @@ import {
 
 function TextEditor(props) {
     const [selectedImages, setSelectedImage] = useState([])
+    const [errorText, setErrorText] = useState("");
+    const [text, setText] = useState("");
 
     const imageChangeHandler = (e) => {
         console.log(e.target.files)
@@ -54,7 +59,8 @@ function TextEditor(props) {
                 {renderPhotos(selectedImages)}
             </div>
             {/*onSubmit={(e) => setArticleText(document.getElementById('articleText').innerHTML)*/}
-            <div className="editor-for-text" id="text" contentEditable></div>
+            <div className="editor-for-text" id="text" contentEditable onChange={(e) => setText(e.target.value)}></div>
+            <ErrorText id="error-text">{errorText}</ErrorText>
         </div>
     )
 }

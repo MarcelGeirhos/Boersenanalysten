@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 // own module imports
 import InputfieldDark from '../../gui/inputs/inputfieldDark/InputfieldDark';
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
+import ErrorText from '../../gui/outputs/errorText/ErrorText';
 
 // css imports
 import './CreateArticlePage.css';
@@ -18,6 +19,8 @@ import { Cancel } from '@material-ui/icons';
 function CreateArticlePage() {
     const [title, setTitle] = useState("");
     const [tags, setTags] = useState([]);
+    const [titleErrorText, setTitleErrorText] = useState("ErrorText");
+    const [tagErrorText, setTagErrorText] = useState("ErrorText");
 
     const [routeRedirect, setRedirect] = useState(false);
 
@@ -25,7 +28,9 @@ function CreateArticlePage() {
     // Benutzer mit dem Editor gesetzt wurden in die Datenbank
     // geschrieben z.B. fetter Text oder unnummerierte Listen.
     async function createNewArticle() {
-        if (title !== "" && document.getElementById('text').innerHTML !== "" && tags !== "") {
+        let isTitleValid = checkTitel();
+        let isTagValid = checkTags();
+        if (isTitleValid && document.getElementById('text').innerHTML !== "" && isTagValid) {
             console.log(tags);
             const newArticle = await firebase.firestore().collection('articles').doc();
             const newArticleRef = await newArticle.get();
@@ -46,20 +51,40 @@ function CreateArticlePage() {
         }
     }
 
+    const checkTitel = () => {
+        if (title === "") {
+            setTitleErrorText('Bitte geben Sie einen Titel ein.');
+            document.getElementById("title-error-text").style.visibility = "visible";
+            return false;
+        }
+        document.getElementById("title-error-text").style.visibility = "hidden";
+        return true;
+    }
+
+    const checkTags = () => {
+        if (tags.length == 0) {
+            setTagErrorText('Bitte geben Sie mindestens einen Tag an, damit ihr Beitrag besser gefunden werden kann.');
+            document.getElementById("tag-error-text").style.visibility = "visible";
+            return false;
+        }
+        document.getElementById("tag-error-text").style.visibility = "hidden";
+        return true;
+    }
+
     const redirectTo = routeRedirect;
     if (redirectTo) {
         return <Redirect to="/articleList" />
     }
 
-    const addTags = event => {
-        console.log('Add Tag');
-        if (event.key === "Enter" && event.target.value !== "") {
-            setTags([...tags, event.target.value]);
-            event.target.value = "";
+    const addTag = () => {
+        let tag = document.getElementById('tag-inputfield').value;
+        if (tag !== "") {
+            setTags([...tags, tag]);
+            document.getElementById('tag-inputfield').value = "";
         }
     }
 
-    const removeTags = indexToRemove => {
+    const removeTag = indexToRemove => {
         setTags(tags.filter((_, index) => index !== indexToRemove));
     }
 
@@ -69,17 +94,20 @@ function CreateArticlePage() {
             <div className="create-article-title">
                 <label>Titel:</label>
                 <InputfieldDark type="text" placeholder="Beitragstitel..." onChange={(e) => setTitle(e.target.value)} ></InputfieldDark>
+                <ErrorText id="title-error-text">{titleErrorText}</ErrorText>
             </div>
             <TextEditor title="Beitrag:" />
             <label>Tags:</label>
             <div className="tags-input">
-                <input type="text" placeholder="Enter drücken zum hinzufügen..." onKeyUp={e => (e.key === "Enter" ? addTags(e) : null)} />
+                <input type="text" id="tag-inputfield" placeholder="z.B. Dividendenaktie, Amazon, USA, ..." onKeyUp={e => (e.key === "Enter" ? addTag() : null)} />
+                <input type="button" value="Hinzufügen" onClick={() => addTag()} />
+                <ErrorText id="tag-error-text">{tagErrorText}</ErrorText>
                 <ul id="tags">
                 {
                     tags.map((tag, index) => (
                         <li key={index} className="tag-listitem">
                         <span className="tag-title">{tag}</span>
-                        <span className="tag-close-icon" onClick={() => removeTags(index)}><Cancel /></span>
+                        <span className="tag-close-icon" onClick={() => removeTag(index)}><Cancel /></span>
                     </li>)
                     )
                 }
