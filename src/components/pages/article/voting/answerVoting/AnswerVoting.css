@@ -1,0 +1,8 @@
+.answer-voting-section {
+    display: inline-block;
+}
+
+.answer-voting-section p {
+    margin: 6px auto;
+    text-align: center;
+}

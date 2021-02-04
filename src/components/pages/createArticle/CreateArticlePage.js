@@ -62,7 +62,7 @@ function CreateArticlePage() {
     }
 
     const checkTags = () => {
-        if (tags.length == 0) {
+        if (tags.length === 0) {
             setTagErrorText('Bitte geben Sie mindestens einen Tag an, damit ihr Beitrag besser gefunden werden kann.');
             document.getElementById("tag-error-text").style.visibility = "visible";
             return false;

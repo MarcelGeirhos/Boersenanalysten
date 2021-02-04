@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
 import Tagbutton from '../../gui/buttons/tagbutton/Tagbutton';
 import Answeritem from './answeritem/Answeritem';
-import Voting from './voting/Voting';
+import ArticleVoting from './voting/articleVoting/ArticleVoting';
 
 // css imports
 import './ArticlePage.css';
@@ -72,14 +72,16 @@ function ArticlePage() {
     return (
         <div className="article-page">
             <div className="article-section">
-                <Voting voting={articleData.voting} />
-                <h1>{articleData.title}</h1>
-                <p>{articleData.articleText}</p>
-                {
-                tagList.map(tag => (
-                    <Tagbutton>{tag}</Tagbutton>
-                ))
-                }
+                <ArticleVoting voting={articleData.voting} />
+                <div className="article-content">
+                    <h1>{articleData.title}</h1>
+                    <p>{articleData.articleText}</p>
+                    {
+                    tagList.map(tag => (
+                        <Tagbutton>{tag}</Tagbutton>
+                    ))
+                    }
+                </div>
             </div>
             <p>Antworten:</p>
             {

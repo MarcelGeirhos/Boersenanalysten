@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // css imports
-import './Voting.css';
+import './ArticleVoting.css';
 
 // material-ui icon imports
 import {
@@ -13,7 +13,7 @@ import {
 import firebase from 'firebase/app';
 import { useParams } from "react-router-dom";
 
-const Voting = () => {
+const ArticleVoting = () => {
     const { id } = useParams();
     const [voting, setVoting] = useState(0);
 
@@ -22,7 +22,7 @@ const Voting = () => {
             voting: voting,
         });
         setVoting(voting);
-        console.log('Voting wurde erfolgreich gewertet.');
+        console.log('Beitrag Voting wurde erfolgreich gewertet.');
     }
 
     // Wird durch [] beim Start einmalig aufgerufen.
@@ -30,7 +30,6 @@ const Voting = () => {
         const getVoting = async () => {
             const currentVoting = await (await firebase.firestore().collection('articles').doc(id).get()).data().voting;
             setVoting(currentVoting);
-            console.log('CurrentVoting: ' + currentVoting);
         }
         getVoting();
     }, []);
@@ -44,4 +43,4 @@ const Voting = () => {
     );
 }
 
-export default Voting;
+export default ArticleVoting;

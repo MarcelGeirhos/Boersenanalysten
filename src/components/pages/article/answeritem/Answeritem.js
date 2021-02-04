@@ -1,7 +1,7 @@
 import React from 'react';
 
 // own module imports
-import Voting from '../voting/Voting';
+import AnswerVoting from '../voting/answerVoting/AnswerVoting';
 
 // css imports
 import './Answeritem.css';
@@ -9,7 +9,7 @@ import './Answeritem.css';
 const Answeritem = (props) => {
     return (
         <div className="answeritem">
-            <Voting voting={props.voting} />
+            <AnswerVoting voting={props.voting} id={props.id} />
             <p className="answertext">{props.answerText}</p>
         </div>
     );
