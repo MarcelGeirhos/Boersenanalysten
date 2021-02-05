@@ -1,8 +1,15 @@
-.voting-section {
+.article-voting-section {
     display: inline-block;
 }
 
-.voting-section p {
+.article-voting-section p {
     margin: 6px auto;
     text-align: center;
+}
+
+.voting-button {
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
 }

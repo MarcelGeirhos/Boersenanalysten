@@ -15,30 +15,30 @@ import { useParams } from "react-router-dom";
 
 const ArticleVoting = () => {
     const { id } = useParams();
-    const [voting, setVoting] = useState(0);
+    const [articleVoting, setArticleVoting] = useState(0);
 
-    async function setNewVoting(voting) {
+    async function setNewArticleVoting(voting) {
         await firebase.firestore().collection('articles').doc(id).update({
             voting: voting,
         });
-        setVoting(voting);
+        setArticleVoting(voting);
         console.log('Beitrag Voting wurde erfolgreich gewertet.');
     }
 
     // Wird durch [] beim Start einmalig aufgerufen.
     useEffect(() => {
-        const getVoting = async () => {
+        const getArticleVoting = async () => {
             const currentVoting = await (await firebase.firestore().collection('articles').doc(id).get()).data().voting;
-            setVoting(currentVoting);
+            setArticleVoting(currentVoting);
         }
-        getVoting();
+        getArticleVoting();
     }, []);
     
     return (
-        <div className="voting-section">
-            <button className="voting-button" onClick={() => setNewVoting(voting + 1)}><ArrowDropUp /></button>
-            <p>{voting}</p>
-            <button className="voting-button" onClick={() => setNewVoting(voting - 1)}><ArrowDropDown /></button>
+        <div className="article-voting-section">
+            <button className="voting-button" onClick={() => setNewArticleVoting(articleVoting + 1)}><ArrowDropUp /></button>
+            <p>{articleVoting}</p>
+            <button className="voting-button" onClick={() => setNewArticleVoting(articleVoting - 1)}><ArrowDropDown /></button>
         </div>
     );
 }

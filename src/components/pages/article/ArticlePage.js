@@ -83,7 +83,7 @@ function ArticlePage() {
                     }
                 </div>
             </div>
-            <p>Antworten:</p>
+            <h2>Antworten:</h2>
             {
             answerList.map((answer) => (
                 <Answeritem id={answer.id}

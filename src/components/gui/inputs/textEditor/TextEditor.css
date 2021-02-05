@@ -1,6 +1,7 @@
 label {
-    margin-bottom: 6px;
-    font-size: 18px;
+    margin: 6px 0;
+    font-size: 22px;
+    font-weight: bold;
     display: block;
     color: white;
 }

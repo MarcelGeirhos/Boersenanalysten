@@ -27,18 +27,18 @@ const AnswerVoting = (props) => {
 
     // Wird durch [] beim Start einmalig aufgerufen.
     useEffect(() => {
-        const getVoting = async () => {
+        const getAnswerVoting = async () => {
             const currentVoting = await (await firebase.firestore().collection('articles').doc(id).collection('answers').doc(props.id).get()).data().voting;
             setAnswerVoting(currentVoting);
         }
-        getVoting();
+        getAnswerVoting();
     }, []);
     
     return (
         <div className="answer-voting-section">
-            <button className="answer-voting-button" onClick={() => setNewAnswerVoting(answerVoting + 1)}><ArrowDropUp /></button>
+            <button className="voting-button" onClick={() => setNewAnswerVoting(answerVoting + 1)}><ArrowDropUp /></button>
             <p>{answerVoting}</p>
-            <button className="answer-voting-button" onClick={() => setNewAnswerVoting(answerVoting - 1)}><ArrowDropDown /></button>
+            <button className="voting-button" onClick={() => setNewAnswerVoting(answerVoting - 1)}><ArrowDropDown /></button>
         </div>
     );
 }

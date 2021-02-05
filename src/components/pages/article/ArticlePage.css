@@ -1,12 +1,29 @@
 .article-page {
     display: flex;
-    align-items: left;
     flex-direction: column;
-    width: 60%;
     margin: 40px auto 0 auto;
 }
 
+/* Tablet und Handy */
+@media (max-width: 1025px) {
+    .article-page {
+        width: 90%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .article-page {
+        width: 60%;
+    }
+}
+
 .article-page h1, .article-page p {
+    color: white;
+}
+
+.article-page h2 {
+    font-size: 22px;
     color: white;
 }
 
@@ -23,11 +40,4 @@
 
 .article-section a button {
     margin-right: 8px;
-}
-
-.voting-button {
-    border: none;
-    color: white;
-    cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.1);
 }
