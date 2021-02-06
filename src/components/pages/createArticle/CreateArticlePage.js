@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // own module imports
 import InputfieldDark from '../../gui/inputs/inputfieldDark/InputfieldDark';
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
 import ErrorText from '../../gui/outputs/errorText/ErrorText';
+import firebaseConfig from '../../../firebase/Config';
 
 // css imports
 import './CreateArticlePage.css';
@@ -21,8 +22,23 @@ function CreateArticlePage() {
     const [tags, setTags] = useState([]);
     const [titleErrorText, setTitleErrorText] = useState("ErrorText");
     const [tagErrorText, setTagErrorText] = useState("ErrorText");
-
+    const [userData, setUserData] = useState([]);
     const [routeRedirect, setRedirect] = useState(false);
+
+    useEffect(() => {
+        firebaseConfig.getUserState().then(user => {
+            const fetchData = async () => {
+                await firebase.firestore().collection('users').doc(user.uid).get().then(
+                    snapshot => {
+                        setUserData(snapshot.data())
+                    }).catch(error => {
+                        console.log('Error getting userData ', error);
+                    })
+            }
+            fetchData();
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     // Der Artikel Text wird mit allen Eigenschaften die vom
     // Benutzer mit dem Editor gesetzt wurden in die Datenbank
@@ -31,19 +47,20 @@ function CreateArticlePage() {
         let isTitleValid = checkTitel();
         let isTagValid = checkTags();
         if (isTitleValid && document.getElementById('text').innerHTML !== "" && isTagValid) {
-            console.log(tags);
             const newArticle = await firebase.firestore().collection('articles').doc();
             const newArticleRef = await newArticle.get();
             await firebase.firestore().collection('articles').doc(newArticleRef.id).set({
-            title: title,
-            articleText: document.getElementById('text').innerHTML,
-            tags: tags,
-            views: 0,
-            voting: 0,
-            answerCounter: 0,
-            createdAt: new Date(),
-            id: newArticleRef.id,
-        })
+                title: title,
+                articleText: document.getElementById('text').innerHTML,
+                tags: tags,
+                views: 0,
+                voting: 0,
+                answerCounter: 0,
+                createdAt: new Date(),
+                id: newArticleRef.id,
+                creator: userData.username,
+                creatorId: userData.uid,
+            })
             setRedirect(true);
             console.log('Neuer Artikel wurde erstellt.');
         } else {

@@ -20,7 +20,7 @@ const Listitem = (props) => {
         <div className="listitem">
             {/* TODO key={props.key} implementieren in li Element? */}
             <div className="listitem-left-section">
-                <p>{props.voting}<br/>Votes</p>
+                <p>{props.voting}<br/>Voting</p>
                 <p>{props.answerCounter}<br/>Antworten</p>
                 <p>{props.views}<br/>Ansichten</p>
             </div>

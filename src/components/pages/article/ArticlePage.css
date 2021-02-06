@@ -34,10 +34,23 @@
     border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
-.article-content {
-    margin: 0 12px 12px 20px;
-}
-
 .article-section a button {
     margin-right: 8px;
+}
+
+.article-content {
+    /* TODO hier weitermachen display: inline-block; */
+    margin: 0 36px 12px 20px;
+    width: 100%;
+}
+
+.user-info-section {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    padding: 0 6px;
+    box-sizing: border-box;
+    text-align: right;
+}
+
+#create-answer-button {
+    margin-bottom: 24px;
 }

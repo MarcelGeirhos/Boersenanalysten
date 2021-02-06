@@ -18,15 +18,28 @@ function ArticlePage() {
     const [tagList, setTagList] = useState([]);
     const [answerList, setAnswerList] = useState([]);
     const [articleData, setArticleData] = useState("");
-    
+    const [articleText, setArticleText] = useState("");
+    const [articleCreatedAt, setArticleCreatedAt] = useState("");
+    const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
+
     useEffect(() => {
         const fetchData = async () => {
             const data = await firebase.firestore().collection('articles').doc(id).get();
             setArticleData({...data.data()});
+            setTagList(data.data().tags);
+            setArticleCreatedAt(data.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions));
+            
             const answerData = await firebase.firestore().collection('articles').doc(id).collection('answers').get();
             setAnswerList(answerData.docs.map(doc => ({...doc.data()})));
-            setTagList(data.data().tags);
-            console.log('Daten werden geladen...');
+            // TODO Text mit richtiger Formatierung anzeigen lassen.
+            const articleTextWithHTML = data.data().articleText;
+            console.log(articleTextWithHTML);
+            let div = document.createElement("div");
+            div.innerHTML = articleTextWithHTML;
+            let text = div.textContent || div.innerText || "";
+            console.log(text);
+            setArticleText(text);
+            console.log('Daten wurden geladen.');
         }
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,12 +88,16 @@ function ArticlePage() {
                 <ArticleVoting voting={articleData.voting} />
                 <div className="article-content">
                     <h1>{articleData.title}</h1>
-                    <p>{articleData.articleText}</p>
+                    <p>{articleText}</p>
                     {
                     tagList.map(tag => (
                         <Tagbutton>{tag}</Tagbutton>
                     ))
                     }
+                    <div className="user-info-section">
+                        <p>{articleCreatedAt}</p>
+                        <p>{articleData.creator}</p>
+                    </div>
                 </div>
             </div>
             <h2>Antworten:</h2>

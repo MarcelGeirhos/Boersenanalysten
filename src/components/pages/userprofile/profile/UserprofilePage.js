@@ -14,7 +14,7 @@ import firebase from 'firebase/app';
 function UserprofilePage() {
     const [userData, setUserData] = useState([]);
     const [memberSince, setMemberSince] = useState("");
-    const options = { weekday: 'short', year: 'numeric', month: '2-digit', day: '2-digit' };
+    const dateOptions = { weekday: 'short', year: 'numeric', month: '2-digit', day: '2-digit' };
 
     useEffect(() => {
         firebaseConfig.getUserState().then(user => {
@@ -22,7 +22,7 @@ function UserprofilePage() {
                 await firebase.firestore().collection('users').doc(user.uid).get().then(
                     snapshot => {
                         setUserData(snapshot.data());
-                        setMemberSince(snapshot.data().createdAt.toDate().toLocaleDateString("de-DE", options));
+                        setMemberSince(snapshot.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions));
                     }).catch(error => {
                         console.log('Error getting userData ', error);
                     })
