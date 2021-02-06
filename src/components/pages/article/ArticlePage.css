@@ -5,14 +5,14 @@
 }
 
 /* Tablet und Handy */
-@media (max-width: 1025px) {
+@media (max-width: 1281px) {
     .article-page {
         width: 90%;
     }
 }
 
 /* Desktop */
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
     .article-page {
         width: 60%;
     }
@@ -28,6 +28,7 @@
 }
 
 .article-section {
+    position: relative;
     display: flex;
     margin: 10px 0;
     padding: 12px 0 0 20px;
@@ -39,16 +40,26 @@
 }
 
 .article-content {
-    /* TODO hier weitermachen display: inline-block; */
-    margin: 0 36px 12px 20px;
-    width: 100%;
+    margin: 0 150px 12px 20px;
+    width: 75%;
+}
+
+.article-content p {
+    word-wrap: break-word;
 }
 
 .user-info-section {
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    padding: 0 6px;
-    box-sizing: border-box;
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    padding: 0 8px;
+    width: 120px;
     text-align: right;
+    background-color: #393939;
+}
+
+.user-info-section p {
+    font-size: 14px;
 }
 
 #create-answer-button {

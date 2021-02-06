@@ -93,11 +93,11 @@ function ArticlePage() {
                     tagList.map(tag => (
                         <Tagbutton>{tag}</Tagbutton>
                     ))
-                    }
-                    <div className="user-info-section">
-                        <p>{articleCreatedAt}</p>
-                        <p>{articleData.creator}</p>
-                    </div>
+                    } 
+                </div>
+                <div className="user-info-section">
+                    <p>{articleCreatedAt}</p>
+                    <p>{articleData.creator}</p>
                 </div>
             </div>
             <h2>Antworten:</h2>
