@@ -10,16 +10,18 @@ import './UserprofilePage.css';
 
 // third party imports
 import firebase from 'firebase/app';
+import { useParams } from "react-router-dom";
 
 function UserprofilePage() {
+    const { id } = useParams();
     const [userData, setUserData] = useState([]);
     const [memberSince, setMemberSince] = useState("");
     const dateOptions = { weekday: 'short', year: 'numeric', month: '2-digit', day: '2-digit' };
-
+    //user.uid
     useEffect(() => {
         firebaseConfig.getUserState().then(user => {
             const fetchData = async () => {
-                await firebase.firestore().collection('users').doc(user.uid).get().then(
+                await firebase.firestore().collection('users').doc(id).get().then(
                     snapshot => {
                         setUserData(snapshot.data());
                         setMemberSince(snapshot.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions));

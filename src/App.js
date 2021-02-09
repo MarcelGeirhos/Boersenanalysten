@@ -28,7 +28,7 @@ function App() {
         <Route path="/editinguserprofile" component={EditingprofilePage} />
         <Route path="/forgotPassword" component={ForgotPasswordPage} />
         <Route path="/createArticle" component={CreateArticlePage} />
-        <Route path="/userprofile" component={UserprofilePage} />
+        <Route path="/userprofile/:id" component={UserprofilePage} />
         <Route path="/articleList" component={ArticleListPage} />
         <Route path="/article/:id" component={ArticlePage} />
         <Route path="/register" component={RegisterPage} />

@@ -14,7 +14,7 @@ import './Navigation.css';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-function Navigation(props) {
+function Navigation() {
     const loginSelector = useSelector((state) => state.logIn);
     const registerSelector = useSelector((state) => state.register);
 
@@ -41,7 +41,7 @@ function Navigation(props) {
         userState != null) {
         buttons = (
             <div className="navbar-right">
-                <Mainbutton link="/userprofile">Profil</Mainbutton>
+                <Mainbutton link={{pathname: `/userprofile/${userState.uid}`}}>Profil</Mainbutton>
                 <Secondbutton link="/" onClick={logout}>Logout</Secondbutton>
             </div>
         )

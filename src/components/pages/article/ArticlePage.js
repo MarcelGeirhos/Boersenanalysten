@@ -1,44 +1,64 @@
 import React, { useState, useEffect } from 'react';
 
 // own module imports
+import ArticleVoting from './voting/articleVoting/ArticleVoting';
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
 import Tagbutton from '../../gui/buttons/tagbutton/Tagbutton';
 import Answeritem from './answeritem/Answeritem';
-import ArticleVoting from './voting/articleVoting/ArticleVoting';
+import firebaseConfig from '../../../firebase/Config';
 
 // css imports
 import './ArticlePage.css';
 
 // third party imports
 import firebase from 'firebase/app';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 function ArticlePage() {
     const { id } = useParams();
     const [tagList, setTagList] = useState([]);
+    const [userData, setUserData] = useState([]);
     const [answerList, setAnswerList] = useState([]);
     const [articleData, setArticleData] = useState("");
     const [articleText, setArticleText] = useState("");
+    const [answerCreatedAt, setAnswerCreatedAt] = useState([]);
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
     const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await firebase.firestore().collection('articles').doc(id).get();
-            setArticleData({...data.data()});
-            setTagList(data.data().tags);
-            setArticleCreatedAt(data.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions));
+            // Artikel Daten werden ausgelesen und gesetzt
+            const articleData = await firebase.firestore().collection('articles').doc(id).get();
+            setArticleCreatedAt(articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions));
+            setArticleData({...articleData.data()});
+            setTagList(articleData.data().tags);
             
+            // Alle Antworten Daten werden ausgelesen und gesetzt
             const answerData = await firebase.firestore().collection('articles').doc(id).collection('answers').get();
+            setAnswerCreatedAt(answerData.docs.map(doc => (doc.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions))));
             setAnswerList(answerData.docs.map(doc => ({...doc.data()})));
+           
             // TODO Text mit richtiger Formatierung anzeigen lassen.
-            const articleTextWithHTML = data.data().articleText;
+            const articleTextWithHTML = articleData.data().articleText;
             console.log(articleTextWithHTML);
             let div = document.createElement("div");
             div.innerHTML = articleTextWithHTML;
             let text = div.textContent || div.innerText || "";
             console.log(text);
             setArticleText(text);
+
+            // Aktuelle Benutzer Daten werden ausgelesen und gesetzt 
+            firebaseConfig.getUserState().then(user => {
+                const getUser = async () => {
+                    await firebase.firestore().collection('users').doc(user.uid).get().then(
+                        snapshot => {
+                            setUserData(snapshot.data());
+                        }).catch(error => {
+                            console.log('Error getting userData ', error);
+                        })
+                }
+                getUser();
+            })
             console.log('Daten wurden geladen.');
         }
         fetchData();
@@ -62,6 +82,8 @@ function ArticlePage() {
                 voting: 0,
                 createdAt: new Date(),
                 id: newAnswerRef.id,
+                creator: userData.username,
+                creatorId: userData.uid,
             });
             await firebase.firestore().collection('articles').doc(id).update({
                 answerCounter: articleData.answerCounter + 1,
@@ -97,15 +119,20 @@ function ArticlePage() {
                 </div>
                 <div className="user-info-section">
                     <p>{articleCreatedAt}</p>
-                    <p>{articleData.creator}</p>
+                    <Link to={{pathname: `/userprofile/${articleData.creatorId}`}}>
+                        <p>{articleData.creator}</p>
+                    </Link>
                 </div>
             </div>
             <h2>Antworten:</h2>
             {
-            answerList.map((answer) => (
+            answerList.map((answer, index) => (
                 <Answeritem id={answer.id}
                     answerText={answer.answerText}
-                    voting={answer.voting}></Answeritem>
+                    voting={answer.voting}
+                    creator={answer.creator}
+                    creatorId={answer.creatorId}
+                    createdAt={answerCreatedAt[index]}></Answeritem>
             ))
             }
             <form onSubmit={createNewAnswer}>
