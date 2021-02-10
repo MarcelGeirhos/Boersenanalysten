@@ -46,7 +46,7 @@ function TextEditor(props) {
     }
 
     return (
-        <div>
+        <div className="editor">
             <label>{props.title}</label>
             <div className="editor-menuebar">
                 <button className="editor-button" onClick={() => editorButtonsHandler('bold')}><FormatBold /></button>

@@ -6,6 +6,15 @@
     border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
+.answeritem a {
+    text-decoration: none;
+    color: #6389A8;
+}
+
+.answeritem a:hover {
+    color: #386A96;
+}
+
 .answertext {
     margin: 10px 20px;
 }

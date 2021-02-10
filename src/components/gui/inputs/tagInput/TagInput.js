@@ -6,14 +6,19 @@ import './TagInput.css';
 // material-ui icon imports
 import { Cancel } from '@material-ui/icons';
 
-const TagInput = props => {
+// material-ui icon imports
+import {
+    PostAdd,
+} from '@material-ui/icons';
+
+const TagInput = () => {
     const [tags, setTags] = useState([]);
 
-    const addTags = event => {
-        if (event.key === "Enter" && event.target.value !== "") {
-            setTags([...tags, event.target.value]);
-            //props.selectedTags([...tags, event.target.value]);
-            event.target.value = "";
+    const addTag = () => {
+        let tag = document.getElementById('tag-inputfield').value;
+        if (tag !== "") {
+            setTags([...tags, tag]);
+            document.getElementById('tag-inputfield').value = "";
         }
     }
 
@@ -22,17 +27,21 @@ const TagInput = props => {
     }
 
     return (
-        <div className="tags-input">
-            <input type="text" placeholder="Enter drücken zum hinzufügen..." onKeyUp={e => (e.key === "Enter" ? addTags(e) : null)} />
+        <div>
+            <div className="tags-input">
+                <input type="text" id="tag-inputfield" placeholder="z.B. Dividendenaktien, Amazon, USA, ......" onKeyUp={e => (e.key === "Enter" ? addTag(e) : null)} />
+                <button onClick={() => addTag()}><PostAdd /></button>
+            </div>
             <ul id="tags">
-                {
-                    tags.map((tag, index) => (
-                        <li key={index} className="tag-listitem">
-                            <span className="tag-title">{tag}</span>
-                            <span className="tag-close-icon" onClick={() => removeTags(index)}><Cancel /></span>
-                        </li>)
-                    )
-                }
+            {
+            tags.map((tag, index) => (
+                <li key={index} className="tag-listitem">
+                    <span className="tag-title">{tag}</span>
+                    <span className="tag-close-icon" onClick={() => removeTags(index)}><Cancel /></span>
+                </li>
+                )
+            )
+            }
             </ul>
         </div>
     )

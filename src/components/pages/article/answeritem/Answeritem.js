@@ -17,7 +17,7 @@ const Answeritem = (props) => {
             <div className="user-info-section">
                 <p>{props.createdAt}</p>
                 <Link to={{pathname: `/userprofile/${props.creatorId}`}}>
-                    <p>{props.creator}</p>
+                    {props.creator}
                 </Link>
             </div>
         </div>

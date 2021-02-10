@@ -15,7 +15,10 @@ import { Redirect } from 'react-router-dom';
 import firebase from 'firebase/app';
 
 // material-ui icon imports
-import { Cancel } from '@material-ui/icons';
+import {
+    Cancel,
+    PostAdd,
+} from '@material-ui/icons';
 
 function CreateArticlePage() {
     const [title, setTitle] = useState("");
@@ -116,20 +119,20 @@ function CreateArticlePage() {
             <TextEditor title="Beitrag:" />
             <label>Tags:</label>
             <div className="tags-input">
-                <input type="text" id="tag-inputfield" placeholder="z.B. Dividendenaktie, Amazon, USA, ..." onKeyUp={e => (e.key === "Enter" ? addTag() : null)} />
-                <input type="button" value="Hinzufügen" onClick={() => addTag()} />
+                <input type="text" id="tag-inputfield" placeholder="z.B. Dividendenaktien, Amazon, USA, ..." onKeyUp={e => (e.key === "Enter" ? addTag() : null)} />
+                <button onClick={() => addTag()}><PostAdd /></button>
                 <ErrorText id="tag-error-text">{tagErrorText}</ErrorText>
-                <ul id="tags">
-                {
-                    tags.map((tag, index) => (
-                        <li key={index} className="tag-listitem">
-                        <span className="tag-title">{tag}</span>
-                        <span className="tag-close-icon" onClick={() => removeTag(index)}><Cancel /></span>
-                    </li>)
-                    )
-                }
-                </ul>
             </div>
+            <ul id="tags">
+            {
+                tags.map((tag, index) => (
+                    <li key={index} className="tag-listitem">
+                    <span className="tag-title">{tag}</span>
+                    <span className="tag-close-icon" onClick={() => removeTag(index)}><Cancel /></span>
+                </li>)
+                )
+            }
+            </ul>
             <div>
                 <input value="Beitrag erstellen" id="create-article-button" className="main-button" onClick={() => createNewArticle()}/>
             </div>

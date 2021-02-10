@@ -1,11 +1,24 @@
 .listitem {
-    width: 50%;
     color: white;
     border: 2px solid rgba(255, 255, 255, 0.1);
     list-style-type: none;
     margin: 10px auto;
     display: grid;
     grid-template-columns: 40% 60%;
+}
+
+/* Tablet und Handy */
+@media (max-width: 1281px) {
+    .listitem {
+        width: 90%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+    .listitem {
+        width: 60%;
+    }
 }
 
 .listitem-left-section {

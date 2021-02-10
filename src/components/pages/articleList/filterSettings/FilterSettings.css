@@ -1,8 +1,21 @@
 .filter-settings {
     display: flex;
     justify-content: flex-start;
-    width: 50%;
     margin: 0 auto;
+}
+
+/* Tablet und Handy */
+@media (max-width: 1281px) {
+    .filter-settings {
+        width: 90%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+    .filter-settings {
+        width: 60%;
+    }
 }
 
 .filter-settings p {

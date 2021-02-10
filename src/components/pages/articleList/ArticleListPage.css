@@ -2,19 +2,45 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 50%;
     margin: 20px auto 0 auto;
+}
+
+/* Tablet und Handy */
+@media (max-width: 1281px) {
+    .articlelist-header {
+        width: 90%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+    .articlelist-header {
+        width: 60%;
+    }
+}
+
+.articlelist-header h1 {
+    color: white;
 }
 
 .articlelist-filter {
     display: flex;
     justify-content: flex-start;
-    width: 50%;
     margin: 0 auto;
 }
 
-.articlelist-header h1 {
-    color: white;
+/* Tablet und Handy */
+@media (max-width: 1281px) {
+    .articlelist-filter {
+        width: 90%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+    .articlelist-filter {
+        width: 60%;
+    }
 }
 
 .articlelist-filter button {

@@ -22,9 +22,13 @@ function Navigation() {
     const dispatch = useDispatch();
     const logoutUserAction = () => dispatch(logoutUser());
 
+    // TODO hier weitermachen und Fehler abfangen
     useEffect(() => {
         firebase.getUserState().then(user => {
-            setUserState(user);
+            const getUser = async () => {
+                setUserState(user);
+            }
+            getUser();
         })
     })
 
