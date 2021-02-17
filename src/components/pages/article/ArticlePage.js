@@ -88,6 +88,7 @@ function ArticlePage() {
             await firebase.firestore().collection('articles').doc(id).update({
                 answerCounter: articleData.answerCounter + 1,
             });
+            window.location.reload();
             console.log('Neue Antwort wurde erfolgreich erstellt.');
         } else {
             console.log("Leere Eingabefelder");
@@ -120,7 +121,7 @@ function ArticlePage() {
                 <div className="user-info-section">
                     <p>{articleCreatedAt}</p>
                     <Link to={{pathname: `/userprofile/${articleData.creatorId}`}}>
-                        <p>{articleData.creator}</p>
+                        {articleData.creator}
                     </Link>
                 </div>
             </div>

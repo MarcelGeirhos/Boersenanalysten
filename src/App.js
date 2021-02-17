@@ -7,10 +7,12 @@ import ArticleListPage from './components/pages/articleList/ArticleListPage';
 import Settings from './components/pages/userprofile/settings/SettingsPage';
 import RegisterPage from './components/pages/register/RegisterPage';
 import ArticlePage from './components/pages/article/ArticlePage';
+import MessagePage from './components/pages/message/MessagePage';
 import Navigation from './components/navigation/Navigation';
 import LoginPage from './components/pages/login/LoginPage';
 import HomePage from './components/pages/home/HomePage';
 import TagsPage from './components/pages/tags/TagsPage';
+import HelpPage from './components/pages/help/HelpPage';
 
 // css imports
 import './App.css';
@@ -30,11 +32,13 @@ function App() {
         <Route path="/createArticle" component={CreateArticlePage} />
         <Route path="/userprofile/:id" component={UserprofilePage} />
         <Route path="/articleList" component={ArticleListPage} />
+        <Route path="/messages/:id" component={MessagePage} />
         <Route path="/article/:id" component={ArticlePage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/settings" component={Settings} />
         <Route path="/login" component={LoginPage} />
         <Route path="/tags" component={TagsPage} />
+        <Route path="/help" component={HelpPage} />
         <Route exact path="/" component={HomePage} />
       </div>
     </Router>

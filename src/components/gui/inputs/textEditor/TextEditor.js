@@ -18,8 +18,8 @@ import {
 
 function TextEditor(props) {
     const [selectedImages, setSelectedImage] = useState([])
-    const [errorText, setErrorText] = useState("");
-    const [text, setText] = useState("");
+    const [errorText] = useState("");   // TODO , setErrorText
+    const [setText] = useState("");     // TODO text, 
 
     const imageChangeHandler = (e) => {
         console.log(e.target.files)

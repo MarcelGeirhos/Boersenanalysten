@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 // own module imports
 import Mainbutton from '../gui/buttons/mainbutton/Mainbutton';
+import Iconbutton from '../gui/buttons/iconbutton/Iconbutton';
 import Secondbutton from '../gui/buttons/secondbutton/Secondbutton';
 import InputfieldDark from '../gui/inputs/inputfieldDark/InputfieldDark';
-import { logoutUser } from '../../redux/actions/LogoutAction';
 import firebase from '../../firebase/Config';
 
 // css imports
@@ -12,15 +12,20 @@ import './Navigation.css';
 
 // third party imports
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+// material-ui icon imports
+import {
+    Person,
+    Message,
+    ContactSupport,
+} from '@material-ui/icons';
 
 function Navigation() {
     const loginSelector = useSelector((state) => state.logIn);
     const registerSelector = useSelector((state) => state.register);
-
+    
     const [userState, setUserState] = useState(null);
-    const dispatch = useDispatch();
-    const logoutUserAction = () => dispatch(logoutUser());
 
     // TODO hier weitermachen und Fehler abfangen
     useEffect(() => {
@@ -32,21 +37,15 @@ function Navigation() {
         })
     })
 
-    const logout = async() => {
-        console.log("Benutzer wird ausgeloggt.");
-        setUserState(null);
-        await logoutUserAction();
-        // TODO props.history.replace("/");
-    }
-
     let buttons;
     if ((loginSelector.user && loginSelector.user.hasOwnProperty("user")) ||
         (registerSelector.user && registerSelector.user.hasOwnProperty("user")) ||
         userState != null) {
         buttons = (
             <div className="navbar-right">
-                <Mainbutton link={{pathname: `/userprofile/${userState.uid}`}}>Profil</Mainbutton>
-                <Secondbutton link="/" onClick={logout}>Logout</Secondbutton>
+                <Iconbutton link={{pathname: `/userprofile/${userState.uid}`}}><Person /></Iconbutton>
+                <Iconbutton link={{pathname: `/messages/${userState.uid}`}}><Message /></Iconbutton>
+                <Iconbutton link="/help"><ContactSupport /></Iconbutton>
             </div>
         )
     } else {

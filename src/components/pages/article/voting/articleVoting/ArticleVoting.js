@@ -32,6 +32,7 @@ const ArticleVoting = () => {
             setArticleVoting(currentVoting);
         }
         getArticleVoting();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     return (

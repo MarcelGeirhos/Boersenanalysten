@@ -93,7 +93,7 @@ function CreateArticlePage() {
 
     const redirectTo = routeRedirect;
     if (redirectTo) {
-        return <Redirect to="/articleList" />
+        return <Redirect to="/articlelist" />
     }
 
     const addTag = () => {

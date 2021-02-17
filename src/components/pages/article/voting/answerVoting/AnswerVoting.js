@@ -32,6 +32,7 @@ const AnswerVoting = (props) => {
             setAnswerVoting(currentVoting);
         }
         getAnswerVoting();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     return (
