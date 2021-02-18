@@ -7,7 +7,19 @@ import Mainbutton from '../../../gui/buttons/mainbutton/Mainbutton';
 // css imports
 import './FilterSettings.css';
 
+// third party imports
+import firebase from 'firebase/app';
+
 function FilterSettings() {
+    const filterArticleList = async () => {
+        const articles = await firebase.firestore().collection('articles');
+        const filteredArticles = articles.where("id", "==", "7UwDoQASC1z4q0IE5gPp").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(doc.data());
+            })
+        });
+    }
+
     return (
         <div className="filter-settings">
             <div>
@@ -28,7 +40,7 @@ function FilterSettings() {
                     <input type="radio" id="mostViews" value="mostViews" name="filter-sorted" />
                     <label for="views">Meiste Ansichten</label>
                 </fieldset>
-                <Mainbutton>Filter anwenden</Mainbutton>
+                <Mainbutton onClick={filterArticleList}>Filter anwenden</Mainbutton>
             </div>
         </div>
     )

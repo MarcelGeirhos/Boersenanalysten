@@ -12,7 +12,7 @@ import './SettingsPage.css';
 import { useDispatch } from 'react-redux';
 
 function SettingsPage() {
-    const [setUserState] = useState(null);
+    const [userState, setUserState] = useState(null);
     const dispatch = useDispatch();
 
     const logoutUserAction = () => dispatch(logoutUser());

@@ -26,6 +26,7 @@ class Firebase {
 
     // register user
     async register(email, password, username) {
+        console.log('Test');
         const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(user => {
             firebase.firestore().collection('users').doc(user.user.uid).set({
@@ -46,7 +47,14 @@ class Firebase {
             });
         })
         .catch(error => {
-            console.log(error);
+            console.log(error.code);
+            switch (error.code) {
+                case 'auth/email-already-in-use':
+                    console.log('Test');
+                case 'auth/weak-password':
+                    console.log('Test 2');
+                    return 
+            }
         });
         return user;
     }

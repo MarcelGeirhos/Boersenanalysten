@@ -3,14 +3,13 @@ import React, { useState } from 'react';
 // own module imports
 import ErrorText from '../../gui/outputs/errorText/ErrorText';
 import Inputfield from '../../gui/inputs/inputfield/Inputfield';
-import { registerUser } from '../../../redux/actions/RegisterAction';
 
 // css imports
 import './RegisterPage.css';
 
 // third party imports
 import { Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import firebase from 'firebase/app';
 
 function RegisterPage() {
     const [email, setEmail] = useState("");
@@ -21,19 +20,59 @@ function RegisterPage() {
     const [usernameErrorText, setUsernameErrorText] = useState("Error Text");
     
     const [routeRedirect, setRedirect] = useState(false);
-    const dispatch = useDispatch();
-    const registerUserAction = (email, password, username) => dispatch(registerUser(email, password, username));
 
     const register = async (e) => {
         e.preventDefault();
         let isEmailValid = checkEmail();
         let isPasswordValid = checkPassword();
-        let isUsernameValid = checkUsername();
+        let isUsernameValid = checkUsername(); 
         if (isEmailValid && isPasswordValid && isUsernameValid) {
-            await registerUserAction(email, password, username);
-            setRedirect(true);
-            console.log('Benutzer wurde erfolgreich registriert.');
+            await registerUser();
         }
+    }
+
+    const registerUser = async () => {
+        await firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(user => {
+            firebase.firestore().collection('users').doc(user.user.uid).set({
+                uid: user.user.uid,
+                username: username,
+                email: email,
+                location: "",
+                portfolioLink: "",
+                userDescription: "",
+                shareCounter: 0,
+                answerCounter: 0,
+                articleCounter: 0,
+                portfolioArticleCounter: 0,
+                createdAt: new Date(),
+            })
+            .catch(error => {
+                console.log(error);
+            });
+            firebase.auth().onAuthStateChanged(userAuth => {
+                console.log(user);
+                setRedirect(true);
+                console.log('Benutzer wurde erfolgreich registriert.');
+                return user;
+            })
+        })
+        .catch(error => {
+            console.log(error.code);
+            switch (error.code) {
+                case 'auth/email-already-in-use':
+                    setEmailErrorText('E-Mail Adresse wird bereits verwendet.');
+                    document.getElementById("email-error-text").style.visibility = "visible";
+                    break;
+                case 'auth/weak-password':
+                    setPasswordErrorText('Das Passwort muss mindestens 6 Zeichen lang sein.');
+                    document.getElementById("password-error-text").style.visibility = "visible";
+                    break;
+                default:
+                    console.log(error.code);
+                    break;
+            }
+        }); 
     }
 
     const checkEmail = () => {
@@ -51,10 +90,6 @@ function RegisterPage() {
             setPasswordErrorText('Bitte geben Sie ihr Passwort ein.');
             document.getElementById("password-error-text").style.visibility = "visible";
             return false;
-        } else if (password.length < 6) {
-            setPasswordErrorText('Das Passwort muss mindestens 6 Zeichen lang sein.');
-            document.getElementById("password-error-text").style.visibility = "visible";
-            return false;
         }
         document.getElementById("password-error-text").style.visibility = "hidden";
         return true;
@@ -66,7 +101,7 @@ function RegisterPage() {
             document.getElementById("username-error-text").style.visibility = "visible";
             return false;
         } else if (username.length < 5) {
-            setPasswordErrorText('Der Benutzername muss mindestens 5 Zeichen lang sein.');
+            setUsernameErrorText('Der Benutzername muss mindestens 5 Zeichen lang sein.');
             document.getElementById("username-error-text").style.visibility = "visible";
             return false;
         }
