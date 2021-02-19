@@ -3,14 +3,13 @@ import React, { useState } from 'react';
 // own module imports
 import ErrorText from '../../gui/outputs/errorText/ErrorText';
 import Inputfield from '../../gui/inputs/inputfield/Inputfield';
-import { loginUser } from '../../../redux/actions/LoginAction';
 
 // css imports
 import './LoginPage.css';
 
 // third party imports
 import { Link, Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import firebase from 'firebase/app';
 
 function LoginPage() {
     const [email, setEmail] = useState("");
@@ -19,21 +18,47 @@ function LoginPage() {
     const [passwordErrorText, setPasswordErrorText] = useState("Error Text");
 
     const [routeRedirect, setRedirect] = useState(false);
-    const dispatch = useDispatch();
-    const logInUserAction = (email, password) => dispatch(loginUser(email, password));
 
     const login = async (e) => {
         e.preventDefault();
         let isEmailValid = checkEmail();
         let isPasswordValid = checkPassword();
         if (isEmailValid && isPasswordValid) {
-            let user = await logInUserAction(email, password);
-            console.log(user);
-            if (user) {
-                setRedirect(true);
-                console.log('Benutzer wurde erfolgreich eingeloggt.');
-            }
+            await loginUser();
         }
+    }
+
+    const loginUser = async () => {
+        await firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(() => {
+            setRedirect(true);
+            window.location.reload();
+            console.log('Benutzer wurde erfolgreich eingeloggt.');
+        })
+        .catch(error => {
+            console.log(error.code);
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    setEmailErrorText('E-Mail Adresse ist nicht valid.');
+                    document.getElementById("email-error-text").style.visibility = "visible";
+                    break;
+                case 'auth/user-disabled':
+                    setEmailErrorText('Account wurde gesperrt. Bitte melde dich beim Support.');
+                    document.getElementById("email-error-text").style.visibility = "visible";
+                    break;
+                case 'auth/user-not-found':
+                    setEmailErrorText('E-Mail Adresse ist nicht registriert.');
+                    document.getElementById("email-error-text").style.visibility = "visible";
+                    break;
+                case 'auth/wrong-password':
+                    setPasswordErrorText('Das Passwort ist nicht korrekt.');
+                    document.getElementById("password-error-text").style.visibility = "visible";
+                    break;
+                default:
+                    console.log('Unbekannter Fehler beim Benutzer Login: ' + error.code);
+                    break;
+            }
+        });
     }
 
     const checkEmail = () => {

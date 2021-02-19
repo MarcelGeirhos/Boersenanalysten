@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // own module imports
 import TagButton from '../../../components/gui/buttons/tagbutton/Tagbutton';

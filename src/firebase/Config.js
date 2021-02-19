@@ -24,41 +24,6 @@ class Firebase {
     //      Benutzer Handling
     ///////////////////////////////////
 
-    // register user
-    async register(email, password, username) {
-        console.log('Test');
-        const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(user => {
-            firebase.firestore().collection('users').doc(user.user.uid).set({
-                uid: user.user.uid,
-                username: username,
-                email: email,
-                location: "",
-                portfolioLink: "",
-                userDescription: "",
-                shareCounter: 0,
-                answerCounter: 0,
-                articleCounter: 0,
-                portfolioArticleCounter: 0,
-                createdAt: new Date(),
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        })
-        .catch(error => {
-            console.log(error.code);
-            switch (error.code) {
-                case 'auth/email-already-in-use':
-                    console.log('Test');
-                case 'auth/weak-password':
-                    console.log('Test 2');
-                    return 
-            }
-        });
-        return user;
-    }
-
     // log in user
     async login(email, password) {
         const user = await firebase.auth().signInWithEmailAndPassword(email, password).catch(error => {

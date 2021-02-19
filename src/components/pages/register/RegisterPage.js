@@ -50,12 +50,11 @@ function RegisterPage() {
             .catch(error => {
                 console.log(error);
             });
-            firebase.auth().onAuthStateChanged(userAuth => {
-                console.log(user);
-                setRedirect(true);
-                console.log('Benutzer wurde erfolgreich registriert.');
-                return user;
-            })
+            console.log(user);
+            setRedirect(true);
+            window.location.reload();
+            console.log('Benutzer wurde erfolgreich registriert.');
+            return user;
         })
         .catch(error => {
             console.log(error.code);
@@ -69,7 +68,7 @@ function RegisterPage() {
                     document.getElementById("password-error-text").style.visibility = "visible";
                     break;
                 default:
-                    console.log(error.code);
+                    console.log('Unbekannter Fehler bei Benutzer Registrierung: ' + error.code);
                     break;
             }
         }); 
