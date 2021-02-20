@@ -8,25 +8,36 @@ import Mainbutton from '../../../gui/buttons/mainbutton/Mainbutton';
 import './FilterSettings.css';
 
 // third party imports
-// TODO import firebase from 'firebase/app';
+import firebase from 'firebase/app';
 
 function FilterSettings() {
-    // TODO
-    /*const filterArticleList = async () => {
+    const filterArticleList = async (tags) => {
+        console.log(tags);
         const articles = await firebase.firestore().collection('articles');
-        
-        const filteredArticles = articles.where("id", "==", "7UwDoQASC1z4q0IE5gPp").get().then((querySnapshot) => {
+        tags.map((tag) => {
+            console.log(tag);
+            const filteredArticles = articles.where("tags", "==", tag).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 console.log(doc.data());
             })
+            // TODO hier weitermachen und die gefilterte Liste zu ArticleListPage weitergeben,
+            // davor Daten richtig auslesen.
+            console.log(filteredArticles);
         });
-    }*/
+        })
+    }
+
+    // Verbindung zu TagInput Komponente um auf die eingegebenen Tags 
+    // Zugriff zu bekommen.
+    const callbackTags = (tags) => {
+        filterArticleList(tags)
+    }
 
     return (
         <div className="filter-settings">
             <div>
                 <label>Tags:</label>
-                <TagInput />
+                <TagInput parentCallbackTags={callbackTags} />
                 <label>Zeitraum:</label>
                 <input type="date" id="filter-start-date" min="01.01.2021" max="04.01.2021" />
                 <p>bis</p>
@@ -42,7 +53,7 @@ function FilterSettings() {
                     <input type="radio" id="mostViews" value="mostViews" name="filter-sorted" />
                     <label for="views">Meiste Ansichten</label>
                 </fieldset>
-                <Mainbutton /*onClick={filterArticleList}*/>Filter anwenden</Mainbutton>
+                <Mainbutton onClick={filterArticleList}>Filter anwenden</Mainbutton>
             </div>
         </div>
     )

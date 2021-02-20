@@ -11,13 +11,14 @@ import {
     PostAdd,
 } from '@material-ui/icons';
 
-const TagInput = () => {
+const TagInput = ({ parentCallbackTags }) => {
     const [tags, setTags] = useState([]);
 
     const addTag = () => {
         let tag = document.getElementById('tag-inputfield').value;
         if (tag !== "") {
             setTags([...tags, tag]);
+            parentCallbackTags(tags);
             document.getElementById('tag-inputfield').value = "";
         }
     }

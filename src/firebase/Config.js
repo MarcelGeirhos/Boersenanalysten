@@ -24,14 +24,6 @@ class Firebase {
     //      Benutzer Handling
     ///////////////////////////////////
 
-    // log in user
-    async login(email, password) {
-        const user = await firebase.auth().signInWithEmailAndPassword(email, password).catch(error => {
-            console.log(error);
-        });
-        return user;
-    }
-
     // log out user
     async logout() {
         const logout = await firebase.auth().signOut().catch(error => {
