@@ -18,13 +18,16 @@ import firebase from 'firebase/app';
 
 function ArticleListPage() {
     const [articleList, setArticleList] = useState([]);
+    const [articleCreatedAt, setArticleCreatedAt] = useState("");
     const [showFilterSettings, setShowFilterSettings] = useState(false);
+    const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
     const onClick = () => setShowFilterSettings(!showFilterSettings);
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await firebase.firestore().collection('articles').get();
-            setArticleList(data.docs.map(doc => ({...doc.data()})));
+            const articleData = await firebase.firestore().collection('articles').get();
+            setArticleList(articleData.docs.map(doc => ({...doc.data()})));
+            setArticleCreatedAt(articleData.docs.map(doc => (doc.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions))));
         }
         fetchData();
     }, [])
@@ -47,7 +50,10 @@ function ArticleListPage() {
                             tags={article.tags}
                             voting={article.voting}
                             answerCounter={article.answerCounter}
-                            views={article.views}></Listitem>
+                            views={article.views}
+                            creator={article.creator}
+                            creatorId={article.creatorId}
+                            createdAt={articleCreatedAt[index]}></Listitem>
                     </div>
                 ))
                 }

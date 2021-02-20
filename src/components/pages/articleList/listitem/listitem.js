@@ -33,6 +33,9 @@ const Listitem = (props) => {
                     <Tagbutton>{tag}</Tagbutton>
                 ))
                 }
+                <div className="creator-info-section">
+                    <p>{props.createdAt} <Link to={{pathname: `/userprofile/${props.creatorId}`}}>{props.creator}</Link></p>
+                </div>
             </div>
         </div>
     );
