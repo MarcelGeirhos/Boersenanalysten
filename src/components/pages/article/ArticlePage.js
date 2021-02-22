@@ -59,7 +59,6 @@ function ArticlePage() {
                 }
                 getUser();
             })
-            console.log('Daten wurden geladen.');
         }
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps

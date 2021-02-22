@@ -27,7 +27,6 @@ function Navigation() {
     
     const [userState, setUserState] = useState(null);
 
-    // TODO hier weitermachen und Fehler abfangen
     useEffect(() => {
         firebase.getUserState().then(user => {
             const getUser = async () => {
