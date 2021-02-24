@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 
 // own module imports
-import UserprofileNavigation from '../UserprofileNavigation';
-import Secondbutton from '../../../gui/buttons/secondbutton/Secondbutton';
-import { logoutUser } from '../../../../redux/actions/LogoutAction';
+import SettingsMenu from './../settingsMenu/SettingsMenu';
+import UserprofileNavigation from '../../UserprofileNavigation';
+import Secondbutton from '../../../../gui/buttons/secondbutton/Secondbutton';
 
 // css imports
-import './SettingsPage.css';
+import './ProfileSettingsPage.css';
 
 // third party imports
 import { useDispatch } from 'react-redux';
 
-function SettingsPage() {
-    const [userState, setUserState] = useState(null);
+function ProfileSettingsPage() {
+    {/*const [userState, setUserState] = useState(null);
     const dispatch = useDispatch();
 
     const logoutUserAction = () => dispatch(logoutUser());
@@ -22,14 +22,16 @@ function SettingsPage() {
         setUserState(null);
         await logoutUserAction();
         // TODO props.history.replace("/");
-    }
+    }*/}
 
     return (
         <div className="user-profile-grid-container">
             <UserprofileNavigation />
-            <Secondbutton link="/" onClick={logout}>Logout</Secondbutton>
+            <SettingsMenu />
+            <h1>Profil Einstellungen</h1>
+            {/*<Secondbutton link="/" onClick={logout}>Logout</Secondbutton>*/}
         </div>
     );
 }
 
-export default SettingsPage;
+export default ProfileSettingsPage;

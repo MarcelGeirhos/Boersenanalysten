@@ -28,8 +28,8 @@ function UserprofileNavigation() {
                 {/* TODO hier weitermachen */}
                 {/* <Secondbutton link={{pathname: `/userprofile/${userState.uid}`}}>Profil</Secondbutton>*/}
                 <Secondbutton link="/userprofile">Profil</Secondbutton>
-                <Secondbutton link="/editinguserprofile/">Profil editieren</Secondbutton>
-                <Secondbutton link="/settings">Einstellungen</Secondbutton>
+                <Secondbutton link="/portfolioHistory/">Portfolio Historie</Secondbutton>
+                <Secondbutton link="/settings/profileSettings">Einstellungen</Secondbutton>
             </nav>
         </div>
     );
