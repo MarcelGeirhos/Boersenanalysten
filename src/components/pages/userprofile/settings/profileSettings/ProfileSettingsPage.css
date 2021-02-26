@@ -1,0 +1,20 @@
+.profile-settings-form label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin: 16px 0 12px 0;
+}
+
+.profile-settings-form label:first-child {
+    margin-top: 60px;
+}
+
+.profile-settings-form input {
+    display: block;
+    width: 200px;
+}
+
+#save-profile-button {
+    margin: 24px 0;
+}

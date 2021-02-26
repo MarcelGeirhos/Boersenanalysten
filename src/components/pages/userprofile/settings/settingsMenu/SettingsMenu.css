@@ -1,0 +1,18 @@
+.settings-menu {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    width: 70%;
+}
+
+.settings-menu ul li {
+    list-style-type: none;
+    padding: 16px 0;
+    color: white;
+}
+
+.settings-menu ul li:hover {
+    color:rgba(180, 180, 180, 1.0);
+}
+
+.settings-menu a {
+    text-decoration: none;
+}

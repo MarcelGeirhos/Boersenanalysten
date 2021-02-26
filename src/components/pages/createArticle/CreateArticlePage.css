@@ -18,6 +18,8 @@
 .create-article label {
     margin-bottom: 6px;
     font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
     display: block;
 }
 

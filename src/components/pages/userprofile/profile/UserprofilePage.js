@@ -40,7 +40,7 @@ function UserprofilePage() {
             <div className="user-profile-grid overview">
                 <p>Benutzername: {userData.username}</p>
                 <p>Portfolio: {userData.portfolioLink}</p>
-                <p>Beschreibung: {userData.userDescription}</p>
+                <p>Über mich: {userData.userDescription}</p>
             </div>
             <div className="user-profile-grid stats">
                 <div className="counter-stats">
