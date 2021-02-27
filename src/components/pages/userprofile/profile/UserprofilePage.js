@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 // own module imports
-import UserprofileNavigation from '../UserprofileNavigation';
-import TopTagSection from './topTagSection/TopTagSection';
 import firebaseConfig from '../../../../firebase/Config';
+import TopTagSection from './topTagSection/TopTagSection';
+import UserprofileNavigation from '../UserprofileNavigation';
 
 // css imports
 import './UserprofilePage.css';
@@ -17,7 +17,7 @@ function UserprofilePage() {
     const [userData, setUserData] = useState([]);
     const [memberSince, setMemberSince] = useState("");
     const dateOptions = { weekday: 'short', year: 'numeric', month: '2-digit', day: '2-digit' };
-    //user.uid
+    
     useEffect(() => {
         firebaseConfig.getUserState().then(user => {
             const fetchData = async () => {

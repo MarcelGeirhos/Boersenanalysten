@@ -32,12 +32,12 @@ function App() {
         <div className="navigation">
           <Navigation />
         </div>
-        <Route path="/settings/portfolioHistorySettings" component={PortfolioHistorySettingsPage} />
-        <Route path="/settings/deleteProfileSettings" component={DeleteProfileSettingsPage} />
-        <Route path="/settings/passwordSettings" component={PasswordSettingsPage} />
-        <Route path="/settings/profileSettings" component={ProfileSettingsPage} />
-        <Route path="/settings/emailSettings" component={EmailSettingsPage} />
-        <Route path="/portfolioHistory" component={PortfolioHistoryPage} />
+        <Route path="/settings/portfolioHistorySettings/:id" component={PortfolioHistorySettingsPage} />
+        <Route path="/settings/deleteProfileSettings/:id" component={DeleteProfileSettingsPage} />
+        <Route path="/settings/passwordSettings/:id" component={PasswordSettingsPage} />
+        <Route path="/settings/profileSettings/:id" component={ProfileSettingsPage} />
+        <Route path="/settings/emailSettings/:id" component={EmailSettingsPage} />
+        <Route path="/portfolioHistory/:id" component={PortfolioHistoryPage} />
         <Route path="/forgotPassword" component={ForgotPasswordPage} />
         <Route path="/createArticle" component={CreateArticlePage} />
         <Route path="/userprofile/:id" component={UserprofilePage} />

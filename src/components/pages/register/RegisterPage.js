@@ -38,9 +38,9 @@ function RegisterPage() {
                 uid: user.user.uid,
                 username: username,
                 email: email,
-                location: "",
+                domicile: "",
                 portfolioLink: "",
-                userDescription: "",
+                aboutMe: "",
                 shareCounter: 0,
                 answerCounter: 0,
                 articleCounter: 0,
@@ -49,6 +49,7 @@ function RegisterPage() {
             })
             .catch(error => {
                 console.log(error);
+                return null;
             });
             console.log(user);
             setRedirect(true);

@@ -25,11 +25,9 @@ function UserprofileNavigation() {
     return (
         <div className="user-profile-grid navigation">
             <nav>
-                {/* TODO hier weitermachen */}
-                {/* <Secondbutton link={{pathname: `/userprofile/${userState.uid}`}}>Profil</Secondbutton>*/}
-                <Secondbutton link="/userprofile">Profil</Secondbutton>
-                <Secondbutton link="/portfolioHistory/">Portfolio Historie</Secondbutton>
-                <Secondbutton link="/settings/profileSettings">Einstellungen</Secondbutton>
+                <Secondbutton link={{pathname: userState != null ? `/userprofile/${userState.uid}` : ``}}>Profil</Secondbutton>
+                <Secondbutton link={{pathname: userState != null ? `/portfolioHistory/${userState.uid}` : ``}}>Portfolio Historie</Secondbutton>
+                <Secondbutton link={{pathname: userState != null ? `/settings/profileSettings/${userState.uid}` : ``}}>Einstellungen</Secondbutton>
             </nav>
         </div>
     );
