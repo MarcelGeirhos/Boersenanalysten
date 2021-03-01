@@ -7,9 +7,6 @@ import firebaseConfig from '../../../firebase/Config';
 // css imports
 import './UserprofileNavigation.css';
 
-// third party imports
-import firebase from 'firebase/app';
-
 function UserprofileNavigation() {
     const [userState, setUserState] = useState(null);
 

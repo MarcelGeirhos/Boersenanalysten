@@ -49,7 +49,7 @@ function UserprofilePage() {
                     <p>{userData.articleCounter}<br/>Beiträge</p>
                     <p>{userData.portfolioArticleCounter}<br/>Portfoliobeiträge</p>
                 </div>
-                <p>Standort: {userData.location}</p>
+                <p>Wohnort: {userData.domicile}</p>
                 <p>Mitglied seit: {memberSince}</p>
             </div>
             <TopTagSection />

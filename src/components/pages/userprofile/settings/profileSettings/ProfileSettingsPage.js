@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // own module imports
 import SettingsMenu from './../settingsMenu/SettingsMenu';
-import firebaseConfig from '../../../../../firebase/Config';
 import UserprofileNavigation from '../../UserprofileNavigation';
 import ErrorText from '../../../../gui/outputs/errorText/ErrorText';
 import TextEditor from '../../../../gui/inputs/textEditor/TextEditor';
@@ -13,29 +12,18 @@ import './ProfileSettingsPage.css';
 
 // third party imports
 import firebase from 'firebase/app';
-import { useParams } from "react-router-dom";
 
 function ProfileSettingsPage() {
-    const { id } = useParams();
     const [userData, setUserData] = useState([]);
     const [username, setUsername] = useState("");
     const [domicile, setDomicile] = useState("");
     const [usernameErrorText, setUsernameErrorText] = useState("Error Text");
 
-    useEffect(() => {
-        firebaseConfig.getUserState().then(user => {
-            const fetchData = async () => {
-                await firebase.firestore().collection('users').doc(id).get().then(
-                    snapshot => {
-                        setUserData(snapshot.data());
-                    }).catch(error => {
-                        console.log('Error getting userData ', error);
-                    })
-            }
-            fetchData();
-        })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    // Verbindung zur SettingsMenu Komponente um auf die Benutzerdaten 
+    // Zugriff zu bekommen.
+    const callbackUserData = (userData) => {
+        setUserData(userData);
+    }
 
     const update = async () => {
         let isUsernameValid = checkUsername();
@@ -45,7 +33,7 @@ function ProfileSettingsPage() {
     }
 
     const updateProfile = async () => {
-        await firebase.firestore().collection('users').doc(id).update({
+        await firebase.firestore().collection('users').doc(userData.uid).update({
             username: username,
             domicile: domicile,
             aboutMe: "",    // TODO
@@ -75,7 +63,7 @@ function ProfileSettingsPage() {
     return (
         <div className="user-profile-grid-container">
             <UserprofileNavigation />
-            <SettingsMenu />
+            <SettingsMenu parentCallbackUserData={callbackUserData} />
             <div className="profile-settings-form">
                 <form onSubmit={update}>
                     <label>Benutzername:</label>
@@ -93,7 +81,7 @@ function ProfileSettingsPage() {
 
 export default ProfileSettingsPage;
 
-{/*
+/*
 import { useDispatch } from 'react-redux';
 
 const [userState, setUserState] = useState(null);
@@ -109,4 +97,4 @@ const [userState, setUserState] = useState(null);
 }
 
 <Secondbutton link="/" onClick={logout}>Logout</Secondbutton>
-*/}
+*/
