@@ -14,8 +14,10 @@ import firebase from 'firebase/app';
 
 function EmailSettingsPage() {
     const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [userData, setUserData] = useState([]);
     const [emailErrorText, setEmailErrorText] = useState("Error Text");
+    const [passwordErrorText, setPasswordErrorText] = useState("Error Text");
 
     // Verbindung zur SettingsMenu Komponente um auf die Benutzerdaten 
     // Zugriff zu bekommen.
@@ -26,24 +28,31 @@ function EmailSettingsPage() {
     const update = async () => {
         let isEmailValid = checkEmail();
         if (isEmailValid) {
-            await updateEmail();
+            changeEmail(password, email);
         }
     }
 
-    const updateEmail = async () => {
-        const user = firebase.auth().currentUser;
-        console.log(user);
-        user.updateEmail(email);
-        // TODO hier weitermachen Benutzer erneut einloggen siehe Medium Artikel wurde in Firefox Lesezeichen abgespeichert!
-        /*await firebase.firestore().collection('users').doc(userData.uid).update({
-            email: email,
-        })
-        .catch(error => {
-            console.log(error);
-            return null;
-        })
-        window.location.reload();
-        console.log('Email wurde erfolgreich aktualisiert.');*/
+    const changeEmail = (password, newEmail) => {
+        reauthenticateUser(password).then(() => {
+          var user = firebase.auth().currentUser;
+          user.updateEmail(newEmail).then(async () => {
+            await firebase.firestore().collection('users').doc(userData.uid).update({
+                email: email,
+            })
+            .then(() => {
+                window.location.reload();
+                console.log("E-Mail wurde erfolgreich aktualisiert.");
+            })
+            .catch(error => { console.log(error); })
+          }).catch((error) => { console.log(error); });
+        }).catch((error) => { console.log(error); });
+    }
+
+    const reauthenticateUser = (password) => {
+        var user = firebase.auth().currentUser;
+        var cred = firebase.auth.EmailAuthProvider.credential(
+            user.email, password);
+        return user.reauthenticateWithCredential(cred);
     }
 
     const checkEmail = () => {
@@ -56,17 +65,20 @@ function EmailSettingsPage() {
         return true;
     }
 
+    // TODO hier weitermachen Passwort Fehleingaben abfangen.
+
     return (
         <div className="user-profile-grid-container">
             <UserprofileNavigation />
             <SettingsMenu parentCallbackUserData={callbackUserData} />
             <div className="email-settings-form">
-                
-                    <label>E-Mail:</label>
-                    <InputfieldDark type="email" placeholder={userData.email} onChange={(e) => setEmail(e.target.value)} />
-                    <ErrorText id="email-error-text">{emailErrorText}</ErrorText>
-                    <input type="submit" value="Speichern" id="save-email-button" className="main-button" onClick={update}/>
-                
+                <label>E-Mail:</label>
+                <InputfieldDark type="email" placeholder={userData.email} onChange={(e) => setEmail(e.target.value)} />
+                <ErrorText id="email-error-text">{emailErrorText}</ErrorText>
+                <label>Passwort bestätigen:</label>
+                <InputfieldDark type="password" onChange={(e) => setPassword(e.target.value)} />
+                <ErrorText id="password-error-text">{passwordErrorText}</ErrorText>
+                <input type="submit" onClick={update} value="Speichern" id="save-email-button" className="main-button" />
             </div>
         </div>
     );
