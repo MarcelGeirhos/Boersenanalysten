@@ -61,7 +61,7 @@ function RegisterPage() {
             console.log(error.code);
             switch (error.code) {
                 case 'auth/email-already-in-use':
-                    setEmailErrorText('E-Mail Adresse wird bereits verwendet.');
+                    setEmailErrorText('E-Mail Adresse ist bereits registriert.');
                     document.getElementById("email-error-text").style.visibility = "visible";
                     break;
                 case 'auth/weak-password':

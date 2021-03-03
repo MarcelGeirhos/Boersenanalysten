@@ -6,6 +6,10 @@
     margin: 12px 0;
 }
 
+.email-settings-form p {
+    margin: 6px 0 16px 0;
+}
+
 .email-settings-form label:first-child {
     margin-top: 60px;
 }

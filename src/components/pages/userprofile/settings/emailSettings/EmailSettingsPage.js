@@ -27,25 +27,56 @@ function EmailSettingsPage() {
 
     const update = async () => {
         let isEmailValid = checkEmail();
-        if (isEmailValid) {
+        let isPasswordValid = checkPassword();
+        if (isEmailValid && isPasswordValid) {
             changeEmail(password, email);
         }
     }
 
     const changeEmail = (password, newEmail) => {
         reauthenticateUser(password).then(() => {
-          var user = firebase.auth().currentUser;
-          user.updateEmail(newEmail).then(async () => {
-            await firebase.firestore().collection('users').doc(userData.uid).update({
-                email: email,
+            const user = firebase.auth().currentUser;
+            user.updateEmail(newEmail).then(async () => {
+                await firebase.firestore().collection('users').doc(userData.uid).update({
+                    email: email,
+                })
+                    .then(() => {
+                        window.location.reload();
+                        console.log("E-Mail wurde erfolgreich aktualisiert.");
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
             })
-            .then(() => {
-                window.location.reload();
-                console.log("E-Mail wurde erfolgreich aktualisiert.");
-            })
-            .catch(error => { console.log(error); })
-          }).catch((error) => { console.log(error); });
-        }).catch((error) => { console.log(error); });
+                .catch((error) => {
+                    console.log(error.code);
+                    switch (error.code) {
+                        case 'auth/invalid-email':
+                            setEmailErrorText('E-Mail Adresse ist nicht richtig formatiert.');
+                            document.getElementById("email-error-text").style.visibility = "visible";
+                            break;
+                        case 'auth/email-already-in-use':
+                            setEmailErrorText('E-Mail Adresse ist bereits registriert.');
+                            document.getElementById("email-error-text").style.visibility = "visible";
+                            break;
+                        default:
+                            console.log('Unbekannter Fehler bei E-Mail Aktualisierung: ' + error);
+                            break;
+                    }
+                });
+        })
+            .catch((error) => {
+                console.log(error.code);
+                switch (error.code) {
+                    case 'auth/wrong-password':
+                        setPasswordErrorText('Das Passwort ist nicht korrekt.');
+                        document.getElementById("password-error-text").style.visibility = "visible";
+                        break;
+                    default:
+                        console.log('Unbekannter Fehler bei E-Mail Aktualisierung: ' + error);
+                        break;
+                }
+            });
     }
 
     const reauthenticateUser = (password) => {
@@ -57,7 +88,7 @@ function EmailSettingsPage() {
 
     const checkEmail = () => {
         if (email === "") {
-            setEmailErrorText('Bitte geben Sie eine E-Mail ein.');
+            setEmailErrorText('Bitte geben Sie eine neue E-Mail Adresse ein.');
             document.getElementById("email-error-text").style.visibility = "visible";
             return false;
         }
@@ -65,7 +96,19 @@ function EmailSettingsPage() {
         return true;
     }
 
-    // TODO hier weitermachen Passwort Fehleingaben abfangen.
+    const checkPassword = () => {
+        if (password === "") {
+            setPasswordErrorText('Bitte geben Sie ihr Passwort ein.');
+            document.getElementById("password-error-text").style.visibility = "visible";
+            return false;
+        } else if (password.length < 6) {
+            setPasswordErrorText('Das Passwort muss mindestens 6 Zeichen lang sein.');
+            document.getElementById("password-error-text").style.visibility = "visible";
+            return false;
+        }
+        document.getElementById("password-error-text").style.visibility = "hidden";
+        return true;
+    }
 
     return (
         <div className="user-profile-grid-container">
@@ -73,9 +116,9 @@ function EmailSettingsPage() {
             <SettingsMenu parentCallbackUserData={callbackUserData} />
             <div className="email-settings-form">
                 <label>E-Mail:</label>
-                <InputfieldDark type="email" placeholder={userData.email} onChange={(e) => setEmail(e.target.value)} />
+                <InputfieldDark type="email" value={userData.email} onChange={(e) => setEmail(e.target.value)} />
                 <ErrorText id="email-error-text">{emailErrorText}</ErrorText>
-                <label>Passwort bestätigen:</label>
+                <label>Mit Passwort bestätigen:</label>
                 <InputfieldDark type="password" onChange={(e) => setPassword(e.target.value)} />
                 <ErrorText id="password-error-text">{passwordErrorText}</ErrorText>
                 <input type="submit" onClick={update} value="Speichern" id="save-email-button" className="main-button" />
@@ -85,8 +128,3 @@ function EmailSettingsPage() {
 }
 
 export default EmailSettingsPage;
-
-/*
-<form onSubmit={update}>
-</form>
-*/

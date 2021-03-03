@@ -67,12 +67,12 @@ function ProfileSettingsPage() {
             <div className="profile-settings-form">
                 <form onSubmit={update}>
                     <label>Benutzername:</label>
-                    <InputfieldDark type="text" placeholder={userData.username} onChange={(e) => setUsername(e.target.value)} />
+                    <InputfieldDark type="text" value={userData.username} onChange={(e) => setUsername(e.target.value)} />
                     <ErrorText id="username-error-text">{usernameErrorText}</ErrorText>
                     <label>Wohnort:</label>
-                    <InputfieldDark type="text" placeholder={userData.domicile} onChange={(e) => setDomicile(e.target.value)} />
+                    <InputfieldDark type="text" value={userData.domicile} onChange={(e) => setDomicile(e.target.value)} />
                     <TextEditor title="Über mich:" />
-                    <input type="submit" value="ProfilSpeichern" id="save-profile-button" className="main-button" />
+                    <input type="submit" value="Profil Speichern" id="save-profile-button" className="main-button" />
                 </form>
             </div>
         </div>

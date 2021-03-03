@@ -36,10 +36,9 @@ function LoginPage() {
             console.log('Benutzer wurde erfolgreich eingeloggt.');
         })
         .catch(error => {
-            console.log(error.code);
             switch (error.code) {
                 case 'auth/invalid-email':
-                    setEmailErrorText('E-Mail Adresse ist nicht valid.');
+                    setEmailErrorText('E-Mail Adresse ist nicht richtig formatiert.');
                     document.getElementById("email-error-text").style.visibility = "visible";
                     break;
                 case 'auth/user-disabled':
@@ -55,7 +54,7 @@ function LoginPage() {
                     document.getElementById("password-error-text").style.visibility = "visible";
                     break;
                 default:
-                    console.log('Unbekannter Fehler beim Benutzer Login: ' + error.code);
+                    console.log('Unbekannter Fehler beim Benutzer Login: ' + error);
                     break;
             }
         });
