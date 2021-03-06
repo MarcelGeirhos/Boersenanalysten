@@ -55,8 +55,8 @@ function PasswordSettingsPage() {
     }
 
     const reauthenticateUser = (oldPassword) => {
-        var user = firebase.auth().currentUser;
-        var cred = firebase.auth.EmailAuthProvider.credential(
+        let user = firebase.auth().currentUser;
+        let cred = firebase.auth.EmailAuthProvider.credential(
             user.email, oldPassword);
         return user.reauthenticateWithCredential(cred);
     }

@@ -1,0 +1,33 @@
+.delete-profile-section {
+    margin: 0 20px 0 220px;
+}
+
+.delete-profile-section a {
+    margin-top: 20px;
+    display: block;
+}
+
+#password-label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin: 12px 0;
+}
+
+.delete-profile-section input:last-of-type {
+    width: 300px;
+}
+
+.delete-profile-section button {
+    background-color: rgba(255, 0, 0, 1.0);
+}
+
+.delete-profile-section button:hover {
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+.delete-profile-section button:disabled {
+    background-color: rgba(100, 100, 100, 1.0);
+    cursor: default;
+}
