@@ -46,16 +46,17 @@ function RegisterPage() {
                 articleCounter: 0,
                 portfolioArticleCounter: 0,
                 createdAt: new Date(),
+            }).then(() => {
+                console.log(user);
+                setRedirect(true);
+                window.location.reload();
+                console.log('Benutzer wurde erfolgreich registriert.');
+                return user;
             })
             .catch(error => {
                 console.log(error);
                 return null;
             });
-            console.log(user);
-            setRedirect(true);
-            window.location.reload();
-            console.log('Benutzer wurde erfolgreich registriert.');
-            return user;
         })
         .catch(error => {
             console.log(error.code);

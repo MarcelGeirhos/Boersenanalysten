@@ -34,12 +34,25 @@ function DeleteProfileSettingsPage() {
         if (isPasswordValid) {
             reauthenticateUser(password).then(() => {
                 let user = firebase.auth().currentUser;
-                console.log(user.uid);
-                firebase.firestore().collection("users").doc(user.uid).collection("articles").delete();
-                firebase.firestore().collection("users").doc(user.uid).collection("answers").delete();
+                firebase.firestore().collection("users").doc(user.uid).collection("articles").get().then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        firebase.firestore().collection("users").doc(user.uid).collection("articles").doc(doc.id).delete();
+                    });
+                });
+                firebase.firestore().collection("users").doc(user.uid).collection("answers").get().then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        firebase.firestore().collection("users").doc(user.uid).collection("answers").doc(doc.id).delete();
+                    });
+                });
                 firebase.firestore().collection("users").doc(user.uid).delete().then(() => {
                     user.delete().then(async () => {
-                        setRedirect(true);
+                        await firebase.auth().signOut().then(() => {
+                            setRedirect(true);
+                            window.location.reload();
+                        })
+                        .catch(error => {
+                            console.log(error); 
+                        });
                     }).catch((error) => {
                         console.log(error.code);
                     });

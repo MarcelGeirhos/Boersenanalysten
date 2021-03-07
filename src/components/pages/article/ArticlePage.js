@@ -47,18 +47,23 @@ function ArticlePage() {
             console.log(text);
             setArticleText(text);
 
-            // Aktuelle Benutzer Daten werden ausgelesen und gesetzt 
-            firebaseConfig.getUserState().then(user => {
-                const getUser = async () => {
-                    await firebase.firestore().collection('users').doc(user.uid).get().then(
-                        snapshot => {
-                            setUserData(snapshot.data());
-                        }).catch(error => {
-                            console.log('Error getting userData ', error);
-                        })
-                }
-                getUser();
-            })
+            // Aktuelle Benutzer Daten werden ausgelesen und gesetzt, wenn Benutzer eingeloggt ist.
+            const user = firebase.auth().currentUser;
+            if (user) {
+                firebaseConfig.getUserState().then(user => {
+                    const getUser = async () => {
+                        await firebase.firestore().collection('users').doc(user.uid).get().then(
+                            snapshot => {
+                                setUserData(snapshot.data());
+                            }).catch(error => {
+                                console.log('Error getting userData ', error);
+                            })
+                    }
+                    getUser();
+                })
+            } else {
+                // TODO muss noch implementiert werden
+            }
         }
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
