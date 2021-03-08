@@ -35,8 +35,7 @@ function PasswordSettingsPage() {
             user.updatePassword(newPassword).then(async () => {
                 window.location.reload();
                 console.log("Passwort wurde erfolgreich aktualisiert.");
-            })
-            .catch((error) => {
+            }).catch((error) => {
                  console.log(error.code);
             });
         })
@@ -111,7 +110,7 @@ function PasswordSettingsPage() {
         <div className="user-profile-grid-container">
             <UserprofileNavigation />
             <SettingsMenu />
-            <div className="email-settings-form">
+            <div className="passwort-settings-form">
                 <label>Altes Passwort:</label>
                 <InputfieldDark type="password" onChange={(e) => setOldPassword(e.target.value)} />
                 <ErrorText id="old-password-error-text">{oldPasswordErrorText}</ErrorText>

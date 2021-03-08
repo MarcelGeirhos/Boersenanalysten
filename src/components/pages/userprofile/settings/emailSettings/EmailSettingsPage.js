@@ -111,7 +111,7 @@ function EmailSettingsPage() {
     }
 
     return (
-        <div className="user-profile-grid-container">
+        <div className="email-settings">
             <UserprofileNavigation />
             <SettingsMenu parentCallbackUserData={callbackUserData} />
             <div className="email-settings-form">
@@ -124,7 +124,10 @@ function EmailSettingsPage() {
                 <input type="submit" onClick={update} value="Speichern" id="save-email-button" className="main-button" />
             </div>
         </div>
+        
     );
 }
 
 export default EmailSettingsPage;
+
+ {/*<div className="user-profile-grid-container"> </div>*/}

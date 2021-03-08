@@ -49,15 +49,14 @@ function DeleteProfileSettingsPage() {
                         await firebase.auth().signOut().then(() => {
                             setRedirect(true);
                             window.location.reload();
-                        })
-                        .catch(error => {
-                            console.log(error); 
+                        }).catch(error => {
+                            console.log(error.code); 
                         });
                     }).catch((error) => {
                         console.log(error.code);
                     });
                 }).catch((error) => {
-                    console.log(error);
+                    console.log(error.code);
                 });
             }).catch((error) => {
                 console.log(error.code);

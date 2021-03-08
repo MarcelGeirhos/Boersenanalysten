@@ -1,6 +1,7 @@
 .settings-menu {
+    display: inline-block;
     border: 2px solid rgba(255, 255, 255, 0.1);
-    width: 300px;
+    grid-column: 1 / 1;
 }
 
 .settings-menu ul li {

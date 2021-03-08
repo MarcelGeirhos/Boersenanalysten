@@ -1,3 +1,8 @@
+.email-settings {
+    padding: 50px 5% 0 5%;
+    color: white;
+}
+
 .email-settings-form label {
     display: block;
     font-size: 18px;
