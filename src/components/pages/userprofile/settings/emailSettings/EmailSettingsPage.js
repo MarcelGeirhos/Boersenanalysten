@@ -111,7 +111,7 @@ function EmailSettingsPage() {
     }
 
     return (
-        <div className="email-settings">
+        <div className="user-profile-grid-container">
             <UserprofileNavigation />
             <SettingsMenu parentCallbackUserData={callbackUserData} />
             <div className="email-settings-form">

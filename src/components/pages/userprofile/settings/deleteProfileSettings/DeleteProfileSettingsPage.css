@@ -1,8 +1,9 @@
-.delete-profile-section {
-    margin: 0 20px 0 220px;
+.delete-profile-form {
+    margin: 0 80px;
+    grid-column: 2 / 6;
 }
 
-.delete-profile-section a {
+.delete-profile-form a {
     margin-top: 20px;
     display: block;
 }
@@ -15,19 +16,19 @@
     margin: 12px 0;
 }
 
-.delete-profile-section input:last-of-type {
+.delete-profile-form input:last-of-type {
     width: 300px;
 }
 
-.delete-profile-section button {
+.delete-profile-form button {
     background-color: rgba(255, 0, 0, 1.0);
 }
 
-.delete-profile-section button:hover {
+.delete-profile-form button:hover {
     background-color: rgba(255, 0, 0, 0.7);
 }
 
-.delete-profile-section button:disabled {
+.delete-profile-form button:disabled {
     background-color: rgba(100, 100, 100, 1.0);
     cursor: default;
 }

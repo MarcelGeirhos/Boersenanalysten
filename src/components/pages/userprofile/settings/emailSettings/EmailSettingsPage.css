@@ -3,6 +3,11 @@
     color: white;
 }
 
+.email-settings-form {
+    margin: 0 80px;
+    grid-column: 2 / 6;
+}
+
 .email-settings-form label {
     display: block;
     font-size: 18px;

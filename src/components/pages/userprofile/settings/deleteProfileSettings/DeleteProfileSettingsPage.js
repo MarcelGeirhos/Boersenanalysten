@@ -103,7 +103,7 @@ function DeleteProfileSettingsPage() {
         <div className="user-profile-grid-container">
             <UserprofileNavigation />
             <SettingsMenu />
-            <div className="delete-profile-section">
+            <div className="delete-profile-form">
                 <h1>Profil löschen</h1>
                 <p>Bevor Sie ihr Profil löschen beachten Sie bitte folgende Informationen:</p>
                 <ul>

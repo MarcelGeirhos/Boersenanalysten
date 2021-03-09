@@ -12,7 +12,9 @@ function PortfolioHistorySettingsPage() {
         <div className="user-profile-grid-container">
             <UserprofileNavigation />
             <SettingsMenu />
-            <h1>Portfolio Historie Einstellungen</h1>
+            <div className="portfolio-history-settings-form">
+                <h1>Portfolio Historie Einstellungen</h1>
+            </div>
         </div>
     );
 }
