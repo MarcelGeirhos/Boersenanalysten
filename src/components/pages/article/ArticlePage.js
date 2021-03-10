@@ -92,6 +92,9 @@ function ArticlePage() {
             await firebase.firestore().collection('articles').doc(id).update({
                 answerCounter: articleData.answerCounter + 1,
             });
+            await firebase.firestore().collection('users').doc(userData.uid).collection('answers').doc(newAnswerRef.id).set({
+                articleRef: firebase.firestore().doc(`/articles/${articleRef.id}/answers/${newAnswerRef.id}`),
+            })
             window.location.reload();
             console.log('Neue Antwort wurde erfolgreich erstellt.');
         } else {

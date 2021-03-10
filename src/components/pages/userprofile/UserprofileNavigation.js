@@ -9,7 +9,7 @@ import './UserprofileNavigation.css';
 
 function UserprofileNavigation() {
     const [userState, setUserState] = useState(null);
-
+    
     useEffect(() => {
         firebaseConfig.getUserState().then(user => {
             const getUser = async () => {
@@ -31,3 +31,10 @@ function UserprofileNavigation() {
 }
 
 export default UserprofileNavigation;
+
+{/*<Tabs value={value}>
+    <Tab to={{pathname: userState != null ? `/userprofile/${userState.uid}` : ``}} label="Profil" component={Link} />
+    <Tab value={1} label="second" containerElement={<Link to={{pathname: userState != null ? `/portfolioHistory/${userState.uid}` : ``}}/>}/>
+    <Tab to={{pathname: userState != null ? `/portfolioHistory/${userState.uid}` : ``}} label="Portfolio Historie" component={Link} />
+    <Tab to={{pathname: userState != null ? `/settings/profileSettings/${userState.uid}` : ``}} label="Einstellungen" component={Link} />
+</Tabs>*/}

@@ -21,43 +21,69 @@ function PortfolioHistoryPage() {
     return (
         <div className="user-profile-grid-container">
             <UserprofileNavigation />
-            <Timeline align="alternate">
-                <TimelineItem>
-                    <TimelineSeparator>
-                        <TimelineDot />
-                        <TimelineConnector />
-                    </TimelineSeparator>
-                    <TimelineContent>
-                        <Paper elevation={3} className="paper">
-                            Portfoliobeitrag 1
-                        </Paper>
-                    </TimelineContent>
-                </TimelineItem>
+            <div className="portfolio-timeline">
+                <Timeline align="alternate">
+                    <TimelineItem>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <div className="portfolio-timeline-content">
+                                Portfoliobeitrag 1
+                            </div>
+                        </TimelineContent>
+                    </TimelineItem>
 
-                <TimelineItem>
-                    <TimelineSeparator>
-                        <TimelineDot />
-                        <TimelineConnector />
-                    </TimelineSeparator>
-                    <TimelineContent>Portfoliobeitrag 2</TimelineContent>
-                </TimelineItem>
+                    <TimelineItem>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <div className="portfolio-timeline-content">
+                                Portfoliobeitrag 2
+                            </div>
+                        </TimelineContent>
+                    </TimelineItem>
 
-                <TimelineItem>
-                    <TimelineSeparator>
-                        <TimelineDot />
-                        <TimelineConnector />
-                    </TimelineSeparator>
-                    <TimelineContent>Portfoliobeitrag 3</TimelineContent>
-                </TimelineItem>
+                    <TimelineItem>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <div className="portfolio-timeline-content">
+                                Portfoliobeitrag 3
+                            </div>
+                        </TimelineContent>
+                    </TimelineItem>
 
-                <TimelineItem>
-                    <TimelineSeparator>
-                        <TimelineDot />
-                        <TimelineConnector />
-                    </TimelineSeparator>
-                    <TimelineContent>Portfoliobeitrag 4</TimelineContent>
-                </TimelineItem>
-            </Timeline>
+                    <TimelineItem>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <div className="portfolio-timeline-content">
+                                Portfoliobeitrag 4
+                            </div>
+                        </TimelineContent>
+                    </TimelineItem>
+
+                    <TimelineItem>
+                        <TimelineSeparator>
+                            <TimelineDot />
+                            <TimelineConnector />
+                        </TimelineSeparator>
+                        <TimelineContent>
+                            <div className="portfolio-timeline-content">
+                                Portfoliobeitrag 5
+                            </div>
+                        </TimelineContent>
+                    </TimelineItem>
+                </Timeline>
+            </div>
         </div>
     );
 }

@@ -64,8 +64,11 @@ function CreateArticlePage() {
                 creator: userData.username,
                 creatorId: userData.uid,
             })
+            await firebase.firestore().collection('users').doc(userData.uid).collection('articles').doc(newArticleRef.id).set({
+                articleRef: firebase.firestore().doc(`/articles/${newArticleRef.id}`),
+            })
             setRedirect(true);
-            console.log('Neuer Artikel wurde erstellt.');
+            console.log('Neuer Artikel wurde erfolgreich erstellt.');
         } else {
             console.log("Leere Eingabefelder");
         }
