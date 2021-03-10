@@ -1,13 +1,13 @@
 .icon-button {
     background-color: rgba(105, 105, 255, 0.0);
-    border-radius: 3px;
+    border-radius: 48px;
     padding-top: 4px;
     color: white;
     border: none;
 }
 
 .icon-button:hover {
-    background-color:rgba(105, 105, 255, 0.2);
+    background-color:rgba(105, 105, 255, 0.4);
     cursor: pointer;
 }
 

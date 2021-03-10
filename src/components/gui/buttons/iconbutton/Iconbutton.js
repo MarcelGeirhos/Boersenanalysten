@@ -9,7 +9,9 @@ import { Link } from 'react-router-dom';
 function Iconbutton(props) {
     return (
         <Link to={props.link}>
-            <button className="icon-button" onClick={props.onClick}>{props.children}</button>
+            <button
+                className="icon-button"
+                onClick={props.onClick}>{props.children}</button>
         </Link>
     )
 }

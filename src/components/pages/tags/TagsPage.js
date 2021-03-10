@@ -21,11 +21,17 @@ function TagsPage() {
         fetchData();
     }, [])
 
+    // Verbindung zu TagInput Komponente um auf die eingegebenen Tags 
+    // Zugriff zu bekommen.
+    const callbackTags = (tags) => {
+        // TODO muss noch implementiert werden!
+    }
+
     return (
         <div className="tags">
             <h1>Tags</h1>
             <label>Tags:</label>
-            <TagInput />
+            <TagInput parentCallbackTags={callbackTags} />
             <div className="tag-section">
             {
             tagList.map(tag => (
