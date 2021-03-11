@@ -36,6 +36,10 @@ function Navigation() {
         })
     })
 
+    // Wenn der Benutzer nicht registriert oder eingeloggt ist wird
+    // ihm ein Button für den Login und die Registrierung angezeigt.
+    // Wenn der Benuter eingeloggt ist werden ihm Buttons zu seinem
+    // Profil, Nachrichten und zur Hilfe angezeigt.
     let buttons;
     if ((loginSelector.user && loginSelector.user.hasOwnProperty("user")) ||
         (registerSelector.user && registerSelector.user.hasOwnProperty("user")) ||

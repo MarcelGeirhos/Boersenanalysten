@@ -36,7 +36,6 @@ function FilterSettings() {
     return (
         <div className="filter-settings">
             <div>
-                <label>Tags:</label>
                 <TagInput parentCallbackTags={callbackTags} />
                 <label>Zeitraum:</label>
                 <input type="date" id="filter-start-date" min="01.01.2021" max="04.01.2021" />

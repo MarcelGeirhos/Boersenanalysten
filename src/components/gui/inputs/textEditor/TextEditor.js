@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 
-// own module imports
-import ErrorText from '../../outputs/errorText/ErrorText';
-
 // css imports
 import './TextEditor.css';
 
@@ -16,16 +13,13 @@ import {
     FormatUnderlined,
 } from '@material-ui/icons';
 
-function TextEditor(props) {
+const TextEditor = ({ title, parentCallbackText }) => {
     const [selectedImages, setSelectedImage] = useState([])
-    const [errorText] = useState("");   // TODO , setErrorText
-    const [setText] = useState("");     // TODO text, 
 
     const imageChangeHandler = (e) => {
         console.log(e.target.files)
         if (e.target.files) {
             const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file))
-            console.log(fileArray)
             setSelectedImage((prevImages) => prevImages.concat(fileArray))
             Array.from(e.target.files).map(
                 (file) => URL.revokeObjectURL(file)
@@ -39,15 +33,19 @@ function TextEditor(props) {
         })
     }
 
+    const setText = () => {
+        parentCallbackText(document.getElementById('text').innerHTML);
+    }
+
     // Setzt die Eigenschaft die übergeben wird
     // Beispiel: bold = fetter Text (<b></b>)
-    function editorButtonsHandler(property) {
+    const editorButtonsHandler = (property) => {
         document.execCommand(property, false);
     }
 
     return (
         <div className="editor">
-            <label>{props.title}</label>
+            <label>{title}</label>
             <div className="editor-menuebar">
                 <button className="editor-button" onClick={() => editorButtonsHandler('bold')}><FormatBold /></button>
                 <button className="editor-button" onClick={() => editorButtonsHandler('italic')}><FormatItalic /></button>
@@ -58,9 +56,11 @@ function TextEditor(props) {
                 <input type="file" multiple id="file" onChange={imageChangeHandler}></input>
                 {renderPhotos(selectedImages)}
             </div>
-            {/*onSubmit={(e) => setArticleText(document.getElementById('articleText').innerHTML)*/}
-            <div className="editor-for-text" id="text" contentEditable onChange={(e) => setText(e.target.value)}></div>
-            <ErrorText id="error-text">{errorText}</ErrorText>
+            <div
+                className="editor-for-text"
+                id="text" contentEditable="true"
+                onKeyUp={() => setText()}>
+            </div>
         </div>
     )
 }

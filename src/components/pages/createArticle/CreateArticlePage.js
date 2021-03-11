@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import InputfieldDark from '../../gui/inputs/inputfieldDark/InputfieldDark';
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
 import ErrorText from '../../gui/outputs/errorText/ErrorText';
+import TagInput from '../../gui/inputs/tagInput/TagInput';
 import firebaseConfig from '../../../firebase/Config';
 
 // css imports
@@ -14,16 +15,12 @@ import '../../gui/inputs/tagInput/TagInput.css';
 import { Redirect } from 'react-router-dom';
 import firebase from 'firebase/app';
 
-// material-ui icon imports
-import {
-    Cancel,
-    PostAdd,
-} from '@material-ui/icons';
-
 function CreateArticlePage() {
     const [title, setTitle] = useState("");
+    const [editorText, setEditorText] = useState("");
     const [tags, setTags] = useState([]);
     const [titleErrorText, setTitleErrorText] = useState("ErrorText");
+    const [editorErrorText, setEditorErrorText] = useState("ErrorText");
     const [tagErrorText, setTagErrorText] = useState("ErrorText");
     const [userData, setUserData] = useState([]);
     const [routeRedirect, setRedirect] = useState(false);
@@ -48,6 +45,7 @@ function CreateArticlePage() {
     // geschrieben z.B. fetter Text oder unnummerierte Listen.
     async function createNewArticle() {
         let isTitleValid = checkTitel();
+        let isEditorTextValid = checkEditorText();
         let isTagValid = checkTags();
         if (isTitleValid && document.getElementById('text').innerHTML !== "" && isTagValid) {
             const newArticle = await firebase.firestore().collection('articles').doc();
@@ -84,6 +82,16 @@ function CreateArticlePage() {
         return true;
     }
 
+    const checkEditorText = () => {
+        if (editorText === "") {
+            setEditorErrorText('Bitte geben Sie einen Text ein.');
+            document.getElementById("editor-error-text").style.visibility = "visible";
+            return false;
+        }
+        document.getElementById("editor-error-text").style.visibility = "hidden";
+        return true;
+    }
+
     const checkTags = () => {
         if (tags.length === 0) {
             setTagErrorText('Bitte geben Sie mindestens einen Tag an, damit ihr Beitrag besser gefunden werden kann.');
@@ -99,16 +107,16 @@ function CreateArticlePage() {
         return <Redirect to="/articlelist" />
     }
 
-    const addTag = () => {
-        let tag = document.getElementById('tag-inputfield').value;
-        if (tag !== "") {
-            setTags([...tags, tag]);
-            document.getElementById('tag-inputfield').value = "";
-        }
+    // Verbindung zu TagInput Komponente um auf die eingegebenen Tags 
+    // Zugriff zu bekommen.
+    const callbackTags = (tags) => {
+        setTags(tags);
     }
 
-    const removeTag = indexToRemove => {
-        setTags(tags.filter((_, index) => index !== indexToRemove));
+    // Verbindung zu TagInput Komponente um auf die eingegebenen Tags 
+    // Zugriff zu bekommen.
+    const callbackEditorText = (editorText) => {
+        setEditorText(editorText);
     }
 
     return (
@@ -119,25 +127,16 @@ function CreateArticlePage() {
                 <InputfieldDark type="text" placeholder="Beitragstitel..." onChange={(e) => setTitle(e.target.value)} ></InputfieldDark>
                 <ErrorText id="title-error-text">{titleErrorText}</ErrorText>
             </div>
-            <TextEditor title="Beitrag:" />
-            <label>Tags:</label>
-            <div className="tags-input">
-                <input type="text" id="tag-inputfield" placeholder="z.B. Dividendenaktien, Amazon, USA, ..." onKeyUp={e => (e.key === "Enter" ? addTag() : null)} />
-                <button onClick={() => addTag()}><PostAdd /></button>
-                <ErrorText id="tag-error-text">{tagErrorText}</ErrorText>
-            </div>
-            <ul id="tags">
-            {
-                tags.map((tag, index) => (
-                    <li key={index} className="tag-listitem">
-                    <span className="tag-title">{tag}</span>
-                    <span className="tag-close-icon" onClick={() => removeTag(index)}><Cancel /></span>
-                </li>)
-                )
-            }
-            </ul>
+            <TextEditor title="Beitrag:" parentCallbackText={callbackEditorText}/>
+            <ErrorText id="editor-error-text">{editorErrorText}</ErrorText>
+            <TagInput parentCallbackTags={callbackTags} />
+            <ErrorText id="tag-error-text">{tagErrorText}</ErrorText>
             <div>
-                <input value="Beitrag erstellen" id="create-article-button" className="main-button" onClick={() => createNewArticle()}/>
+                <input
+                    value="Beitrag erstellen"
+                    id="create-article-button"
+                    className="main-button"
+                    onClick={() => createNewArticle()}/>
             </div>
         </div>
     );

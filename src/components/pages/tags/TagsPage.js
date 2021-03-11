@@ -30,7 +30,6 @@ function TagsPage() {
     return (
         <div className="tags">
             <h1>Tags</h1>
-            <label>Tags:</label>
             <TagInput parentCallbackTags={callbackTags} />
             <div className="tag-section">
             {

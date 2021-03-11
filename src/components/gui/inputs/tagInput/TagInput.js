@@ -4,11 +4,9 @@ import React, { useState } from 'react';
 import './TagInput.css';
 
 // material-ui icon imports
-import { Cancel } from '@material-ui/icons';
-
-// material-ui icon imports
-import {
-    PostAdd,
+import { 
+    Cancel,
+    PostAdd
 } from '@material-ui/icons';
 
 const TagInput = ({ parentCallbackTags }) => {
@@ -18,7 +16,7 @@ const TagInput = ({ parentCallbackTags }) => {
         let tag = document.getElementById('tag-inputfield').value;
         if (tag !== "") {
             setTags([...tags, tag]);
-            parentCallbackTags(tags);
+            parentCallbackTags([...tags, tag]);
             document.getElementById('tag-inputfield').value = "";
         }
     }
@@ -29,8 +27,13 @@ const TagInput = ({ parentCallbackTags }) => {
 
     return (
         <div>
+            <label>Tags:</label>
             <div className="tags-input">
-                <input type="text" id="tag-inputfield" placeholder="z.B. Dividendenaktien, Amazon, USA, ......" onKeyUp={e => (e.key === "Enter" ? addTag(e) : null)} />
+                <input
+                    type="text"
+                    id="tag-inputfield"
+                    placeholder="z.B. Dividendenaktien, Amazon, USA, ..."
+                    onKeyUp={e => (e.key === "Enter" ? addTag(e) : null)} />
                 <button onClick={() => addTag()}><PostAdd /></button>
             </div>
             <ul id="tags">
@@ -38,7 +41,9 @@ const TagInput = ({ parentCallbackTags }) => {
             tags.map((tag, index) => (
                 <li key={index} className="tag-listitem">
                     <span className="tag-title">{tag}</span>
-                    <span className="tag-close-icon" onClick={() => removeTags(index)}><Cancel /></span>
+                    <span
+                        className="tag-close-icon"
+                        onClick={() => removeTags(index)}><Cancel /></span>
                 </li>
                 )
             )

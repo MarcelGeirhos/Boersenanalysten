@@ -3,7 +3,7 @@
     display: flex;
     margin: 10px 0;
     padding: 20px 0 20px 20px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .answeritem a {
@@ -16,5 +16,5 @@
 }
 
 .answertext {
-    margin: 10px 20px;
+    margin: 10px 160px 10px 20px;
 }

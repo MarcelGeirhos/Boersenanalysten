@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 import ArticleVoting from './voting/articleVoting/ArticleVoting';
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
 import Tagbutton from '../../gui/buttons/tagbutton/Tagbutton';
-import Answeritem from './answeritem/Answeritem';
+import ErrorText from '../../gui/outputs/errorText/ErrorText';
 import firebaseConfig from '../../../firebase/Config';
+import Answeritem from './answeritem/Answeritem';
 
 // css imports
 import './ArticlePage.css';
@@ -19,8 +20,10 @@ function ArticlePage() {
     const [tagList, setTagList] = useState([]);
     const [userData, setUserData] = useState([]);
     const [answerList, setAnswerList] = useState([]);
+    const [editorText, setEditorText] = useState("");
     const [articleData, setArticleData] = useState("");
     const [articleText, setArticleText] = useState("");
+    const [answerErrorText, setErrorAnswerText] = useState("");
     const [answerCreatedAt, setAnswerCreatedAt] = useState([]);
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
     const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
@@ -71,13 +74,10 @@ function ArticlePage() {
 
     // Der Antwort Text wird mit allen Eigenschaften die vom
     // Benutzer mit dem Editor gesetzt wurden in die Datenbank
-    // geschrieben z.B. fetter Text oder unnummerierte Listen.
+    // geschrieben z.B. fetter Text oder unnummerierte Listen, etc. .
     const createNewAnswer = async (e) => {
-        e.preventDefault();
-        // TODO hier weitermachen Link zu StackOverflow Beitrag:
-        // https://stackoverflow.com/questions/38402025/how-to-create-helper-file-full-of-functions-in-react-native
-        //checkText();
-        if (true) {
+        let isAnswerTextValid = checkAnswerText();
+        if (isAnswerTextValid) {
             const article = await firebase.firestore().collection('articles').doc(id);
             const articleRef = await article.get();
             const newAnswerRef = await firebase.firestore().collection('articles').doc(articleRef.id).collection('answers').doc();
@@ -102,15 +102,21 @@ function ArticlePage() {
         }
     }
 
-    /*const checkText = () => {
-        if (text === "") {
-            setErrorText('Bitte geben Sie einen Text ein.');
-            document.getElementById("error-text").style.visibility = "visible";
+    // Verbindung zu TagInput Komponente um auf die eingegebenen Tags 
+    // Zugriff zu bekommen.
+    const callbackEditorText = (editorText) => {
+        setEditorText(editorText);
+    }
+
+    const checkAnswerText = () => {
+        if (editorText === "") {
+            setErrorAnswerText('Bitte geben Sie ihre Antwort ein.');
+            document.getElementById("answer-error-text").style.visibility = "visible";
             return false;
         }
-        document.getElementById("error-text").style.visibility = "hidden";
+        document.getElementById("answer-error-text").style.visibility = "hidden";
         return true;
-    }*/
+    }
 
     return (
         <div className="article-page">
@@ -143,12 +149,15 @@ function ArticlePage() {
                     createdAt={answerCreatedAt[index]}></Answeritem>
             ))
             }
-            <form onSubmit={createNewAnswer}>
-                <TextEditor title="Antwort:" />
-                <div>
-                    <input type="submit" value="Antwort erstellen" id="create-answer-button" className="main-button" />
-                </div>
-            </form>
+            <TextEditor title="Antwort:" parentCallbackText={callbackEditorText}/>
+            <ErrorText id="answer-error-text">{answerErrorText}</ErrorText>
+            <div>
+                <input
+                    value="Antwort erstellen"
+                    id="create-answer-button"
+                    className="main-button"
+                    onClick={() => createNewAnswer()} />
+            </div>
         </div>
     );
 }

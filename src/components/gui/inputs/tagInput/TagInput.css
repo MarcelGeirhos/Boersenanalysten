@@ -21,6 +21,7 @@
 }
 
 .tags-input button:hover {
+	background-color:rgba(105, 105, 255, 0.4);
     cursor: pointer;
 }
 

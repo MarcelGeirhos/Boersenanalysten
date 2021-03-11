@@ -32,7 +32,7 @@
     display: flex;
     margin: 10px 0;
     padding: 12px 0 0 20px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .article-section a button {
@@ -72,4 +72,12 @@
 
 #create-answer-button {
     margin-bottom: 24px;
+    text-align: center;
+    width: 140px;
+}
+
+#answer-error-text {
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: red;
 }

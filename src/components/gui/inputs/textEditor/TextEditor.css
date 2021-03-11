@@ -48,6 +48,7 @@
     font-family: arial;
     line-height: 1.2em;
     border-radius: 4px;
+    overflow-y: scroll;
 }
 
 .editor-for-text:focus {

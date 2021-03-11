@@ -15,7 +15,6 @@ import {
     TimelineItem,
     TimelineSeparator
 } from '@material-ui/lab';
-import Paper from '@material-ui/core/Paper';
 
 function PortfolioHistoryPage() {
     return (
