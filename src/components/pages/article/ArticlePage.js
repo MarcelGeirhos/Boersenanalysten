@@ -118,12 +118,6 @@ function ArticlePage() {
         }
     }
 
-    // Verbindung zu Editor Komponente um auf den eingegebenen Antworttext 
-    // Zugriff zu bekommen.
-    const callbackEditorText = (answerText) => {
-        setAnswerText(answerText);
-    }
-
     const isAnswerTextValid = () => {
         if (answerText === "") {
             setErrorAnswerText('Bitte geben Sie ihre Antwort ein.');
@@ -133,6 +127,12 @@ function ArticlePage() {
         }
         document.getElementById("answer-error-text").style.visibility = "hidden";
         return true;
+    }
+
+    // Verbindung zu Editor Komponente um auf den eingegebenen Antworttext 
+    // Zugriff zu bekommen.
+    const callbackEditorText = (answerText) => {
+        setAnswerText(answerText);
     }
 
     const handleClickOpen = () => {
@@ -160,6 +160,42 @@ function ArticlePage() {
         return <Redirect to="/articleList" />
     }
 
+    let articleActionButtons;
+    if (userData.uid === articleData.creatorId) {
+        articleActionButtons = (
+            <div>
+                <Button>Bearbeiten</Button>
+                <Button onClick={handleClickOpen}>Löschen</Button>
+                <Dialog
+                    PaperProps={{
+                        style: {
+                            backgroundColor: '#212121',
+                        },
+                    }}
+                    open={openDialog}
+                    onClose={handleClose}
+                    TransitionComponent={DialogTransition}
+                    keepMounted
+                    disabled>
+                    <DialogTitle className="dialog-title">Beitrag löschen?</DialogTitle>
+                    <DialogContent className="dialog-content">
+                        <DialogContentText>
+                            Wollen Sie den Beitrag wirklich unwideruflich löschen?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions className="dialog-actions">
+                        <Button onClick={handleClose}>Nein</Button>
+                        <Button onClick={deleteArticle}>Ja</Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
+        )
+    } else {
+        articleActionButtons = (
+            <div></div>
+        )
+    }
+
     return (
         <div className="article-page">
             <div className="article-section">
@@ -172,32 +208,7 @@ function ArticlePage() {
                             <Tagbutton>{tag}</Tagbutton>
                         ))
                     }
-                    <div>
-                        <Button>Bearbeiten</Button>
-                        <Button onClick={handleClickOpen}>Löschen</Button>
-                        <Dialog
-                            PaperProps={{
-                                style: {
-                                    backgroundColor: '#212121',
-                                },
-                            }}
-                            open={openDialog}
-                            onClose={handleClose}
-                            TransitionComponent={DialogTransition}
-                            keepMounted
-                            disabled>
-                            <DialogTitle className="dialog-title">Beitrag löschen?</DialogTitle>
-                            <DialogContent className="dialog-content">
-                                <DialogContentText>
-                                    Wollen Sie den Beitrag wirklich unwideruflich löschen?
-                                </DialogContentText>
-                            </DialogContent>
-                            <DialogActions className="dialog-actions">
-                                <Button onClick={handleClose}>Nein</Button>
-                                <Button onClick={deleteArticle}>Ja</Button>
-                            </DialogActions>
-                        </Dialog>
-                    </div>
+                    {articleActionButtons}
                 </div>
                 <div className="user-info-section">
                     <p>{articleCreatedAt}</p>
@@ -210,10 +221,12 @@ function ArticlePage() {
             {
                 answerList.map((answer, index) => (
                     <Answeritem id={answer.id}
+                        articleId={id}
                         answerText={answer.answerText}
                         voting={answer.voting}
                         creator={answer.creator}
                         creatorId={answer.creatorId}
+                        currentUserId={userData.uid}
                         createdAt={answerCreatedAt[index]}></Answeritem>
                 ))
             }
