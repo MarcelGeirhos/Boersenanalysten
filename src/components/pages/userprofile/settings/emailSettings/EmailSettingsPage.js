@@ -129,5 +129,3 @@ function EmailSettingsPage() {
 }
 
 export default EmailSettingsPage;
-
- {/*<div className="user-profile-grid-container"> </div>*/}

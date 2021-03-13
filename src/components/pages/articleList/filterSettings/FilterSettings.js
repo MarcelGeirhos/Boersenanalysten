@@ -8,12 +8,12 @@ import Mainbutton from '../../../gui/buttons/mainbutton/Mainbutton';
 import './FilterSettings.css';
 
 // third party imports
-import firebase from 'firebase/app';
+//import firebase from 'firebase/app';
 
-function FilterSettings() {
+const FilterSettings = () => {
     const filterArticleList = async (tags) => {
         console.log(tags);
-        const articles = await firebase.firestore().collection('articles');
+        /*const articles = await firebase.firestore().collection('articles');
         tags.map((tag) => {
             console.log(tag);
             const filteredArticles = articles.where("tags", "==", tag).get().then((querySnapshot) => {
@@ -24,7 +24,7 @@ function FilterSettings() {
             // davor Daten richtig auslesen.
             console.log(filteredArticles);
         });
-        })
+        })*/
     }
 
     // Verbindung zu TagInput Komponente um auf die eingegebenen Tags 

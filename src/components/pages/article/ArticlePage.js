@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // own module imports
+import ChoiceDialog from '../../gui/outputs/dialogs/choiceDialog/ChoiceDialog';
 import ArticleVoting from './voting/articleVoting/ArticleVoting';
 import TextEditor from '../../gui/inputs/textEditor/TextEditor';
 import Tagbutton from '../../gui/buttons/tagbutton/Tagbutton';
@@ -20,19 +21,7 @@ import {
 } from "react-router-dom";
 
 // material-ui imports
-import {
-    Slide,
-    Button,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogContentText,
-    DialogActions,
-} from '@material-ui/core';
-
-const DialogTransition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
+import { Button } from '@material-ui/core';
 
 function ArticlePage() {
     const { id } = useParams();
@@ -97,7 +86,7 @@ function ArticlePage() {
     // Benutzer mit dem Editor gesetzt wurden in die Datenbank
     // geschrieben z.B. fetter Text oder unnummerierte Listen, etc. .
     const createNewAnswer = async () => {
-        if (isAnswerTextValid() == true) {
+        if (isAnswerTextValid() === true) {
             const newAnswer = await firebase.firestore().collection('articles').doc(id).collection('answers').doc();
             await firebase.firestore().collection('articles').doc(id).collection('answers').doc(newAnswer.id).set({
                 answerText: answerText,
@@ -166,28 +155,12 @@ function ArticlePage() {
             <div>
                 <Button>Bearbeiten</Button>
                 <Button onClick={handleClickOpen}>Löschen</Button>
-                <Dialog
-                    PaperProps={{
-                        style: {
-                            backgroundColor: '#212121',
-                        },
-                    }}
-                    open={openDialog}
-                    onClose={handleClose}
-                    TransitionComponent={DialogTransition}
-                    keepMounted
-                    disabled>
-                    <DialogTitle className="dialog-title">Beitrag löschen?</DialogTitle>
-                    <DialogContent className="dialog-content">
-                        <DialogContentText>
-                            Wollen Sie den Beitrag wirklich unwideruflich löschen?
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions className="dialog-actions">
-                        <Button onClick={handleClose}>Nein</Button>
-                        <Button onClick={deleteArticle}>Ja</Button>
-                    </DialogActions>
-                </Dialog>
+                <ChoiceDialog
+                    openDialog={openDialog}
+                    title="Beitrag löschen?"
+                    content="Wollen Sie den Beitrag wirklich unwideruflich löschen?"
+                    onYesClick={deleteArticle}
+                    onNoClick={handleClose} />
             </div>
         )
     } else {

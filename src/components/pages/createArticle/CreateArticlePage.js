@@ -47,7 +47,7 @@ function CreateArticlePage() {
         let isTitleValid = checkTitel();
         let isEditorTextValid = checkEditorText();
         let isTagValid = checkTags();
-        if (isTitleValid && document.getElementById('text').innerHTML !== "" && isTagValid) {
+        if (isTitleValid && isEditorTextValid && isTagValid) {
             const newArticle = await firebase.firestore().collection('articles').doc();
             const newArticleRef = await newArticle.get();
             await firebase.firestore().collection('articles').doc(newArticleRef.id).set({

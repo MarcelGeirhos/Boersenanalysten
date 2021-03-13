@@ -86,7 +86,7 @@ function LoginPage() {
 
     const redirectTo = routeRedirect;
     if (redirectTo) {
-        return <Redirect to="/" />
+        return <Redirect to="/articleList" />
     }
 
     return (

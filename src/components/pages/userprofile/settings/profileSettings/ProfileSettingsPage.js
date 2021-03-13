@@ -80,21 +80,3 @@ function ProfileSettingsPage() {
 }
 
 export default ProfileSettingsPage;
-
-/*
-import { useDispatch } from 'react-redux';
-
-const [userState, setUserState] = useState(null);
-    const dispatch = useDispatch();
-
-    const logoutUserAction = () => dispatch(logoutUser());
-    
-    const logout = async() => {
-        console.log("Benutzer wird ausgeloggt.");
-        setUserState(null);
-        await logoutUserAction();
-        // TODO props.history.replace("/");
-}
-
-<Secondbutton link="/" onClick={logout}>Logout</Secondbutton>
-*/

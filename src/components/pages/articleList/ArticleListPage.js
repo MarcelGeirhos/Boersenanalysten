@@ -30,6 +30,7 @@ function ArticleListPage() {
             setArticleCreatedAt(articleData.docs.map(doc => (doc.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions))));
         }
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

@@ -5,12 +5,13 @@ import Mainbutton from '../gui/buttons/mainbutton/Mainbutton';
 import Iconbutton from '../gui/buttons/iconbutton/Iconbutton';
 import Secondbutton from '../gui/buttons/secondbutton/Secondbutton';
 import InputfieldDark from '../gui/inputs/inputfieldDark/InputfieldDark';
-import firebase from '../../firebase/Config';
+import firebaseConfig from '../../firebase/Config';
 
 // css imports
 import './Navigation.css';
 
 // third party imports
+import firebase from 'firebase/app';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -18,23 +19,31 @@ import { useSelector } from 'react-redux';
 import {
     Person,
     Message,
+    ExitToApp,
     ContactSupport,
 } from '@material-ui/icons';
 
 function Navigation() {
     const loginSelector = useSelector((state) => state.logIn);
     const registerSelector = useSelector((state) => state.register);
-    
     const [userState, setUserState] = useState(null);
 
     useEffect(() => {
-        firebase.getUserState().then(user => {
+        firebaseConfig.getUserState().then(user => {
             const getUser = async () => {
                 setUserState(user);
             }
             getUser();
         })
     })
+    
+    const logout = async () => {
+        await firebase.auth().signOut().catch(error => {
+            console.log(error); 
+        });
+        setUserState(null);
+        console.log("Benutzer hat sich ausgeloggt.");
+    }
 
     // Wenn der Benutzer nicht registriert oder eingeloggt ist wird
     // ihm ein Button für den Login und die Registrierung angezeigt.
@@ -49,12 +58,14 @@ function Navigation() {
                 <Iconbutton link={{pathname: `/userprofile/${userState.uid}`}}><Person /></Iconbutton>
                 <Iconbutton link={{pathname: `/messages/${userState.uid}`}}><Message /></Iconbutton>
                 <Iconbutton link="/help"><ContactSupport /></Iconbutton>
+                {/* TODO hier weitermachen ChoicDialog einbinden für Sicherheitsabfrage vor Logout*/}
+                <Iconbutton link="/" onClick={logout}><ExitToApp /></Iconbutton>
             </div>
         )
     } else {
         buttons = (
             <div className="navbar-right">
-                <Mainbutton link="/login">Login</Mainbutton>
+                <Secondbutton link="/login">Login</Secondbutton>
                 <Mainbutton link="/register">Registrieren</Mainbutton>
             </div>
         )
