@@ -81,11 +81,3 @@
     font-size: 13px;
     color: red;
 }
-
-.dialog-content > *, .dialog-title > * {
-    color: #DDDDDD !important;
-}
-
-.dialog-actions > * {
-    color: #698FAE !important;
-}

@@ -1,5 +1,8 @@
 import React from 'react';
 
+// css imports
+import './ChoiceDialog.css';
+
 // material-ui imports
 import {
     Slide,

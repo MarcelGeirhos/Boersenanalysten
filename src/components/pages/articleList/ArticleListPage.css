@@ -59,3 +59,16 @@
 .articlelist-filter button:focus {
     outline: none;
 }
+
+.accordion {
+    background-color: #333333 !important;
+    width: 100%;
+}
+
+.accordion-summary > *, .dialog-title > * {
+    color: #DDDDDD !important;
+}
+
+.accordion-content > * {
+    color: #698FAE !important;
+}

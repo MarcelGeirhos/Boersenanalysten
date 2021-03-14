@@ -8,10 +8,15 @@ import FilterSettings from './filterSettings/FilterSettings';
 // css imports
 import './ArticleListPage.css';
 
+// material-ui imports
+import { 
+    Accordion,
+    AccordionSummary,
+    AccordionDetails
+} from '@material-ui/core';
+
 // material-ui icon imports
-import {
-    Tune,
-} from '@material-ui/icons';
+import { ExpandMore } from '@material-ui/icons';
 
 // third party imports
 import firebase from 'firebase/app';
@@ -19,9 +24,7 @@ import firebase from 'firebase/app';
 function ArticleListPage() {
     const [articleList, setArticleList] = useState([]);
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
-    const [showFilterSettings, setShowFilterSettings] = useState(false);
     const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
-    const onClick = () => setShowFilterSettings(!showFilterSettings);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,7 +43,40 @@ function ArticleListPage() {
                 <Mainbutton link="/createArticle">Beitrag erstellen</Mainbutton>
             </div>
             <div className="articlelist-filter">
-            <button type="submit" value="Filter" onClick={onClick}><Tune />Filter</button>
+                <Accordion className="accordion">
+                    <AccordionSummary
+                        className="accordion-summary"
+                        expandIcon={<ExpandMore />}>
+                        <p>Filter</p>
+                    </AccordionSummary>
+                    <AccordionDetails className="accordion-content">
+                        <FilterSettings />
+                    </AccordionDetails>
+                </Accordion>
+            </div>
+            {  
+            articleList.map((article, index) => (
+                <div key={index}>
+                    <Listitem id={article.id}
+                        title={article.title}
+                        tags={article.tags}
+                        voting={article.voting}
+                        answerCounter={article.answerCounter}
+                        views={article.views}
+                        creator={article.creator}
+                        creatorId={article.creatorId}
+                        createdAt={articleCreatedAt[index]}></Listitem>
+                </div>
+                ))
+            }
+           </div>
+    );
+}
+
+export default ArticleListPage;
+
+
+/*<button type="submit" value="Filter" onClick={onClick}><Tune />Filter</button>
             </div>
             { showFilterSettings ? <FilterSettings /> : null }
                 {  
@@ -57,9 +93,4 @@ function ArticleListPage() {
                             createdAt={articleCreatedAt[index]}></Listitem>
                     </div>
                 ))
-                }
-        </div>
-    );
-}
-
-export default ArticleListPage;
+                }*/

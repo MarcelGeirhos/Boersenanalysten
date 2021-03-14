@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 // own module imports
 import AnswerVoting from '../voting/answerVoting/AnswerVoting';
+import ChoiceDialog from '../../../gui/outputs/dialogs/choiceDialog/ChoiceDialog';
 
 // css imports
 import './Answeritem.css';
@@ -11,19 +12,7 @@ import firebase from 'firebase/app';
 import { Link, Redirect } from 'react-router-dom';
 
 // material-ui imports
-import {
-    Slide,
-    Button,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogContentText,
-    DialogActions,
-} from '@material-ui/core';
-
-const DialogTransition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
+import { Button } from '@material-ui/core';
 
 const Answeritem = (props) => {
     const [openDialog, setOpenDialog] = useState(false);
@@ -55,7 +44,13 @@ const Answeritem = (props) => {
             <div>
                 <Button>Bearbeiten</Button>
                 <Button onClick={handleClickOpen}>Löschen</Button>
-                <Dialog
+                <ChoiceDialog 
+                    openDialog={openDialog}
+                    title="Antwot löschen"
+                    content="Wollen Sie Ihre Antwort wirklich löschen?"
+                    onYesClick={deleteAnswer}
+                    onNoClick={handleClose} />
+                {/*<Dialog
                     PaperProps={{
                         style: {
                             backgroundColor: '#212121',
@@ -76,7 +71,7 @@ const Answeritem = (props) => {
                         <Button onClick={handleClose}>Nein</Button>
                         <Button onClick={deleteAnswer}>Ja</Button>
                     </DialogActions>
-                </Dialog>
+                </Dialog>*/}
             </div>
         )
     } else {
