@@ -15,15 +15,22 @@ import '../../gui/inputs/tagInput/TagInput.css';
 import { Redirect } from 'react-router-dom';
 import firebase from 'firebase/app';
 
+// material-ui imports
+import {
+    Checkbox,
+    FormControlLabel
+} from '@material-ui/core';
+
 function CreateArticlePage() {
     const [title, setTitle] = useState("");
     const [editorText, setEditorText] = useState("");
     const [tags, setTags] = useState([]);
+    const [userData, setUserData] = useState([]);
+    const [tagErrorText, setTagErrorText] = useState("ErrorText");
     const [titleErrorText, setTitleErrorText] = useState("ErrorText");
     const [editorErrorText, setEditorErrorText] = useState("ErrorText");
-    const [tagErrorText, setTagErrorText] = useState("ErrorText");
-    const [userData, setUserData] = useState([]);
     const [routeRedirect, setRedirect] = useState(false);
+    const [isPortfolioArticle, setIsPortfolioArticle] = useState(false);
 
     useEffect(() => {
         firebaseConfig.getUserState().then(user => {
@@ -61,8 +68,15 @@ function CreateArticlePage() {
                 id: newArticleRef.id,
                 creator: userData.username,
                 creatorId: userData.uid,
+                isPortfolioArticle: isPortfolioArticle,
             })
-            await firebase.firestore().collection('users').doc(userData.uid).collection('articles').doc(newArticleRef.id).set({
+            let collection;
+            if (isPortfolioArticle === true) {
+                collection = 'portfolioArticles';
+            } else {
+                collection = 'articles';
+            }
+            await firebase.firestore().collection('users').doc(userData.uid).collection(collection).doc(newArticleRef.id).set({
                 articleRef: firebase.firestore().doc(`/articles/${newArticleRef.id}`),
             })
             setRedirect(true);
@@ -119,6 +133,10 @@ function CreateArticlePage() {
         setEditorText(editorText);
     }
 
+    const handleIsPortfolioArticle = () => {
+        setIsPortfolioArticle(!isPortfolioArticle);
+    }
+
     return (
         <div className="create-article">
             <h1>Beitrag erstellen</h1>
@@ -129,6 +147,12 @@ function CreateArticlePage() {
             </div>
             <TextEditor title="Beitrag:" parentCallbackText={callbackEditorText}/>
             <ErrorText id="editor-error-text">{editorErrorText}</ErrorText>
+            <FormControlLabel 
+                control={<Checkbox
+                    checked={isPortfolioArticle}
+                    onChange={handleIsPortfolioArticle}
+                    color="primary"/>}
+                label="Portfolio Beitrag" />
             <TagInput parentCallbackTags={callbackTags} />
             <ErrorText id="tag-error-text">{tagErrorText}</ErrorText>
             <div>
