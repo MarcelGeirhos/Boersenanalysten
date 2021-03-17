@@ -22,17 +22,14 @@ import {
 
 function PortfolioHistoryPage() {
     const { id } = useParams();
-    const [portfolioArticleList, setPortfolioArticleList] = useState([]);
-    const [portfolioArticleData, setPortfolioArticleData] = useState([]);
+    const [articleDataList, setArticleDataList] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const portfolioArticleData = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').get();
-            setPortfolioArticleList(portfolioArticleData.docs.map(doc => ({...doc.data()})));
-            portfolioArticleData.docs.map(async (doc) => {
+            const articleRefData = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').get();
+            articleRefData.docs.map(async (doc) => {
                 const articleData = await firebase.firestore().collection('articles').doc(doc.data().articleRef.id).get();
-                setPortfolioArticleData(articleData);
-                console.log(articleData.data().title);
+                setArticleDataList(articleDataList => [...articleDataList, articleData.data()]);
             })
         }
         fetchData();
@@ -45,8 +42,7 @@ function PortfolioHistoryPage() {
             <div className="portfolio-timeline">
                 <Timeline align="alternate">
                     {
-                        // TODO alle Portfolio Beiträge anzeigen lassen.
-                        //portfolioArticleData.map((portfolioArticle, index) => {
+                        articleDataList.map((article) => (
                             <TimelineItem>
                                 <TimelineSeparator>
                                     <TimelineDot />
@@ -54,60 +50,12 @@ function PortfolioHistoryPage() {
                                 </TimelineSeparator>
                                 <TimelineContent>
                                     <div className="portfolio-timeline-content">
-                                       <p>{portfolioArticleData.data().title}</p>
+                                        <p>{article.title}</p>
                                     </div>
                                 </TimelineContent>
                             </TimelineItem>
-                        })
+                        ))
                     }
-                    
-                    <TimelineItem>
-                        <TimelineSeparator>
-                            <TimelineDot />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                            <div className="portfolio-timeline-content">
-                                Portfoliobeitrag 2
-                            </div>
-                        </TimelineContent>
-                    </TimelineItem>
-
-                    <TimelineItem>
-                        <TimelineSeparator>
-                            <TimelineDot />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                            <div className="portfolio-timeline-content">
-                                Portfoliobeitrag 3
-                            </div>
-                        </TimelineContent>
-                    </TimelineItem>
-
-                    <TimelineItem>
-                        <TimelineSeparator>
-                            <TimelineDot />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                            <div className="portfolio-timeline-content">
-                                Portfoliobeitrag 4
-                            </div>
-                        </TimelineContent>
-                    </TimelineItem>
-
-                    <TimelineItem>
-                        <TimelineSeparator>
-                            <TimelineDot />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                            <div className="portfolio-timeline-content">
-                                Portfoliobeitrag 5
-                            </div>
-                        </TimelineContent>
-                    </TimelineItem>
                 </Timeline>
             </div>
         </div>
