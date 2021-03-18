@@ -1,0 +1,24 @@
+.portfolio-timeline-content a {
+    text-decoration: none;
+    color: #6389A8;
+    font-size: 18px;
+}
+
+.portfolio-timeline-content a:hover {
+    color: #386A96;
+}
+
+.portfolio-created-at {
+    text-align: right;
+    margin-right: 16px;
+}
+
+.portfolio-article-stats p {
+    display: inline-block;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.portfolio-article-stats p:first-child {
+    margin: 0 10px 0 0;
+}

@@ -65,7 +65,7 @@ function ArticleListPage() {
                         views={article.views}
                         creator={article.creator}
                         creatorId={article.creatorId}
-                        createdAt={articleCreatedAt[index]}></Listitem>
+                        createdAt={articleCreatedAt[index]} />
                 </div>
                 ))
             }
