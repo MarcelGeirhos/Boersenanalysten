@@ -1,6 +1,6 @@
 .login-form {
-    height: 320px;
-    width: 320px;
+    height: 400px;
+    width: 380px;
     display: flex;
     justify-content: center;
     margin: 150px auto;
@@ -21,12 +21,6 @@
     text-decoration: underline white;
 }
 
-.login-form input {
-    margin-top: 15px;
-    display: block;
-    width: 100%;
-}
-
 .login-form a {
     text-decoration: none;
 }
@@ -39,11 +33,4 @@
 
 #login-button {
     width: 106%;
-}
-
-#test {
-    margin: 3px 0 0 4px;
-    color: red;
-    font-size: 13px;
-    visibility: hidden;
 }

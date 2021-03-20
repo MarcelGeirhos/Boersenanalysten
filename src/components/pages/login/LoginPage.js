@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 
-// own module imports
-import ErrorText from '../../gui/outputs/errorText/ErrorText';
-import Inputfield from '../../gui/inputs/inputfield/Inputfield';
-
 // css imports
 import './LoginPage.css';
 
@@ -11,11 +7,27 @@ import './LoginPage.css';
 import { Link, Redirect } from 'react-router-dom';
 import firebase from 'firebase/app';
 
+// material-ui imports
+import {
+    TextField,
+    IconButton,
+    InputAdornment
+} from '@material-ui/core';
+
+// material-ui icon imports
+import {
+    Visibility,
+    VisibilityOff
+ } from '@material-ui/icons';
+
 function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [emailErrorText, setEmailErrorText] = useState("Error Text");
-    const [passwordErrorText, setPasswordErrorText] = useState("Error Text");
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [emailErrorText, setEmailErrorText] = useState("");
+    const [passwordErrorText, setPasswordErrorText] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const [routeRedirect, setRedirect] = useState(false);
 
@@ -39,19 +51,19 @@ function LoginPage() {
             switch (error.code) {
                 case 'auth/invalid-email':
                     setEmailErrorText('E-Mail Adresse ist nicht richtig formatiert.');
-                    document.getElementById("email-error-text").style.visibility = "visible";
+                    setEmailError(true);
                     break;
                 case 'auth/user-disabled':
                     setEmailErrorText('Account wurde gesperrt. Bitte melde dich beim Support.');
-                    document.getElementById("email-error-text").style.visibility = "visible";
+                    setEmailError(true);
                     break;
                 case 'auth/user-not-found':
                     setEmailErrorText('E-Mail Adresse ist nicht registriert.');
-                    document.getElementById("email-error-text").style.visibility = "visible";
+                    setEmailError(true);
                     break;
                 case 'auth/wrong-password':
                     setPasswordErrorText('Das Passwort ist nicht korrekt.');
-                    document.getElementById("password-error-text").style.visibility = "visible";
+                    setPasswordError(true);
                     break;
                 default:
                     console.log('Unbekannter Fehler beim Benutzer Login: ' + error);
@@ -63,26 +75,30 @@ function LoginPage() {
     const checkEmail = () => {
         if (email === "") {
             setEmailErrorText('Bitte geben Sie ihre E-Mail Adresse ein.');
-            document.getElementById("email-error-text").style.visibility = "visible";
+            setEmailError(true);
             return false;
         }
-        document.getElementById("email-error-text").style.visibility = "hidden";
+        setEmailError(false);
         return true;
     }
 
     const checkPassword = () => {
         if (password === "") {
             setPasswordErrorText('Bitte geben Sie ihr Passwort ein.');
-            document.getElementById("password-error-text").style.visibility = "visible";
+            setPasswordError(true);
             return false;
         } else if (password.length < 6) {
             setPasswordErrorText('Das Passwort muss mindestens 6 Zeichen lang sein.');
-            document.getElementById("password-error-text").style.visibility = "visible";
+            setPasswordError(true);
             return false;
         }
-        document.getElementById("password-error-text").style.visibility = "hidden";
+        setPasswordError(false);
         return true;
     }
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
 
     const redirectTo = routeRedirect;
     if (redirectTo) {
@@ -93,10 +109,40 @@ function LoginPage() {
         <div className="login-form">
             <form onSubmit={login}>
                 <h1>Login</h1>
-                <Inputfield type="email" placeholder="E-Mail..." onChange={(e) => setEmail(e.target.value)} maxlength="60" />
-                <ErrorText id="email-error-text">{emailErrorText}</ErrorText>
-                <Inputfield type="password" placeholder="Passwort..." onChange={(e) => setPassword(e.target.value)} maxlength="50" />
-                <ErrorText id="password-error-text">{passwordErrorText}</ErrorText>
+                <TextField
+                    label="E-Mail"
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    variant="filled"
+                    className="text-field"
+                    error={emailError}
+                    helperText={emailErrorText}
+                    autoFocus
+                    inputProps={{ style: { color: 'white'}}}
+                    InputLabelProps={{
+                        style: { color: 'white' },
+                    }} />
+                <TextField
+                    label="Passwort"
+                    type={showPassword ? 'text' : 'password'}
+                    onChange={(e) => setPassword(e.target.value)}
+                    variant="filled"
+                    className="text-field"
+                    error={passwordError}
+                    helperText={passwordErrorText}
+                    inputProps={{ style: { color: 'white'}}}
+                    InputLabelProps={{
+                        style: { color: 'white' },
+                    }} 
+                    InputProps={{
+                        endAdornment:
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={handleClickShowPassword}>
+                            {showPassword ? <Visibility style={{ color: 'white' }}/> : <VisibilityOff style={{ color: 'white' }}/>}
+                          </IconButton>
+                        </InputAdornment>
+                    }} />
                 <Link to="/forgotPassword">
                     <p id="forgot-password-link">Passwort vergessen?</p>
                 </Link>
