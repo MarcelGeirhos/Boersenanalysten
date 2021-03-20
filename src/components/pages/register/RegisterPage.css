@@ -1,9 +1,9 @@
 .register-form {
-    height: 370px;
-    width: 320px;
+    height: 450px;
+    width: 380px;
     display: flex;
     justify-content: center;
-    margin: 150px auto;
+    margin: 100px auto;
     padding: 10px 16px 10px 0;
     background-color: #333333;
     box-shadow: 6px 6px 6px 6px rgba(0, 0, 0, 0.4);
@@ -21,10 +21,9 @@
     text-decoration: underline white;
 }
 
-.register-form input {
-    width: 100%;
-    display: block;
-    margin-top: 15px;
+.text-field {
+    width: 320px !important;
+    margin-bottom: 25px !important;
 }
 
 #register-button {

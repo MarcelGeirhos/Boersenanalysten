@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 
-// own module imports
-import ErrorText from '../../gui/outputs/errorText/ErrorText';
-import Inputfield from '../../gui/inputs/inputfield/Inputfield';
-
 // css imports
 import './RegisterPage.css';
 
@@ -11,13 +7,30 @@ import './RegisterPage.css';
 import { Redirect } from 'react-router-dom';
 import firebase from 'firebase/app';
 
+// material-ui imports
+import {
+    TextField,
+    IconButton,
+    InputAdornment
+} from '@material-ui/core';
+
+// material-ui icon imports
+import {
+    Visibility,
+    VisibilityOff
+ } from '@material-ui/icons';
+
 function RegisterPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
-    const [emailErrorText, setEmailErrorText] = useState("Error Text");
-    const [passwordErrorText, setPasswordErrorText] = useState("Error Text");
-    const [usernameErrorText, setUsernameErrorText] = useState("Error Text");
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [usernameError, setUsernameError] = useState(false);
+    const [emailErrorText, setEmailErrorText] = useState("");
+    const [passwordErrorText, setPasswordErrorText] = useState("");
+    const [usernameErrorText, setUsernameErrorText] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     
     const [routeRedirect, setRedirect] = useState(false);
 
@@ -63,11 +76,11 @@ function RegisterPage() {
             switch (error.code) {
                 case 'auth/email-already-in-use':
                     setEmailErrorText('E-Mail Adresse ist bereits registriert.');
-                    document.getElementById("email-error-text").style.visibility = "visible";
+                    setEmailError(true);
                     break;
                 case 'auth/weak-password':
                     setPasswordErrorText('Das Passwort muss mindestens 6 Zeichen lang sein.');
-                    document.getElementById("password-error-text").style.visibility = "visible";
+                    setPasswordError(true);
                     break;
                 default:
                     console.log('Unbekannter Fehler bei Benutzer Registrierung: ' + error.code);
@@ -79,36 +92,43 @@ function RegisterPage() {
     const checkEmail = () => {
         if (email === "") {
             setEmailErrorText('Bitte geben Sie ihre E-Mail Adresse ein.');
-            document.getElementById("email-error-text").style.visibility = "visible";
+            setEmailError(true);
             return false;
         }
-        document.getElementById("email-error-text").style.visibility = "hidden";
+        setEmailErrorText('');
+        setEmailError(false);
         return true;
     }
 
     const checkPassword = () => {
         if (password === "") {
             setPasswordErrorText('Bitte geben Sie ihr Passwort ein.');
-            document.getElementById("password-error-text").style.visibility = "visible";
+            setPasswordError(true);
             return false;
         }
-        document.getElementById("password-error-text").style.visibility = "hidden";
+        setPasswordErrorText('');
+        setPasswordError(false);
         return true;
     }
 
     const checkUsername = () => {
         if (username === "") {
             setUsernameErrorText('Bitte geben Sie einen Benutzername ein.');
-            document.getElementById("username-error-text").style.visibility = "visible";
+            setUsernameError(true);
             return false;
         } else if (username.length < 5) {
             setUsernameErrorText('Der Benutzername muss mindestens 5 Zeichen lang sein.');
-            document.getElementById("username-error-text").style.visibility = "visible";
+            setUsernameError(true);
             return false;
         }
-        document.getElementById("username-error-text").style.visibility = "hidden";
+        setUsernameErrorText('');
+        setUsernameError(false);
         return true;
     }
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
 
     const redirectTo = routeRedirect;
     if (redirectTo) {
@@ -119,12 +139,52 @@ function RegisterPage() {
         <div className="register-form">
             <form onSubmit={register}>
                 <h1>Registrieren</h1>
-                <Inputfield type="email" placeholder="E-Mail..." onChange={(e) => setEmail(e.target.value)} />
-                <ErrorText id="email-error-text">{emailErrorText}</ErrorText>
-                <Inputfield type="password" placeholder="Passwort..." onChange={(e) => setPassword(e.target.value)} />
-                <ErrorText id="password-error-text">{passwordErrorText}</ErrorText>
-                <Inputfield type="text" placeholder="Benutzername..." onChange={(e) => setUsername(e.target.value)} />
-                <ErrorText id="username-error-text">{usernameErrorText}</ErrorText>
+                <TextField
+                    label="Benutzername"
+                    type="text"
+                    onChange={(e) => setUsername(e.target.value)}
+                    variant="filled"
+                    className="text-field"
+                    error={usernameError}
+                    helperText={usernameErrorText}
+                    autoFocus
+                    inputProps={{ style: { color: 'white'}}}
+                    InputLabelProps={{
+                        style: { color: 'white' },
+                    }} />
+                <TextField
+                    label="E-Mail"
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    variant="filled"
+                    className="text-field"
+                    error={emailError}
+                    helperText={emailErrorText}
+                    inputProps={{ style: { color: 'white'}}}
+                    InputLabelProps={{
+                        style: { color: 'white' },
+                    }} />
+                <TextField
+                    label="Passwort"
+                    type={showPassword ? 'text' : 'password'}
+                    onChange={(e) => setPassword(e.target.value)}
+                    variant="filled"
+                    className="text-field"
+                    error={passwordError}
+                    helperText={passwordErrorText}
+                    inputProps={{ style: { color: 'white'}}}
+                    InputLabelProps={{
+                        style: { color: 'white' },
+                    }} 
+                    InputProps={{
+                        endAdornment:
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={handleClickShowPassword}>
+                            {showPassword ? <Visibility style={{ color: 'white' }}/> : <VisibilityOff style={{ color: 'white' }}/>}
+                          </IconButton>
+                        </InputAdornment>
+                    }} />
                 <input type="submit" value="Registrieren" id="register-button" className="main-button" />
             </form>
         </div>
