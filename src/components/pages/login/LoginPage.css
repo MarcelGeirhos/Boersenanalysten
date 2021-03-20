@@ -25,6 +25,11 @@
     text-decoration: none;
 }
 
+.login-text-field {
+    width: 320px !important;
+    margin-bottom: 25px !important;
+}
+
 #forgot-password-link {
     margin: 4px 0 20px 0;
     text-align: right;

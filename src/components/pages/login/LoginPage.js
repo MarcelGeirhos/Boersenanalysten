@@ -114,7 +114,7 @@ function LoginPage() {
                     type="email"
                     onChange={(e) => setEmail(e.target.value)}
                     variant="filled"
-                    className="text-field"
+                    className="login-text-field"
                     error={emailError}
                     helperText={emailErrorText}
                     autoFocus
@@ -127,7 +127,7 @@ function LoginPage() {
                     type={showPassword ? 'text' : 'password'}
                     onChange={(e) => setPassword(e.target.value)}
                     variant="filled"
-                    className="text-field"
+                    className="login-text-field"
                     error={passwordError}
                     helperText={passwordErrorText}
                     inputProps={{ style: { color: 'white'}}}

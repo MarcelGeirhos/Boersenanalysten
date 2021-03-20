@@ -144,7 +144,7 @@ function RegisterPage() {
                     type="text"
                     onChange={(e) => setUsername(e.target.value)}
                     variant="filled"
-                    className="text-field"
+                    className="register-text-field"
                     error={usernameError}
                     helperText={usernameErrorText}
                     autoFocus
@@ -157,7 +157,7 @@ function RegisterPage() {
                     type="email"
                     onChange={(e) => setEmail(e.target.value)}
                     variant="filled"
-                    className="text-field"
+                    className="register-text-field"
                     error={emailError}
                     helperText={emailErrorText}
                     inputProps={{ style: { color: 'white'}}}
@@ -169,7 +169,7 @@ function RegisterPage() {
                     type={showPassword ? 'text' : 'password'}
                     onChange={(e) => setPassword(e.target.value)}
                     variant="filled"
-                    className="text-field"
+                    className="register-text-field"
                     error={passwordError}
                     helperText={passwordErrorText}
                     inputProps={{ style: { color: 'white'}}}
