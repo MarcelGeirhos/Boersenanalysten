@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // own module imports
 import UserprofileNavigation from '../UserprofileNavigation';
+import Mainbutton from '../../../gui/buttons/mainbutton/Mainbutton';
 import Timelineitem from '../../userprofile/portfolioHistory/timelineitem/Timelineitem';
 
 // css imports
@@ -33,11 +34,28 @@ function PortfolioHistoryPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    let portfolioTimelineHeader;
+    if (articleDataList.length === 0) {
+        portfolioTimelineHeader = (
+            <div className="empty-portfolio-timeline">
+                <h2>Erstelle deinen ersten Portfolio Beitrag</h2>
+                <Mainbutton link="/createArticle">Portfolio Beitrag erstellen</Mainbutton>
+            </div>
+        )
+    } else {
+        portfolioTimelineHeader = (
+            <div className="no-empty-portfolio-timeline">
+                <Mainbutton link="/createArticle">Portfolio Beitrag erstellen</Mainbutton>
+            </div>
+        )
+    }
+
     return (
         <div className="user-profile-grid-container">
             <UserprofileNavigation />
             <div className="portfolio-timeline">
                 <Timeline align="alternate">
+                    { portfolioTimelineHeader }
                     {
                         articleDataList.map((article, index) => (
                             <Timelineitem

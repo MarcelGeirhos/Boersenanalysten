@@ -17,11 +17,16 @@ const AnswerVoting = (props) => {
     const { id } = useParams();
     const [answerVoting, setAnswerVoting] = useState(0);
 
-    async function setNewAnswerVoting(voting) {
+    async function setNewAnswerVoting(voting, votingPoints) {
         await firebase.firestore().collection('articles').doc(id).collection('answers').doc(props.id).update({
             voting: voting,
         });
         setAnswerVoting(voting);
+        const answerData = await firebase.firestore().collection('articles').doc(id).collection('answers').doc(props.id).get();
+        const creatorData = await firebase.firestore().collection('users').doc(answerData.data().creatorId).get();
+        await firebase.firestore().collection('users').doc(answerData.data().creatorId).update({
+            shareCounter: creatorData.data().shareCounter + votingPoints,
+        });
         console.log('Antworten Voting wurde erfolgreich gewertet.');
     }
 
@@ -37,9 +42,9 @@ const AnswerVoting = (props) => {
     
     return (
         <div className="answer-voting-section">
-            <button className="voting-button" onClick={() => setNewAnswerVoting(answerVoting + 1)}><ArrowDropUp /></button>
+            <button className="voting-button" onClick={() => setNewAnswerVoting(answerVoting + 1, 10)}><ArrowDropUp /></button>
             <p>{answerVoting}</p>
-            <button className="voting-button" onClick={() => setNewAnswerVoting(answerVoting - 1)}><ArrowDropDown /></button>
+            <button className="voting-button" onClick={() => setNewAnswerVoting(answerVoting - 1, -5)}><ArrowDropDown /></button>
         </div>
     );
 }

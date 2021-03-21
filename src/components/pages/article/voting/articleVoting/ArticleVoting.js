@@ -17,11 +17,16 @@ const ArticleVoting = () => {
     const { id } = useParams();
     const [articleVoting, setArticleVoting] = useState(0);
 
-    async function setNewArticleVoting(voting) {
+    async function setNewArticleVoting(voting, votingPoints) {
         await firebase.firestore().collection('articles').doc(id).update({
             voting: voting,
         });
         setArticleVoting(voting);
+        const articleData = await firebase.firestore().collection('articles').doc(id).get();
+        const creatorData = await firebase.firestore().collection('users').doc(articleData.data().creatorId).get();
+        await firebase.firestore().collection('users').doc(articleData.data().creatorId).update({
+            shareCounter: creatorData.data().shareCounter + votingPoints,
+        });
         console.log('Beitrag Voting wurde erfolgreich gewertet.');
     }
 
@@ -37,9 +42,9 @@ const ArticleVoting = () => {
     
     return (
         <div className="article-voting-section">
-            <button className="voting-button" onClick={() => setNewArticleVoting(articleVoting + 1)}><ArrowDropUp /></button>
+            <button className="voting-button" onClick={() => setNewArticleVoting(articleVoting + 1, 10)}><ArrowDropUp /></button>
             <p>{articleVoting}</p>
-            <button className="voting-button" onClick={() => setNewArticleVoting(articleVoting - 1)}><ArrowDropDown /></button>
+            <button className="voting-button" onClick={() => setNewArticleVoting(articleVoting - 1, -5)}><ArrowDropDown /></button>
         </div>
     );
 }
