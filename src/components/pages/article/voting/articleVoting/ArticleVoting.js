@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 const ArticleVoting = () => {
     const { id } = useParams();
     const [articleVoting, setArticleVoting] = useState(0);
+    const [userVotingRefs, setUserVotingRefs] = useState([]);
 
     async function setNewArticleVoting(voting, votingPoints) {
         await firebase.firestore().collection('articles').doc(id).update({
@@ -27,6 +28,9 @@ const ArticleVoting = () => {
         await firebase.firestore().collection('users').doc(articleData.data().creatorId).update({
             shareCounter: creatorData.data().shareCounter + votingPoints,
         });
+        await firebase.firestore().collection('users').doc(articleData.data().creatorId).collection('votings').doc().set({
+            votingRef: firebase.firestore().doc(`/articles/${id}`),
+        })
         console.log('Beitrag Voting wurde erfolgreich gewertet.');
     }
 
@@ -37,6 +41,19 @@ const ArticleVoting = () => {
             setArticleVoting(currentVoting);
         }
         getArticleVoting();
+        const getUserVotings = async () => {
+            const articleData = await firebase.firestore().collection('articles').doc(id).get();
+            const userVotings = await firebase.firestore().collection('users').doc(articleData.data().creatorId).collection('votings').get();
+            setUserVotingRefs(userVotings.docs.map(doc => ({...doc.data().votingRef })));
+            
+            console.log({...userVotingRefs});
+            for (let i = 0; i < userVotingRefs.length; i++) {
+                if (userVotingRefs[i].id === id) {
+                    console.log('Benutzer hat Voting für ' + id + ' abgegeben.');
+                }
+            } 
+        }
+        getUserVotings();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     

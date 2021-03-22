@@ -32,3 +32,9 @@ nav {
 .navbar-right button {
     margin-right: 16px;
 }
+
+.navbar-right #username {
+    text-decoration: none;
+    padding: 0 16px 0 0;
+    color: white;
+}

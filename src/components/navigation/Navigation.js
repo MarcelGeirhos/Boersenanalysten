@@ -33,15 +33,18 @@ function Navigation() {
     const [routeRedirect, setRedirect] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
     const [userState, setUserState] = useState(null);
+    const [userData, setUserData] = useState("");
 
     useEffect(() => {
         firebaseConfig.getUserState().then(user => {
             const getUser = async () => {
                 setUserState(user);
+                const userData = await firebase.firestore().collection('users').doc(user.uid).get();
+                setUserData(userData.data());
             }
             getUser();
         })
-    })
+    }, [])
 
     const handleClickOpen = () => {
         setOpenDialog(true);
@@ -77,6 +80,7 @@ function Navigation() {
         userState != null) {
         buttons = (
             <div className="navbar-right">
+                <Link to={{pathname: `/userprofile/${userState.uid}`}} id="username">{userData.shareCounter} {userData.username}</Link>
                 <Iconbutton link={{pathname: `/userprofile/${userState.uid}`}}><Person /></Iconbutton>
                 <Iconbutton link={{pathname: `/messages/${userState.uid}`}}><Message /></Iconbutton>
                 <Iconbutton link="/help"><ContactSupport /></Iconbutton>
