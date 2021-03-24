@@ -59,7 +59,16 @@ function RegisterPage() {
                 articleCounter: 0,
                 portfolioArticleCounter: 0,
                 createdAt: new Date(),
-            }).then(() => {
+            }).then(async () => {
+                await firebase.firestore().collection('users').doc(user.user.uid).collection('articles').doc('articles').set({
+                    articleRefs: [],
+                })
+                await firebase.firestore().collection('users').doc(user.user.uid).collection('answers').doc('answers').set({
+                    answerRefs: [],
+                })
+                await firebase.firestore().collection('users').doc(user.user.uid).collection('votings').doc('votings').set({
+                    votingRefs: [],
+                })
                 console.log(user);
                 setRedirect(true);
                 window.location.reload();

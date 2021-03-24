@@ -39,8 +39,10 @@ function Navigation() {
         firebaseConfig.getUserState().then(user => {
             const getUser = async () => {
                 setUserState(user);
-                const userData = await firebase.firestore().collection('users').doc(user.uid).get();
-                setUserData(userData.data());
+                if (userState != null) {
+                    const userData = await firebase.firestore().collection('users').doc(user.uid).get();
+                    setUserData(userData.data());
+                }
             }
             getUser();
         })
