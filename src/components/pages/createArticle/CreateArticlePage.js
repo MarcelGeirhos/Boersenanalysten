@@ -70,18 +70,18 @@ function CreateArticlePage() {
                 creatorId: userData.uid,
                 isPortfolioArticle: isPortfolioArticle,
             })
-            let collection;
-            if (isPortfolioArticle === true) {
-                collection = 'portfolioArticles';
-            } else {
-                collection = 'articles';
-            }
             // TODO hier weitermachen und articleList1 dynamisch machen auf articleList2, articleList3, etc. . Länge des Arrays oder Bytes des Dokuments abfragen
             // und in Register auf articleList1 abändern.
             //const articleRef = await firebase.firestore().collection('users').doc(userData.uid).collection(collection).doc('articles').get();
-            await firebase.firestore().collection('users').doc(userData.uid).collection(collection).doc('articleList1').update({
-                    articleRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${newArticleRef.id}`)),
-            })
+            if (isPortfolioArticle === true) {
+                await firebase.firestore().collection('users').doc(userData.uid).collection('portfolioArticles').doc('portfolioArticleList1').update({
+                    portfolioArticleRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${newArticleRef.id}`)),
+                })
+            } else {
+                await firebase.firestore().collection('users').doc(userData.uid).collection('articles').doc('articleList1').update({
+                    portfolioArticleRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${newArticleRef.id}`)),
+                })
+            }
             setRedirect(true);
             console.log('Neuer Artikel wurde erfolgreich erstellt.');
         } else {

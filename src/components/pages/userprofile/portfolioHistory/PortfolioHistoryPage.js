@@ -17,18 +17,29 @@ import { Timeline } from '@material-ui/lab';
 
 function PortfolioHistoryPage() {
     const { id } = useParams();
+    const [articleRefList, setArticleRefList] = useState([]);
     const [articleDataList, setArticleDataList] = useState([]);
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
     const dateOptions = { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
     useEffect(() => {
         const fetchData = async () => {
-            const articleRefData = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').get();
-            articleRefData.docs.map(async (doc) => {
-                const articleData = await firebase.firestore().collection('articles').doc(doc.data().articleRef.id).get();
+            const articleRefData = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').doc('portfolioArticleList1').get();
+            console.log(articleRefData.length);
+            setArticleRefList(articleRefData.data().portfolioArticleRefs);
+            // TODO hier weitermachen lenth = 0? warum?
+            console.log(articleRefList.length);
+            articleRefList.map(async (ref) => {
+                console.log(ref.id);
+                const articleData = await firebase.firestore().collection('articles').doc(ref.id).get();
                 setArticleDataList(articleDataList => [...articleDataList, articleData.data()]);
                 setArticleCreatedAt(articleDataList => [...articleDataList, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
             })
+            /*articleRefData.docs.map(async (doc) => {
+                const articleData = await firebase.firestore().collection('articles').doc(doc.data().articleRef.id).get();
+                setArticleDataList(articleDataList => [...articleDataList, articleData.data()]);
+                setArticleCreatedAt(articleDataList => [...articleDataList, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+            })*/
         }
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps

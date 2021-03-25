@@ -60,14 +60,32 @@ function RegisterPage() {
                 portfolioArticleCounter: 0,
                 createdAt: new Date(),
             }).then(async () => {
-                await firebase.firestore().collection('users').doc(user.user.uid).collection('articles').doc('articles').set({
+                const articleCol = await firebase.firestore().collection('users').doc(user.user.uid).collection('articles').doc().get();
+                await firebase.firestore().collection('users').doc(user.user.uid).collection('articles').doc(articleCol.id).set({
+                    createdAt: new Date(),
                     articleRefs: [],
                 })
-                await firebase.firestore().collection('users').doc(user.user.uid).collection('answers').doc('answers').set({
+                const portfolioArticleCol = await firebase.firestore().collection('users').doc(user.user.uid).collection('portfolioArticles').doc().get();
+                await firebase.firestore().collection('users').doc(user.user.uid).collection('portfolioArticles').doc(portfolioArticleCol.id).set({
+                    createdAt: new Date(),
+                    portfolioArticleRefs: [],
+                })
+                const answerCol = await firebase.firestore().collection('users').doc(user.user.uid).collection('answers').doc().get();
+                await firebase.firestore().collection('users').doc(user.user.uid).collection('answers').doc(answerCol.id).set({
+                    createdAt: new Date(),
                     answerRefs: [],
                 })
-                await firebase.firestore().collection('users').doc(user.user.uid).collection('votings').doc('votings').set({
+                const votingsCol = await firebase.firestore().collection('users').doc(user.user.uid).collection('votings').doc().get();
+                await firebase.firestore().collection('users').doc(user.user.uid).collection('votings').doc(votingsCol.id).set({
+                    createdAt: new Date(),
                     votingRefs: [],
+                }).then(async () => {
+                    firebase.firestore().collection('users').doc(user.user.uid).update({
+                        articleSubColIds: [articleCol.id],
+                        portfolioArticleSubColIds: [portfolioArticleCol.id],
+                        answerSubColIds: [answerCol.id],
+                        votingSubColIds: [votingsCol.id],
+                    })
                 })
                 console.log(user);
                 setRedirect(true);
