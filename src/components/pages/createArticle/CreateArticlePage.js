@@ -31,6 +31,7 @@ function CreateArticlePage() {
     const [editorErrorText, setEditorErrorText] = useState("ErrorText");
     const [routeRedirect, setRedirect] = useState(false);
     const [isPortfolioArticle, setIsPortfolioArticle] = useState(false);
+    const [portfolioArticle, setPortfolioArticle] = useState([]);
 
     useEffect(() => {
         firebaseConfig.getUserState().then(user => {
@@ -41,11 +42,20 @@ function CreateArticlePage() {
                     }).catch(error => {
                         console.log('Error getting userData ', error);
                     })
+                    
             }
             fetchData();
         })
+        const getUserPortfolioArticles = async () => {
+            
+            const portfolioArticles = await firebase.firestore().collection('users').doc('i9XQBNrF2mh623E2fUQe3d5dsOv1').collection('portfolioArticles').doc('0nysPSEnYYa4rEM58wlV').get();
+            setPortfolioArticle(portfolioArticles.data());
+            //setPortfolioArticleList(portfolioArticles.docs.map(doc => ({...doc.data()})));
+            //console.log(portfolioArticleList);
+        }
+        getUserPortfolioArticles();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [/*portfolioArticleList*/])
 
     // Der Artikel Text wird mit allen Eigenschaften die vom
     // Benutzer mit dem Editor gesetzt wurden in die Datenbank
@@ -74,11 +84,11 @@ function CreateArticlePage() {
             // und in Register auf articleList1 abändern.
             //const articleRef = await firebase.firestore().collection('users').doc(userData.uid).collection(collection).doc('articles').get();
             if (isPortfolioArticle === true) {
-                await firebase.firestore().collection('users').doc(userData.uid).collection('portfolioArticles').doc('portfolioArticleList1').update({
+                await firebase.firestore().collection('users').doc(userData.uid).collection('portfolioArticles').doc(portfolioArticle.id).update({
                     portfolioArticleRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${newArticleRef.id}`)),
                 })
             } else {
-                await firebase.firestore().collection('users').doc(userData.uid).collection('articles').doc('articleList1').update({
+                await firebase.firestore().collection('users').doc(userData.uid).collection('articles').doc(userData.articleSubColIds[0]).update({
                     portfolioArticleRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${newArticleRef.id}`)),
                 })
             }

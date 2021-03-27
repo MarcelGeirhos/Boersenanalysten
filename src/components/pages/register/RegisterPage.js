@@ -62,30 +62,27 @@ function RegisterPage() {
             }).then(async () => {
                 const articleCol = await firebase.firestore().collection('users').doc(user.user.uid).collection('articles').doc().get();
                 await firebase.firestore().collection('users').doc(user.user.uid).collection('articles').doc(articleCol.id).set({
+                    id: articleCol.id,
                     createdAt: new Date(),
                     articleRefs: [],
                 })
                 const portfolioArticleCol = await firebase.firestore().collection('users').doc(user.user.uid).collection('portfolioArticles').doc().get();
                 await firebase.firestore().collection('users').doc(user.user.uid).collection('portfolioArticles').doc(portfolioArticleCol.id).set({
+                    id: portfolioArticleCol.id,
                     createdAt: new Date(),
                     portfolioArticleRefs: [],
                 })
                 const answerCol = await firebase.firestore().collection('users').doc(user.user.uid).collection('answers').doc().get();
                 await firebase.firestore().collection('users').doc(user.user.uid).collection('answers').doc(answerCol.id).set({
+                    id: answerCol.id,
                     createdAt: new Date(),
                     answerRefs: [],
                 })
                 const votingsCol = await firebase.firestore().collection('users').doc(user.user.uid).collection('votings').doc().get();
                 await firebase.firestore().collection('users').doc(user.user.uid).collection('votings').doc(votingsCol.id).set({
+                    id: votingsCol.id,
                     createdAt: new Date(),
                     votingRefs: [],
-                }).then(async () => {
-                    firebase.firestore().collection('users').doc(user.user.uid).update({
-                        articleSubColIds: [articleCol.id],
-                        portfolioArticleSubColIds: [portfolioArticleCol.id],
-                        answerSubColIds: [answerCol.id],
-                        votingSubColIds: [votingsCol.id],
-                    })
                 })
                 console.log(user);
                 setRedirect(true);
