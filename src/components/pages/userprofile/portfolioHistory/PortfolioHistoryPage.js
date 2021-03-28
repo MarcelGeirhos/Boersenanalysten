@@ -20,16 +20,31 @@ function PortfolioHistoryPage() {
     const [articleRefList, setArticleRefList] = useState([]);
     const [portfolioArticleList, setPortfolioArticleList] = useState([]);
     const [articleDataList, setArticleDataList] = useState([]);
+    const [portfolioArticle, setPortfolioArticle] = useState([]);
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
     const dateOptions = { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
     useEffect(() => {
         const fetchData = async () => {
-            const userPortfolioArticles = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').get();
-            setPortfolioArticleList(userPortfolioArticles.docs.map(doc => ({...doc.data()})));
-            portfolioArticleList.map((portfolioArticle) => {
-                console.log(portfolioArticle.portfolioArticleRefs);
-            });
+            const userPortfolioArticleList = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').get();
+            userPortfolioArticleList.forEach(async (doc) => {
+                const portfolioArticles = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').doc(doc.data().id).get();
+                setPortfolioArticle(portfolioArticles);
+                portfolioArticles.data().portfolioArticleRefs.forEach(async (doc) => {
+                    const portfolioArticle = await firebase.firestore().collection('articles').doc(doc.id).get();
+                    setPortfolioArticleList({...portfolioArticle.data()});
+                    console.log(portfolioArticle.data());
+                })
+                
+            })
+            
+           
+            
+            //const userPortfolioArticles = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').get();
+            //setPortfolioArticleList(userPortfolioArticles.docs.map(doc => ({...doc.data()})));
+            //portfolioArticleList.map((portfolioArticle) => {
+            //    console.log(portfolioArticle.portfolioArticleRefs);
+            // });
             /*const articleRefData = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').doc(userData.data().portfolioArticleSubColIds[0]).get();
             console.log(articleRefData.data().length);
             setArticleRefList({...articleRefData.data().portfolioArticleRefs});
@@ -43,7 +58,7 @@ function PortfolioHistoryPage() {
             })*/
         }
         fetchData();
-        const fetchData2 = async () => {
+        /*const fetchData2 = async () => {
             console.log(portfolioArticleList);
             portfolioArticleList.map(async (ref) => {
                 console.log(ref.id);
@@ -52,7 +67,7 @@ function PortfolioHistoryPage() {
                 //setArticleCreatedAt(articleDataList => [...articleDataList, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
             })
         }
-        fetchData2();
+        fetchData2();*/
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -79,7 +94,12 @@ function PortfolioHistoryPage() {
                 <Timeline align="alternate">
                     { portfolioTimelineHeader }
                     {
-                        portfolioArticleList.map((article, index) => (
+                    
+                            <Timelineitem 
+                            id={portfolioArticleList.id}
+                            title={portfolioArticleList.title}/>
+                    
+                        /*portfolioArticleList.map((article, index) => (
                             <Timelineitem
                                 id={article.id}
                                 title={article.title}
@@ -87,7 +107,7 @@ function PortfolioHistoryPage() {
                                 answerCounter={article.answerCounter}
                                 views={article.views}
                                 createdAt={articleCreatedAt[index]} />
-                        ))
+                        ))*/
                     }
                 </Timeline>
             </div>

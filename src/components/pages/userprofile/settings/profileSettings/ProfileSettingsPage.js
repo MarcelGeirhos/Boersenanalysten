@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 // own module imports
 import SettingsMenu from './../settingsMenu/SettingsMenu';
 import UserprofileNavigation from '../../UserprofileNavigation';
-import ErrorText from '../../../../gui/outputs/errorText/ErrorText';
 import TextEditor from '../../../../gui/inputs/textEditor/TextEditor';
-import InputfieldDark from '../../../../gui/inputs/inputfieldDark/InputfieldDark';
 
 // css imports
 import './ProfileSettingsPage.css';
@@ -13,19 +11,28 @@ import './ProfileSettingsPage.css';
 // third party imports
 import firebase from 'firebase/app';
 
+// material-ui imports
+import {
+    TextField,
+} from '@material-ui/core';
+
 function ProfileSettingsPage() {
     const [userData, setUserData] = useState([]);
     const [username, setUsername] = useState("");
     const [domicile, setDomicile] = useState("");
-    const [usernameErrorText, setUsernameErrorText] = useState("Error Text");
+    const [usernameError, setUsernameError] = useState(false);
+    const [usernameErrorText, setUsernameErrorText] = useState("");
 
     // Verbindung zur SettingsMenu Komponente um auf die Benutzerdaten 
     // Zugriff zu bekommen.
     const callbackUserData = (userData) => {
         setUserData(userData);
+        setUsername(userData.username);
+        setDomicile(userData.domicile);
     }
 
-    const update = async () => {
+    const update = async (e) => {
+        e.preventDefault();
         let isUsernameValid = checkUsername();
         if (isUsernameValid) {
             await updateProfile();
@@ -49,14 +56,15 @@ function ProfileSettingsPage() {
     const checkUsername = () => {
         if (username === "") {
             setUsernameErrorText('Bitte geben Sie einen Benutzername ein.');
-            document.getElementById("username-error-text").style.visibility = "visible";
+            setUsernameError(true);
             return false;
         } else if (username.length < 5) {
             setUsernameErrorText('Der Benutzername muss mindestens 5 Zeichen lang sein.');
-            document.getElementById("username-error-text").style.visibility = "visible";
+            setUsernameError(true);
             return false;
         }
-        document.getElementById("username-error-text").style.visibility = "hidden";
+        setUsernameErrorText('');
+        setUsernameError(false);
         return true;
     }
 
@@ -66,11 +74,33 @@ function ProfileSettingsPage() {
             <SettingsMenu parentCallbackUserData={callbackUserData} />
             <div className="profile-settings-form">
                 <form onSubmit={update}>
-                    <label>Benutzername:</label>
-                    <InputfieldDark type="text" value={userData.username} onChange={(e) => setUsername(e.target.value)} />
-                    <ErrorText id="username-error-text">{usernameErrorText}</ErrorText>
-                    <label>Wohnort:</label>
-                    <InputfieldDark type="text" value={userData.domicile} onChange={(e) => setDomicile(e.target.value)} />
+                    <TextField
+                        label="Benutzername"
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        variant="filled"
+                        className="register-text-field"
+                        focused
+                        error={usernameError}
+                        helperText={usernameErrorText}
+                        inputProps={{ style: { color: 'white'}}}
+                        InputLabelProps={{
+                            style: { color: 'white' },
+                        }} />
+                        <br />
+                    <TextField
+                        label="Wohnort"
+                        type="text"
+                        value={domicile}
+                        onChange={(e) => setDomicile(e.target.value)}
+                        variant="filled"
+                        className="register-text-field"
+                        focused
+                        inputProps={{ style: { color: 'white'}}}
+                        InputLabelProps={{
+                            style: { color: 'white' },
+                        }} />
                     <TextEditor title="Über mich:" />
                     <input type="submit" value="Profil Speichern" id="save-profile-button" className="main-button" />
                 </form>

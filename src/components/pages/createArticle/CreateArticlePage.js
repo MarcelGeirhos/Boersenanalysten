@@ -26,12 +26,12 @@ function CreateArticlePage() {
     const [editorText, setEditorText] = useState("");
     const [tags, setTags] = useState([]);
     const [userData, setUserData] = useState([]);
+    const [portfolioArticle, setPortfolioArticle] = useState([]);
     const [tagErrorText, setTagErrorText] = useState("ErrorText");
     const [titleErrorText, setTitleErrorText] = useState("ErrorText");
     const [editorErrorText, setEditorErrorText] = useState("ErrorText");
     const [routeRedirect, setRedirect] = useState(false);
     const [isPortfolioArticle, setIsPortfolioArticle] = useState(false);
-    const [portfolioArticle, setPortfolioArticle] = useState([]);
 
     useEffect(() => {
         firebaseConfig.getUserState().then(user => {
@@ -42,18 +42,14 @@ function CreateArticlePage() {
                     }).catch(error => {
                         console.log('Error getting userData ', error);
                     })
-                    
+                const portfolioArticleList = await firebase.firestore().collection('users').doc(user.uid).collection('portfolioArticles').get();
+                portfolioArticleList.forEach(async (doc) => {
+                    const portfolioArticles = await firebase.firestore().collection('users').doc(user.uid).collection('portfolioArticles').doc(doc.data().id).get();
+                    setPortfolioArticle(portfolioArticles.data());
+                })
             }
             fetchData();
         })
-        const getUserPortfolioArticles = async () => {
-            
-            const portfolioArticles = await firebase.firestore().collection('users').doc('i9XQBNrF2mh623E2fUQe3d5dsOv1').collection('portfolioArticles').doc('0nysPSEnYYa4rEM58wlV').get();
-            setPortfolioArticle(portfolioArticles.data());
-            //setPortfolioArticleList(portfolioArticles.docs.map(doc => ({...doc.data()})));
-            //console.log(portfolioArticleList);
-        }
-        getUserPortfolioArticles();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [/*portfolioArticleList*/])
 

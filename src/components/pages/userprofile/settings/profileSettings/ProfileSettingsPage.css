@@ -1,18 +1,6 @@
 .profile-settings-form  {
-    margin: 0 80px; 
+    margin: 40px 80px 0 80px; 
     grid-column: 2 / 6;
-}
-
-.profile-settings-form label {
-    display: block;
-    font-size: 18px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-    margin: 16px 0 12px 0;
-}
-
-.profile-settings-form label:first-child {
-    margin-top: 60px;
 }
 
 .profile-settings-form input {
