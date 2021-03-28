@@ -51,7 +51,7 @@ function CreateArticlePage() {
             fetchData();
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [/*portfolioArticleList*/])
+    }, [])
 
     // Der Artikel Text wird mit allen Eigenschaften die vom
     // Benutzer mit dem Editor gesetzt wurden in die Datenbank

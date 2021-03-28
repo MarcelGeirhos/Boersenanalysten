@@ -32,13 +32,11 @@ function PortfolioHistoryPage() {
                 setPortfolioArticle(portfolioArticles);
                 portfolioArticles.data().portfolioArticleRefs.forEach(async (doc) => {
                     const portfolioArticle = await firebase.firestore().collection('articles').doc(doc.id).get();
-                    setPortfolioArticleList({...portfolioArticle.data()});
-                    console.log(portfolioArticle.data());
+                    setPortfolioArticleList(portfolioArticleList => [...portfolioArticleList, portfolioArticle.data()]);
                 })
-                
             })
-            
-           
+        }
+        fetchData();  
             
             //const userPortfolioArticles = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').get();
             //setPortfolioArticleList(userPortfolioArticles.docs.map(doc => ({...doc.data()})));
@@ -56,8 +54,7 @@ function PortfolioHistoryPage() {
                 setArticleDataList(articleDataList => [...articleDataList, articleData.data()]);
                 setArticleCreatedAt(articleDataList => [...articleDataList, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
             })*/
-        }
-        fetchData();
+        
         /*const fetchData2 = async () => {
             console.log(portfolioArticleList);
             portfolioArticleList.map(async (ref) => {
@@ -72,7 +69,7 @@ function PortfolioHistoryPage() {
     }, [])
 
     let portfolioTimelineHeader;
-    if (articleDataList.length === 0) {
+    if (portfolioArticleList.length === 0) {
         portfolioTimelineHeader = (
             <div className="empty-portfolio-timeline">
                 <h2>Erstelle deinen ersten Portfolio Beitrag</h2>
@@ -94,20 +91,14 @@ function PortfolioHistoryPage() {
                 <Timeline align="alternate">
                     { portfolioTimelineHeader }
                     {
-                    
+                        portfolioArticleList.map((article) => (
                             <Timelineitem 
-                            id={portfolioArticleList.id}
-                            title={portfolioArticleList.title}/>
-                    
-                        /*portfolioArticleList.map((article, index) => (
-                            <Timelineitem
                                 id={article.id}
                                 title={article.title}
                                 voting={article.voting}
                                 answerCounter={article.answerCounter}
-                                views={article.views}
-                                createdAt={articleCreatedAt[index]} />
-                        ))*/
+                                views={article.views}/>
+                        ))
                     }
                 </Timeline>
             </div>
