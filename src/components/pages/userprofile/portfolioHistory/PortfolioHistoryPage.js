@@ -17,10 +17,7 @@ import { Timeline } from '@material-ui/lab';
 
 function PortfolioHistoryPage() {
     const { id } = useParams();
-    const [articleRefList, setArticleRefList] = useState([]);
     const [portfolioArticleList, setPortfolioArticleList] = useState([]);
-    const [articleDataList, setArticleDataList] = useState([]);
-    const [portfolioArticle, setPortfolioArticle] = useState([]);
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
     const dateOptions = { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
@@ -29,42 +26,14 @@ function PortfolioHistoryPage() {
             const userPortfolioArticleList = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').get();
             userPortfolioArticleList.forEach(async (doc) => {
                 const portfolioArticles = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').doc(doc.data().id).get();
-                setPortfolioArticle(portfolioArticles);
                 portfolioArticles.data().portfolioArticleRefs.forEach(async (doc) => {
                     const portfolioArticle = await firebase.firestore().collection('articles').doc(doc.id).get();
                     setPortfolioArticleList(portfolioArticleList => [...portfolioArticleList, portfolioArticle.data()]);
+                    setArticleCreatedAt(portfolioArticleList => [...portfolioArticleList, portfolioArticle.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
                 })
             })
         }
         fetchData();  
-            
-            //const userPortfolioArticles = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').get();
-            //setPortfolioArticleList(userPortfolioArticles.docs.map(doc => ({...doc.data()})));
-            //portfolioArticleList.map((portfolioArticle) => {
-            //    console.log(portfolioArticle.portfolioArticleRefs);
-            // });
-            /*const articleRefData = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').doc(userData.data().portfolioArticleSubColIds[0]).get();
-            console.log(articleRefData.data().length);
-            setArticleRefList({...articleRefData.data().portfolioArticleRefs});
-            // TODO hier weitermachen length = 0? warum?
-            console.log(articleRefList.length);
-           
-            /*articleRefData.docs.map(async (doc) => {
-                const articleData = await firebase.firestore().collection('articles').doc(doc.data().articleRef.id).get();
-                setArticleDataList(articleDataList => [...articleDataList, articleData.data()]);
-                setArticleCreatedAt(articleDataList => [...articleDataList, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
-            })*/
-        
-        /*const fetchData2 = async () => {
-            console.log(portfolioArticleList);
-            portfolioArticleList.map(async (ref) => {
-                console.log(ref.id);
-                const articleData = await firebase.firestore().collection('articles').doc(ref.id).get();
-                setArticleDataList(articleDataList => [...articleDataList, articleData.data()]);
-                //setArticleCreatedAt(articleDataList => [...articleDataList, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
-            })
-        }
-        fetchData2();*/
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -91,13 +60,14 @@ function PortfolioHistoryPage() {
                 <Timeline align="alternate">
                     { portfolioTimelineHeader }
                     {
-                        portfolioArticleList.map((article) => (
+                        portfolioArticleList.map((article, index) => (
                             <Timelineitem 
                                 id={article.id}
                                 title={article.title}
                                 voting={article.voting}
                                 answerCounter={article.answerCounter}
-                                views={article.views}/>
+                                views={article.views}
+                                createdAt={articleCreatedAt[index]}/>
                         ))
                     }
                 </Timeline>
