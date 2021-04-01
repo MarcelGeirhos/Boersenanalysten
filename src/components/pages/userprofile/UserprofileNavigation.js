@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
 // own module imports
-import Secondbutton from '../../gui/buttons/secondbutton/Secondbutton';
 import firebaseConfig from '../../../firebase/Config';
 
 // css imports
 import './UserprofileNavigation.css';
 
-function UserprofileNavigation() {
+// third party imports
+import { Link } from 'react-router-dom';
+
+// material-ui imports
+import {
+    Tabs,
+    Tab,
+} from '@material-ui/core';
+
+function UserprofileNavigation({ selectedTab }) {
     const [userState, setUserState] = useState(null);
     
     useEffect(() => {
@@ -21,20 +29,13 @@ function UserprofileNavigation() {
 
     return (
         <div className="user-profile-grid navigation">
-            <nav>
-                <Secondbutton link={{pathname: userState != null ? `/userprofile/${userState.uid}` : ``}}>Profil</Secondbutton>
-                <Secondbutton link={{pathname: userState != null ? `/portfolioHistory/${userState.uid}` : ``}}>Portfolio Historie</Secondbutton>
-                <Secondbutton link={{pathname: userState != null ? `/settings/profileSettings/${userState.uid}` : ``}}>Einstellungen</Secondbutton>
-            </nav>
+            <Tabs value={selectedTab} textColor="white">
+                <Tab to={{pathname: userState != null ? `/userprofile/${userState.uid}` : ``}} label="Profil" component={Link} value={0} />
+                <Tab to={{pathname: userState != null ? `/portfolioHistory/${userState.uid}` : ``}} label="Portfolio Historie" component={Link} value={1} />
+                <Tab to={{pathname: userState != null ? `/settings/profileSettings/${userState.uid}` : ``}} label="Einstellungen" component={Link} value={2} />
+            </Tabs>   
         </div>
     );
 }
 
 export default UserprofileNavigation;
-
-/*<Tabs value={value}>
-    <Tab to={{pathname: userState != null ? `/userprofile/${userState.uid}` : ``}} label="Profil" component={Link} />
-    <Tab value={1} label="second" containerElement={<Link to={{pathname: userState != null ? `/portfolioHistory/${userState.uid}` : ``}}/>}/>
-    <Tab to={{pathname: userState != null ? `/portfolioHistory/${userState.uid}` : ``}} label="Portfolio Historie" component={Link} />
-    <Tab to={{pathname: userState != null ? `/settings/profileSettings/${userState.uid}` : ``}} label="Einstellungen" component={Link} />
-</Tabs>*/

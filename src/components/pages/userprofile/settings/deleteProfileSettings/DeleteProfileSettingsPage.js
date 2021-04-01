@@ -101,7 +101,7 @@ function DeleteProfileSettingsPage() {
 
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation />
+            <UserprofileNavigation selectedTab={2} />
             <SettingsMenu />
             <div className="delete-profile-form">
                 <h1>Profil löschen</h1>

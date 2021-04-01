@@ -10,7 +10,7 @@ import './PortfolioHistorySettingsPage.css';
 function PortfolioHistorySettingsPage() {
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation />
+            <UserprofileNavigation selectedTab={2}/>
             <SettingsMenu />
             <div className="portfolio-history-settings-form">
                 <h1>Portfolio Historie Einstellungen</h1>

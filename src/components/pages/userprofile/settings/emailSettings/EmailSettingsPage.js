@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 // own module imports
 import SettingsMenu from './../settingsMenu/SettingsMenu';
 import UserprofileNavigation from '../../UserprofileNavigation';
-import ErrorText from '../../../../gui/outputs/errorText/ErrorText';
-import InputfieldDark from '../../../../gui/inputs/inputfieldDark/InputfieldDark';
 
 // css imports
 import './EmailSettingsPage.css';
@@ -12,17 +10,23 @@ import './EmailSettingsPage.css';
 // third party imports
 import firebase from 'firebase/app';
 
+// material-ui imports
+import { TextField } from '@material-ui/core';
+
 function EmailSettingsPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userData, setUserData] = useState([]);
-    const [emailErrorText, setEmailErrorText] = useState("Error Text");
-    const [passwordErrorText, setPasswordErrorText] = useState("Error Text");
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [emailErrorText, setEmailErrorText] = useState("");
+    const [passwordErrorText, setPasswordErrorText] = useState("");
 
     // Verbindung zur SettingsMenu Komponente um auf die Benutzerdaten 
     // Zugriff zu bekommen.
     const callbackUserData = (userData) => {
         setUserData(userData);
+        setEmail(userData.email);
     }
 
     const update = async () => {
@@ -89,38 +93,62 @@ function EmailSettingsPage() {
     const checkEmail = () => {
         if (email === "") {
             setEmailErrorText('Bitte geben Sie eine neue E-Mail Adresse ein.');
-            document.getElementById("email-error-text").style.visibility = "visible";
+            setEmailError(true);
             return false;
         }
-        document.getElementById("email-error-text").style.visibility = "hidden";
+        setEmailErrorText('');
+        setEmailError(false);
         return true;
     }
 
     const checkPassword = () => {
         if (password === "") {
             setPasswordErrorText('Bitte geben Sie ihr Passwort ein.');
-            document.getElementById("password-error-text").style.visibility = "visible";
+            setPasswordError(true);
             return false;
         } else if (password.length < 6) {
             setPasswordErrorText('Das Passwort muss mindestens 6 Zeichen lang sein.');
-            document.getElementById("password-error-text").style.visibility = "visible";
+            setPasswordError(true);
             return false;
         }
-        document.getElementById("password-error-text").style.visibility = "hidden";
+        setPasswordErrorText('');
+        setPasswordError(false);
         return true;
     }
 
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation />
+            <UserprofileNavigation selectedTab={2} />
             <SettingsMenu parentCallbackUserData={callbackUserData} />
             <div className="email-settings-form">
-                <label>E-Mail:</label>
-                <InputfieldDark type="email" value={userData.email} onChange={(e) => setEmail(e.target.value)} />
-                <ErrorText id="email-error-text">{emailErrorText}</ErrorText>
-                <label>Mit Passwort bestätigen:</label>
-                <InputfieldDark type="password" onChange={(e) => setPassword(e.target.value)} />
-                <ErrorText id="password-error-text">{passwordErrorText}</ErrorText>
+                <h2>E-Mail ändern:</h2>
+                <TextField
+                    label="E-Mail"
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    variant="filled"
+                    focused
+                    className="register-text-field"
+                    error={emailError}
+                    value={email}
+                    helperText={emailErrorText}
+                    inputProps={{ style: { color: 'white'}}}
+                    InputLabelProps={{
+                        style: { color: 'white' },
+                    }} />
+                    <br />
+                <TextField
+                    label="Passwort"
+                    onChange={(e) => setPassword(e.target.value)}
+                    variant="filled"
+                    className="register-text-field"
+                    error={passwordError}
+                    helperText={passwordErrorText}
+                    inputProps={{ style: { color: 'white'}}}
+                    InputLabelProps={{
+                        style: { color: 'white' },
+                    }} />
+                    <br />
                 <input type="submit" onClick={update} value="Speichern" id="save-email-button" className="main-button" />
             </div>
         </div>

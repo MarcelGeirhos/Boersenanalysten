@@ -55,7 +55,7 @@ function PortfolioHistoryPage() {
 
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation />
+            <UserprofileNavigation selectedTab={1} />
             <div className="portfolio-timeline">
                 <Timeline align="alternate">
                     { portfolioTimelineHeader }

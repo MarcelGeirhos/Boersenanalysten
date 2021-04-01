@@ -108,7 +108,7 @@ function PasswordSettingsPage() {
 
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation />
+            <UserprofileNavigation selectedTab={2} />
             <SettingsMenu />
             <div className="passwort-settings-form">
                 <label>Altes Passwort:</label>

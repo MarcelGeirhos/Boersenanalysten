@@ -12,9 +12,7 @@ import './ProfileSettingsPage.css';
 import firebase from 'firebase/app';
 
 // material-ui imports
-import {
-    TextField,
-} from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
 function ProfileSettingsPage() {
     const [userData, setUserData] = useState([]);
@@ -70,7 +68,7 @@ function ProfileSettingsPage() {
 
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation />
+            <UserprofileNavigation selectedTab={2} />
             <SettingsMenu parentCallbackUserData={callbackUserData} />
             <div className="profile-settings-form">
                 <form onSubmit={update}>

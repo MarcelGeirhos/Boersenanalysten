@@ -36,7 +36,7 @@ function UserprofilePage() {
 
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation />
+            <UserprofileNavigation selectedTab={0} />
             <div className="user-profile-grid overview">
                 <p>Benutzername: {userData.username}</p>
                 <p>Portfolio: {userData.portfolioLink}</p>
