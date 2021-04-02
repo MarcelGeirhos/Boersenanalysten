@@ -76,9 +76,6 @@ function CreateArticlePage() {
                 creatorId: userData.uid,
                 isPortfolioArticle: isPortfolioArticle,
             })
-            // TODO hier weitermachen und articleList1 dynamisch machen auf articleList2, articleList3, etc. . Länge des Arrays oder Bytes des Dokuments abfragen
-            // und in Register auf articleList1 abändern.
-            //const articleRef = await firebase.firestore().collection('users').doc(userData.uid).collection(collection).doc('articles').get();
             if (isPortfolioArticle === true) {
                 await firebase.firestore().collection('users').doc(userData.uid).collection('portfolioArticles').doc(portfolioArticle.id).update({
                     portfolioArticleRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${newArticleRef.id}`)),

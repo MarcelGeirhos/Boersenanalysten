@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// own module imports
+import firebaseConfig from '../../../../../firebase/Config';
+
 // css imports
 import './ArticleVoting.css';
 
@@ -15,8 +18,8 @@ import { useParams } from "react-router-dom";
 
 const ArticleVoting = () => {
     const { id } = useParams();
+    const [votings, setVotings] = useState([]);
     const [articleVoting, setArticleVoting] = useState(0);
-    const [userVotingRefs, setUserVotingRefs] = useState([]);
 
     async function setNewArticleVoting(voting, votingPoints) {
         await firebase.firestore().collection('articles').doc(id).update({
@@ -28,8 +31,8 @@ const ArticleVoting = () => {
         await firebase.firestore().collection('users').doc(articleData.data().creatorId).update({
             shareCounter: creatorData.data().shareCounter + votingPoints,
         });
-        await firebase.firestore().collection('users').doc(articleData.data().creatorId).collection('votings').doc().set({
-            votingRef: firebase.firestore().doc(`/articles/${id}`),
+        await firebase.firestore().collection('users').doc(articleData.data().creatorId).collection('votings').doc(votings.id).update({
+            votingRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${id}`)),
         })
         console.log('Beitrag Voting wurde erfolgreich gewertet.');
     }
@@ -41,27 +44,36 @@ const ArticleVoting = () => {
             setArticleVoting(currentVoting);
         }
         getArticleVoting();
-        const getUserVotings = async () => {
-            const articleData = await firebase.firestore().collection('articles').doc(id).get();
-            const userVotings = await firebase.firestore().collection('users').doc(articleData.data().creatorId).collection('votings').get();
-            setUserVotingRefs(userVotings.docs.map(doc => ({...doc.data().votingRef })));
-            
-            console.log({...userVotingRefs});
-            for (let i = 0; i < userVotingRefs.length; i++) {
-                if (userVotingRefs[i].id === id) {
-                    console.log('Benutzer hat Voting für ' + id + ' abgegeben.');
-                }
-            } 
-        }
-        getUserVotings();
+        firebaseConfig.getUserState().then(user => {
+            const getUserVotings = async () => {
+                const votingList = await firebase.firestore().collection('users').doc(user.uid).collection('votings').get();
+                console.log(votingList);
+                votingList.forEach(async (doc) => {
+                    const votings = await firebase.firestore().collection('users').doc(user.uid).collection('votings').doc(doc.data().id).get();
+                    setVotings(votings.data());
+                    console.log(votings.data().votingRefs);
+                    for (let i = 0; i < votings.data().votingRefs.length; i++) {
+                        if (votings.data().votingRefs[i].id === id) {
+                            document.getElementById("voting-button").style.backgroundColor = "orange";
+                            break;
+                        } else {
+                            // TODO hier weitermachen und Ausgangfarbe setzen und button für Votings verbessern nur className oder id verwenden
+                            // für bessere Übersichtlichkeit.
+                            document.getElementById("voting-button").style.backgroundColor = "black";
+                        }
+                    }
+                })
+            }
+            getUserVotings();
+        })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     return (
         <div className="article-voting-section">
-            <button className="voting-button" onClick={() => setNewArticleVoting(articleVoting + 1, 10)}><ArrowDropUp /></button>
+            <button className="voting-button" id="voting-button" onClick={() => setNewArticleVoting(articleVoting + 1, 10)}><ArrowDropUp /></button>
             <p>{articleVoting}</p>
-            <button className="voting-button" onClick={() => setNewArticleVoting(articleVoting - 1, -5)}><ArrowDropDown /></button>
+            <button className="voting-button" id="voting-button" onClick={() => setNewArticleVoting(articleVoting - 1, -5)}><ArrowDropDown /></button>
         </div>
     );
 }
