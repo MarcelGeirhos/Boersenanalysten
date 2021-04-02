@@ -139,6 +139,7 @@ function EmailSettingsPage() {
                     <br />
                 <TextField
                     label="Passwort"
+                    type="password"
                     onChange={(e) => setPassword(e.target.value)}
                     variant="filled"
                     className="register-text-field"

@@ -82,7 +82,8 @@ function RegisterPage() {
                 await firebase.firestore().collection('users').doc(user.user.uid).collection('votings').doc(votingsCol.id).set({
                     id: votingsCol.id,
                     createdAt: new Date(),
-                    votingRefs: [],
+                    upVotingRefs: [],
+                    downVotingRefs: [],
                 })
                 console.log(user);
                 setRedirect(true);

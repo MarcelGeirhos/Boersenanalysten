@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 // own module imports
 import SettingsMenu from './../settingsMenu/SettingsMenu';
 import UserprofileNavigation from '../../UserprofileNavigation';
-import ErrorText from '../../../../gui/outputs/errorText/ErrorText';
 import Mainbutton from '../../../../gui/buttons/mainbutton/Mainbutton';
-import InputfieldDark from '../../../../gui/inputs/inputfieldDark/InputfieldDark';
 
 // css imports
 import './DeleteProfileSettingsPage.css';
@@ -14,11 +12,15 @@ import './DeleteProfileSettingsPage.css';
 import { Redirect } from 'react-router-dom';
 import firebase from 'firebase/app';
 
+// material-ui imports
+import { TextField } from '@material-ui/core';
+
 function DeleteProfileSettingsPage() {
     const [routeRedirect, setRedirect] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(true);
     const [password, setPassword] = useState("");
-    const [passwordErrorText, setPasswordErrorText] = useState("Error Text");
+    const [passwordError, setPasswordError] = useState(false);
+    const [passwordErrorText, setPasswordErrorText] = useState("");
 
     function setCheckbox() {
         const checked = document.getElementById("delete-profile-checkbox").checked;
@@ -63,7 +65,7 @@ function DeleteProfileSettingsPage() {
                 switch (error.code) {
                     case 'auth/wrong-password':
                         setPasswordErrorText('Das Passwort ist nicht korrekt.');
-                        document.getElementById("password-error-text").style.visibility = "visible";
+                        setPasswordError(true);
                         break;
                     default:
                         console.log('Unbekannter Fehler bei Profil löschen: ' + error);
@@ -88,14 +90,15 @@ function DeleteProfileSettingsPage() {
     function checkPassword() {
         if (password === "") {
             setPasswordErrorText('Bitte geben Sie ihr Passwort ein.');
-            document.getElementById("password-error-text").style.visibility = "visible";
+            setPasswordError(true);
             return false;
         } else if (password.length < 6) {
             setPasswordErrorText('Das Passwort muss mindestens 6 Zeichen lang sein.');
-            document.getElementById("password-error-text").style.visibility = "visible";
+            setPasswordError(true);
             return false;
         }
-        document.getElementById("password-error-text").style.visibility = "hidden";
+        setPasswordErrorText('');
+        setPasswordError(false);
         return true;
     }
 
@@ -112,9 +115,20 @@ function DeleteProfileSettingsPage() {
                 </ul>
                 <input type="checkbox" id="delete-profile-checkbox" name="profil-loeschen" onClick={setCheckbox}/>
                 <label for="delete-profile">Ich habe die oben genannten Informationen verstanden.</label>
-                <label id="password-label">Mit Passwort bestätigen:</label>
-                <InputfieldDark type="password" onChange={(e) => setPassword(e.target.value)} />
-                <ErrorText id="password-error-text">{passwordErrorText}</ErrorText>
+                <br />
+                <TextField
+                    label="Mit Passwort bestätigen"
+                    type="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    variant="filled"
+                    className="register-text-field"
+                    error={passwordError}
+                    helperText={passwordErrorText}
+                    inputProps={{ style: { color: 'white'}}}
+                    InputLabelProps={{
+                        style: { color: 'white' },
+                    }} />
+                    <br />
                 <Mainbutton id="delete-profile-button" onClick={deleteProfile} disabled={buttonDisabled}>Profil löschen</Mainbutton>
             </div>
         </div>
