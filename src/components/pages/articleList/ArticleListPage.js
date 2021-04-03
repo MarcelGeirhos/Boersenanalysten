@@ -28,7 +28,7 @@ function ArticleListPage() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const articleData = await firebase.firestore().collection('articles').get();
+            const articleData = await firebase.firestore().collection('articles').orderBy("createdAt", "desc").limit(5).get();
             setArticleList(articleData.docs.map(doc => ({...doc.data()})));
             setArticleCreatedAt(articleData.docs.map(doc => (doc.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions))));
         }
@@ -36,10 +36,27 @@ function ArticleListPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const loadMoreArticles = () => {
+        const currentArticleData = firebase.firestore().collection('articles').orderBy("createdAt", "desc").limit(5);
+        return currentArticleData.get().then(async (documentSnapshots) => {
+            // Get the last visible document
+            const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
+            console.log("last", lastVisible.data());
+          
+            // Construct a new query starting at this document,
+            // get the next 5 articles.
+            const next = await firebase.firestore().collection('articles')
+                    .orderBy("createdAt", "desc")
+                    .startAfter(lastVisible)
+                    .limit(5).get();
+            setArticleList(next.docs.map(doc => ({...doc.data()})));
+        });
+    }
+
     return (
         <div>
             <div className="articlelist-header">
-                <h1>Beste Beiträge</h1>
+                <h1>Beiträge</h1>
                 <Mainbutton link="/createArticle">Beitrag erstellen</Mainbutton>
             </div>
             <div className="articlelist-filter">
@@ -69,28 +86,11 @@ function ArticleListPage() {
                 </div>
                 ))
             }
-           </div>
+            <div className="load-more-articles">
+                <Mainbutton onClick={loadMoreArticles}>Mehr laden</Mainbutton>
+            </div>
+        </div>  
     );
 }
 
 export default ArticleListPage;
-
-
-/*<button type="submit" value="Filter" onClick={onClick}><Tune />Filter</button>
-            </div>
-            { showFilterSettings ? <FilterSettings /> : null }
-                {  
-                articleList.map((article, index) => (
-                    <div key={index}>
-                        <Listitem id={article.id}
-                            title={article.title}
-                            tags={article.tags}
-                            voting={article.voting}
-                            answerCounter={article.answerCounter}
-                            views={article.views}
-                            creator={article.creator}
-                            creatorId={article.creatorId}
-                            createdAt={articleCreatedAt[index]}></Listitem>
-                    </div>
-                ))
-                }*/

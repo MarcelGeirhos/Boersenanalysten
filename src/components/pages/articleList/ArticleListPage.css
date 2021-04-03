@@ -60,6 +60,11 @@
     outline: none;
 }
 
+.load-more-articles a button {
+    display: flex;
+    justify-content: center;
+}
+
 .accordion {
     background-color: #333333 !important;
     width: 100%;
