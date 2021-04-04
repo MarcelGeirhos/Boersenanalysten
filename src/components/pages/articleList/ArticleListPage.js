@@ -37,20 +37,29 @@ function ArticleListPage() {
     }, [])
 
     const loadMoreArticles = () => {
-        const currentArticleData = firebase.firestore().collection('articles').orderBy("createdAt", "desc").limit(5);
+        const currentArticleData = firebase.firestore().collection('articles')
+                                .orderBy("createdAt", "desc")
+                                .limit(5);
         return currentArticleData.get().then(async (documentSnapshots) => {
-            // Get the last visible document
+            // Letzter sichtbare Beitrag
             const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
             console.log("last", lastVisible.data());
           
-            // Construct a new query starting at this document,
-            // get the next 5 articles.
+            // Neue Abfrage die mit dem letzten sichtbaren Dokument beginnt und
+            // die nächsten 10 Beiträge lädt
             const next = await firebase.firestore().collection('articles')
                     .orderBy("createdAt", "desc")
                     .startAfter(lastVisible)
                     .limit(5).get();
             setArticleList(next.docs.map(doc => ({...doc.data()})));
         });
+    }
+
+    // Verbindung zu FilterSettings Komponente um auf die gefilterte
+    // Beitragsliste Zugriff zu bekommen.
+    const callbackFilteredList = (filteredList) => {
+        console.log(filteredList);
+        setArticleList(filteredList.docs.map(doc => ({...doc.data()})));
     }
 
     return (
@@ -67,7 +76,7 @@ function ArticleListPage() {
                         <p>Filter</p>
                     </AccordionSummary>
                     <AccordionDetails className="accordion-content">
-                        <FilterSettings />
+                        <FilterSettings filteredArticleList={callbackFilteredList} />
                     </AccordionDetails>
                 </Accordion>
             </div>

@@ -60,9 +60,14 @@
     outline: none;
 }
 
+.load-more-articles a {
+    text-decoration: none;
+}
+
 .load-more-articles a button {
     display: flex;
     justify-content: center;
+    margin: 20px auto 50px auto;
 }
 
 .accordion {

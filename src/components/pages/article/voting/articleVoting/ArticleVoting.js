@@ -54,35 +54,36 @@ const ArticleVoting = () => {
         }
         getArticleVoting();
         const getUserVotings = async () => {
-            const user = firebase.auth().currentUser;
-            setCurrentUser(user);
-            const votingList = await firebase.firestore().collection('users').doc(user.uid).collection('votings').get();
-            votingList.forEach(async (doc) => {
-                const votings = await firebase.firestore().collection('users').doc(user.uid).collection('votings').doc(doc.data().id).get();
-                setVotings(votings.data());
-                // Up Voting
-                for (let i = 0; i < votings.data().upVotingRefs.length; i++) {
-                    if (votings.data().upVotingRefs[i].id === id) {
-                        document.getElementById("up-voting-button").style.backgroundColor = "rgba(211, 84, 0, 0.85)";
-                        document.getElementById("up-voting-button").style.cursor = "default";
-                        break;
-                    } else {
-                        document.getElementById("up-voting-button").style.backgroundColor = "rgba(255, 255, 255, 0.1)";
-                        document.getElementById("up-voting-button").style.cursor = "cursor";
+            firebaseConfig.getUserState().then(async (user) => {
+                setCurrentUser(user);
+                const votingList = await firebase.firestore().collection('users').doc(user.uid).collection('votings').get();
+                votingList.forEach(async (doc) => {
+                    const votings = await firebase.firestore().collection('users').doc(user.uid).collection('votings').doc(doc.data().id).get();
+                    setVotings(votings.data());
+                    // Up Voting setzen
+                    for (let i = 0; i < votings.data().upVotingRefs.length; i++) {
+                        if (votings.data().upVotingRefs[i].id === id) {
+                            document.getElementById("up-voting-button").style.backgroundColor = "rgba(211, 84, 0, 0.85)";
+                            document.getElementById("up-voting-button").style.cursor = "default";
+                            break;
+                        } else {
+                            document.getElementById("up-voting-button").style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                            document.getElementById("up-voting-button").style.cursor = "cursor";
+                        }
                     }
-                }
-                // Down Voting
-                for (let i = 0; i < votings.data().downVotingRefs.length; i++) {
-                    if (votings.data().downVotingRefs[i].id === id) {
-                        document.getElementById("down-voting-button").style.backgroundColor = "rgba(211, 84, 0, 0.85)";
-                        document.getElementById("down-voting-button").style.cursor = "default";
-                        break;
-                    } else {
-                        document.getElementById("down-voting-button").style.backgroundColor = "rgba(255, 255, 255, 0.1)";
-                        document.getElementById("down-voting-button").style.cursor = "cursor";
+                    // Down Voting setzen
+                    for (let i = 0; i < votings.data().downVotingRefs.length; i++) {
+                        if (votings.data().downVotingRefs[i].id === id) {
+                            document.getElementById("down-voting-button").style.backgroundColor = "rgba(211, 84, 0, 0.85)";
+                            document.getElementById("down-voting-button").style.cursor = "default";
+                            break;
+                        } else {
+                            document.getElementById("down-voting-button").style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                            document.getElementById("down-voting-button").style.cursor = "cursor";
+                        }
                     }
-                }
-            })
+                })
+            });
         }
         getUserVotings();
         // eslint-disable-next-line react-hooks/exhaustive-deps

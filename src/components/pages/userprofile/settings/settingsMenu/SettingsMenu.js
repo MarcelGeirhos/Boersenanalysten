@@ -34,19 +34,19 @@ const SettingsMenu = ({ parentCallbackUserData }) => {
     return (
         <div className="settings-menu">
             <ul>
-                <Link to={{pathname: `/settings/profileSettings/${userData.uid}`}}>
+                <Link to={{pathname: `/settings/profileSettings/${id}`}}>
                     <li>Profil</li>
                 </Link>
-                <Link to={{pathname: `/settings/emailSettings/${userData.uid}`}}>
+                <Link to={{pathname: `/settings/emailSettings/${id}`}}>
                     <li>E-Mail</li>
                 </Link>
-                <Link to={{pathname: `/settings/passwordSettings/${userData.uid}`}}>
+                <Link to={{pathname: `/settings/passwordSettings/${id}`}}>
                     <li>Passwort</li>
                 </Link>
-                <Link to={{pathname: `/settings/portfolioHistorySettings/${userData.uid}`}}>
+                <Link to={{pathname: `/settings/portfolioHistorySettings/${id}`}}>
                     <li>Portfolio Historie</li>
                 </Link>
-                <Link to={{pathname: `/settings/deleteProfileSettings/${userData.uid}`}}>
+                <Link to={{pathname: `/settings/deleteProfileSettings/${id}`}}>
                     <li>Profil löschen</li>
                 </Link>
             </ul>

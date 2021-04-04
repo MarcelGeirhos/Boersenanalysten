@@ -34,7 +34,7 @@ function TagsPage() {
             <div className="tag-section">
             {
             tagList.map(tag => (
-                <div className="tag">  
+                <div className="tag" key={tag.id}>  
                     <Tagbutton id={tag.id}>{tag.name}</Tagbutton>
                     <p>{tag.counter} Beiträge</p>
                 </div>

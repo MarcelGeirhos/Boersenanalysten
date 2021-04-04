@@ -8,23 +8,23 @@ import Mainbutton from '../../../gui/buttons/mainbutton/Mainbutton';
 import './FilterSettings.css';
 
 // third party imports
-//import firebase from 'firebase/app';
+import firebase from 'firebase/app';
 
-const FilterSettings = () => {
-    const filterArticleList = async (tags) => {
-        console.log(tags);
-        /*const articles = await firebase.firestore().collection('articles');
-        tags.map((tag) => {
-            console.log(tag);
-            const filteredArticles = articles.where("tags", "==", tag).get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                console.log(doc.data());
-            })
-            // TODO hier weitermachen und die gefilterte Liste zu ArticleListPage weitergeben,
-            // davor Daten richtig auslesen.
-            console.log(filteredArticles);
-        });
-        })*/
+const FilterSettings = ({ filteredArticleList }) => {
+
+    const filterArticleList = async () => {
+        let searchCriteria = "";
+        if (document.getElementById('newest').checked) {
+            searchCriteria = "createdAt";
+        } else if (document.getElementById('bestVoting').checked) {
+            searchCriteria = "voting";
+        } else if (document.getElementById('mostAnswers').checked) {
+            searchCriteria = "answerCounter";
+        }
+        const filteredList = await firebase.firestore().collection('articles')
+                            .orderBy(searchCriteria, "desc")
+                            .limit(5).get();
+        filteredArticleList(filteredList);
     }
 
     // Verbindung zu TagInput Komponente um auf die eingegebenen Tags 
@@ -59,3 +59,16 @@ const FilterSettings = () => {
 }
 
 export default FilterSettings;
+
+/*const articles = await firebase.firestore().collection('articles');
+        tags.map((tag) => {
+            console.log(tag);
+            const filteredArticles = articles.where("tags", "==", tag).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(doc.data());
+            })
+            // TODO hier weitermachen und die gefilterte Liste zu ArticleListPage weitergeben,
+            // davor Daten richtig auslesen.
+            console.log(filteredArticles);
+        });
+        })*/
