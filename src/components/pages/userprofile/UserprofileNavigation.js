@@ -31,8 +31,9 @@ function UserprofileNavigation({ selectedTab }) {
         <div className="user-profile-grid navigation">
             <Tabs value={selectedTab} textColor="white">
                 <Tab to={{pathname: userState != null ? `/userprofile/${userState.uid}` : ``}} label="Profil" component={Link} value={0} />
-                <Tab to={{pathname: userState != null ? `/portfolioHistory/${userState.uid}` : ``}} label="Portfolio Historie" component={Link} value={1} />
-                <Tab to={{pathname: userState != null ? `/settings/profileSettings/${userState.uid}` : ``}} label="Einstellungen" component={Link} value={2} />
+                <Tab to={{pathname: userState != null ? `/userActivity/${userState.uid}` : ``}} label="Aktivität" component={Link} value={1} />
+                <Tab to={{pathname: userState != null ? `/portfolioHistory/${userState.uid}` : ``}} label="Portfolio Historie" component={Link} value={2} />
+                <Tab to={{pathname: userState != null ? `/settings/profileSettings/${userState.uid}` : ``}} label="Einstellungen" component={Link} value={3} />
             </Tabs>   
         </div>
     );

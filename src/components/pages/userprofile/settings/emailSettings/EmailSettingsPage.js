@@ -118,7 +118,7 @@ function EmailSettingsPage() {
 
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation selectedTab={2} />
+            <UserprofileNavigation selectedTab={3} />
             <SettingsMenu parentCallbackUserData={callbackUserData} />
             <div className="email-settings-form">
                 <h2>E-Mail ändern:</h2>

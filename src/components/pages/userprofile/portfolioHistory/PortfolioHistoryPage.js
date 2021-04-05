@@ -17,8 +17,8 @@ import { Timeline } from '@material-ui/lab';
 
 function PortfolioHistoryPage() {
     const { id } = useParams();
-    const [portfolioArticleList, setPortfolioArticleList] = useState([]);
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
+    const [portfolioArticleList, setPortfolioArticleList] = useState([]);
     const dateOptions = { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
     useEffect(() => {
@@ -55,7 +55,7 @@ function PortfolioHistoryPage() {
 
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation selectedTab={1} />
+            <UserprofileNavigation selectedTab={2} />
             <div className="portfolio-timeline">
                 <Timeline align="alternate">
                     { portfolioTimelineHeader }

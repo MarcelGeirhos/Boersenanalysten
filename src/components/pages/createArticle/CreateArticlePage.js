@@ -26,6 +26,7 @@ function CreateArticlePage() {
     const [editorText, setEditorText] = useState("");
     const [tags, setTags] = useState([]);
     const [userData, setUserData] = useState([]);
+    const [article, setArticle] = useState([]);
     const [portfolioArticle, setPortfolioArticle] = useState([]);
     const [tagErrorText, setTagErrorText] = useState("ErrorText");
     const [titleErrorText, setTitleErrorText] = useState("ErrorText");
@@ -46,6 +47,12 @@ function CreateArticlePage() {
                 portfolioArticleList.forEach(async (doc) => {
                     const portfolioArticles = await firebase.firestore().collection('users').doc(user.uid).collection('portfolioArticles').doc(doc.data().id).get();
                     setPortfolioArticle(portfolioArticles.data());
+                })
+
+                const articleList = await firebase.firestore().collection('users').doc(user.uid).collection('articles').get();
+                articleList.forEach(async (doc) => {
+                    const articles = await firebase.firestore().collection('users').doc(user.uid).collection('articles').doc(doc.data().id).get();
+                    setArticle(articles.data());
                 })
             }
             fetchData();
@@ -81,8 +88,8 @@ function CreateArticlePage() {
                     portfolioArticleRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${newArticleRef.id}`)),
                 })
             } else {
-                await firebase.firestore().collection('users').doc(userData.uid).collection('articles').doc(userData.articleSubColIds[0]).update({
-                    portfolioArticleRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${newArticleRef.id}`)),
+                await firebase.firestore().collection('users').doc(userData.uid).collection('articles').doc(article.id).update({
+                    articleRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${newArticleRef.id}`)),
                 })
             }
             setRedirect(true);

@@ -104,7 +104,7 @@ function DeleteProfileSettingsPage() {
 
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation selectedTab={2} />
+            <UserprofileNavigation selectedTab={3} />
             <SettingsMenu />
             <div className="delete-profile-form">
                 <h1>Profil löschen</h1>
@@ -128,7 +128,7 @@ function DeleteProfileSettingsPage() {
                     InputLabelProps={{
                         style: { color: 'white' },
                     }} />
-                    <br />
+                <br />
                 <Mainbutton id="delete-profile-button" onClick={deleteProfile} disabled={buttonDisabled}>Profil löschen</Mainbutton>
             </div>
         </div>

@@ -25,6 +25,7 @@ import { Button } from '@material-ui/core';
 
 function ArticlePage() {
     const { id } = useParams();
+    const [answer, setAnswer] = useState([]);
     const [tagList, setTagList] = useState([]);
     const [userData, setUserData] = useState([]);
     const [answerList, setAnswerList] = useState([]);
@@ -71,6 +72,11 @@ function ArticlePage() {
                             }).catch(error => {
                                 console.log('Error getting userData ', error);
                             })
+                        const answerList = await firebase.firestore().collection('users').doc(user.uid).collection('answers').get();
+                            answerList.forEach(async (doc) => {
+                            const answers = await firebase.firestore().collection('users').doc(user.uid).collection('answers').doc(doc.data().id).get();
+                            setAnswer(answers.data());
+                        })
                     }
                     getUser();
                 })
@@ -99,8 +105,8 @@ function ArticlePage() {
             await firebase.firestore().collection('articles').doc(id).update({
                 answerCounter: articleData.answerCounter + 1,
             });
-            await firebase.firestore().collection('users').doc(userData.uid).collection('answers').doc(newAnswer.id).set({
-                articleRef: firebase.firestore().doc(`/articles/${id}/answers/${newAnswer.id}`),
+            await firebase.firestore().collection('users').doc(userData.uid).collection('answers').doc(answer.id).update({
+                answerRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${id}/answers/${newAnswer.id}`)),
             })
             window.location.reload();
             console.log('Neue Antwort wurde erfolgreich erstellt.');

@@ -5,6 +5,7 @@ import PasswordSettingsPage from './components/pages/userprofile/settings/passwo
 import ProfileSettingsPage from './components/pages/userprofile/settings/profileSettings/ProfileSettingsPage';
 import EmailSettingsPage from './components/pages/userprofile/settings/emailSettings/EmailSettingsPage';
 import PortfolioHistoryPage from './components/pages/userprofile/portfolioHistory/PortfolioHistoryPage';
+import UserActivityPage from './components/pages/userprofile/userActivity/UserActivityPage';
 import ForgotPasswordPage from './components/pages/forgotPassword/ForgotPasswordPage';
 import UserprofilePage from './components/pages/userprofile/profile/UserprofilePage';
 import CreateArticlePage from './components/pages/createArticle/CreateArticlePage';
@@ -17,7 +18,6 @@ import LoginPage from './components/pages/login/LoginPage';
 import HomePage from './components/pages/home/HomePage';
 import TagsPage from './components/pages/tags/TagsPage';
 import HelpPage from './components/pages/help/HelpPage';
-
 
 // css imports
 import './App.css';
@@ -38,6 +38,7 @@ function App() {
         <Route path="/settings/profileSettings/:id" component={ProfileSettingsPage} />
         <Route path="/settings/emailSettings/:id" component={EmailSettingsPage} />
         <Route path="/portfolioHistory/:id" component={PortfolioHistoryPage} />
+        <Route path="/userActivity/:id" component={UserActivityPage} />
         <Route path="/forgotPassword" component={ForgotPasswordPage} />
         <Route path="/createArticle" component={CreateArticlePage} />
         <Route path="/userprofile/:id" component={UserprofilePage} />

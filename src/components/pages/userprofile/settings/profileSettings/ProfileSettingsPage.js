@@ -68,7 +68,7 @@ function ProfileSettingsPage() {
 
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation selectedTab={2} />
+            <UserprofileNavigation selectedTab={3} />
             <SettingsMenu parentCallbackUserData={callbackUserData} />
             <div className="profile-settings-form">
                 <form onSubmit={update}>

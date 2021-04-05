@@ -114,7 +114,7 @@ function PasswordSettingsPage() {
 
     return (
         <div className="user-profile-grid-container">
-            <UserprofileNavigation selectedTab={2} />
+            <UserprofileNavigation selectedTab={3} />
             <SettingsMenu />
             <div className="passwort-settings-form">
                 <h2>Passwort ändern:</h2>
