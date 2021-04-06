@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 // own module imports
-import Listitem from './listitem/Listitem';
-import Mainbutton from '../../gui/buttons/mainbutton/Mainbutton';
 import FilterSettings from './filterSettings/FilterSettings';
+import Mainbutton from '../../gui/buttons/mainbutton/Mainbutton';
+import ArticleListitem from './../../gui/outputs/articleListitem/ArticleListitem';
 
 // css imports
 import './ArticleListPage.css';
@@ -42,11 +42,13 @@ function ArticleListPage() {
                                 .limit(5);
         return currentArticleData.get().then(async (documentSnapshots) => {
             // Letzter sichtbare Beitrag
+            // TODO funktioniert nur 1x danach werden nicht die nächsten Beiträge in
+            // die Liste geladen.
             const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
             console.log("last", lastVisible.data());
           
             // Neue Abfrage die mit dem letzten sichtbaren Dokument beginnt und
-            // die nächsten 10 Beiträge lädt
+            // die nächsten 5 Beiträge lädt
             const next = await firebase.firestore().collection('articles')
                     .orderBy("createdAt", "desc")
                     .startAfter(lastVisible)
@@ -83,7 +85,7 @@ function ArticleListPage() {
             {  
             articleList.map((article, index) => (
                 <div key={index}>
-                    <Listitem id={article.id}
+                    <ArticleListitem id={article.id}
                         title={article.title}
                         tags={article.tags}
                         voting={article.voting}

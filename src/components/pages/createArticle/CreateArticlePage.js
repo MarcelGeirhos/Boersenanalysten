@@ -25,8 +25,8 @@ function CreateArticlePage() {
     const [title, setTitle] = useState("");
     const [editorText, setEditorText] = useState("");
     const [tags, setTags] = useState([]);
-    const [userData, setUserData] = useState([]);
     const [article, setArticle] = useState([]);
+    const [userData, setUserData] = useState([]);
     const [portfolioArticle, setPortfolioArticle] = useState([]);
     const [tagErrorText, setTagErrorText] = useState("ErrorText");
     const [titleErrorText, setTitleErrorText] = useState("ErrorText");
@@ -87,9 +87,15 @@ function CreateArticlePage() {
                 await firebase.firestore().collection('users').doc(userData.uid).collection('portfolioArticles').doc(portfolioArticle.id).update({
                     portfolioArticleRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${newArticleRef.id}`)),
                 })
+                await firebase.firestore().collection('users').doc(userData.uid).update({
+                    portfolioArticleCounter: userData.portfolioArticleCounter + 1
+                })
             } else {
                 await firebase.firestore().collection('users').doc(userData.uid).collection('articles').doc(article.id).update({
                     articleRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${newArticleRef.id}`)),
+                })
+                await firebase.firestore().collection('users').doc(userData.uid).update({
+                    articleCounter: userData.articleCounter + 1
                 })
             }
             setRedirect(true);

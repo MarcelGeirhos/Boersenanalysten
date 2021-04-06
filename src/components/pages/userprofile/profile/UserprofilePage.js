@@ -53,10 +53,6 @@ function UserprofilePage() {
                 <p>Mitglied seit: {memberSince}</p>
             </div>
             <TopTagSection />
-            <div className="user-profile-grid article-list">
-                <h1>Beitragsliste</h1>
-                {/* TODO Liste + Auswahl implementieren. */}
-            </div>
         </div>
     );
 }

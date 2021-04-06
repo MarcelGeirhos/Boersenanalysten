@@ -1,0 +1,56 @@
+.answer-list-item {
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    list-style-type: none;
+    margin: 10px auto;
+    display: grid;
+    grid-template-columns: 20% 60%;
+}
+
+.answer-list-item a {
+    text-decoration: none;
+    color: #6389A8;
+}
+
+.answer-list-item a:hover {
+    color: #386A96;
+}
+
+/* Tablet und Handy */
+@media (max-width: 1281px) {
+    .answer-list-item {
+        width: 90%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+    .answer-list-item {
+        width: 60%;
+    }
+}
+
+.answer-list-item-left-section {
+    margin: 10px 0;
+    grid-column: 1 / 2;
+}
+
+.answer-list-item-left-section p {
+    text-align: center;
+    margin: 0 10px;
+}
+
+.answer-list-item-right-section {
+    margin-top: 20px;
+    grid-column: 2 / 4;
+}
+
+.created-at-section {
+    margin: 10px 24px 0 0;
+    text-align: right;
+    grid-column: 4 / 5;
+}
+
+.created-at-section p {
+    font-size: 14px;
+}

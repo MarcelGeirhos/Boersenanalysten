@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
 // own module imports
-import Tagbutton from '../../../gui/buttons/tagbutton/Tagbutton';
+import Tagbutton from '../../buttons/tagbutton/Tagbutton';
 
 // css imports
-import './Listitem.css';
+import './ArticleListitem.css';
 
 // third party imports
 import { Link } from 'react-router-dom';
 
-const Listitem = (props) => {
+const ArticleListitem = (props) => {
     const [tagList, setTagList] = useState([]);
 
     useEffect(() => {
@@ -41,4 +41,4 @@ const Listitem = (props) => {
     );
 }
 
-export default Listitem;
+export default ArticleListitem;

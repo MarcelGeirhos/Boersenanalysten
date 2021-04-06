@@ -1,3 +1,22 @@
 .user-activity-page {
     grid-column: 1 / 6;
 }
+
+.user-activity-selection {
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* Tablet und Handy */
+@media (max-width: 1281px) {
+    .user-activity-selection {
+        width: 90%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+    .user-activity-selection {
+        width: 60%;
+    }
+}

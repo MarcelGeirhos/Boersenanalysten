@@ -27,7 +27,3 @@
     display: inline-block;
     text-align: center;
 }
-
-.article-list {
-    grid-column: 1 / 4;
-}

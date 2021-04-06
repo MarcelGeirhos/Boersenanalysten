@@ -108,6 +108,9 @@ function ArticlePage() {
             await firebase.firestore().collection('users').doc(userData.uid).collection('answers').doc(answer.id).update({
                 answerRefs: firebase.firestore.FieldValue.arrayUnion(firebase.firestore().doc(`/articles/${id}/answers/${newAnswer.id}`)),
             })
+            await firebase.firestore().collection('users').doc(userData.uid).update({
+                answerCounter: userData.answerCounter + 1
+            })
             window.location.reload();
             console.log('Neue Antwort wurde erfolgreich erstellt.');
         }
