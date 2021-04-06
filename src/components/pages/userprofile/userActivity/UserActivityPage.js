@@ -18,9 +18,8 @@ import {
 } from '@material-ui/core';
 
 function UserActivityPage() {
-    const [data, setData] = useState([]);
     const [userData, setUserData] = useState([]);
-    const [articleList, setArticleList] = useState([]);
+    const [list, setList] = useState([]);
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
     const [isAnswer, setIsAnswer] = useState(false);
     const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
@@ -29,22 +28,10 @@ function UserActivityPage() {
         firebaseConfig.getUserState().then(user => {
             const fetchData = async () => {
                 await firebase.firestore().collection('users').doc(user.uid).get().then(
-                    snapshot => {
-                        setUserData(snapshot.data())
+                    () => {
+                        setListData("articles");
                     }).catch(error => {
                         console.log('Error getting userData ', error);
-                    })
-                    const dataList = await firebase.firestore().collection('users').doc(user.uid).collection('articles').get();
-                    console.log(dataList);
-                    dataList.forEach(async (doc) => {
-                        const data = await firebase.firestore().collection('users').doc(user.uid).collection('articles').doc(doc.data().id).get();
-                        data.data().articleRefs.forEach(async (doc) => {
-                            const data2 = await firebase.firestore().collection('articles').doc(doc.id).get();
-                            setArticleList(articleList => [...articleList, data2.data()]);
-                            setArticleCreatedAt(articleList => [...articleList, data2.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
-                        })
-                        setData(data.data());
-                        console.log(data.data());
                     })
                 }
                 fetchData();
@@ -55,44 +42,40 @@ function UserActivityPage() {
     const setListData = async (collection, voting = "") => {
         firebaseConfig.getUserState().then(user => {
             const fetchData = async () => {
-                await firebase.firestore().collection('users').doc(user.uid).get().then(
-                    snapshot => {
-                        setUserData(snapshot.data())
-                    }).catch(error => {
-                        console.log('Error getting userData ', error);
-                    })
-                    setArticleList([]);
+                await firebase.firestore().collection('users').doc(user.uid).get();
+                    setList([]);
                     const dataList = await firebase.firestore().collection('users').doc(user.uid).collection(collection).get();
-                    console.log(dataList);
                     dataList.forEach(async (doc) => {
                         const data = await firebase.firestore().collection('users').doc(user.uid).collection(collection).doc(doc.data().id).get();
                         if (collection === "articles") {
+                            setIsAnswer(false);
                             data.data().articleRefs.forEach(async (doc) => {
-                                const data2 = await firebase.firestore().collection('articles').doc(doc.id).get();
-                                setArticleList(articleList => [...articleList, data2.data()]);
-                                setArticleCreatedAt(articleList => [...articleList, data2.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                const articleData = await firebase.firestore().collection('articles').doc(doc.id).get();
+                                setList(list => [...list, articleData.data()]);
+                                setArticleCreatedAt(list => [...list, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
                             })
                         } else if (collection === "answers") {
                             setIsAnswer(true);
                             data.data().answerRefs.forEach(async (doc) => {                           
-                                const data2 = await firebase.firestore().collection('articles').doc(doc.path.substring(9, 29)).collection('answers').doc(doc.id).get();
-                                setArticleList(articleList => [...articleList, data2.data()]);
-                                setArticleCreatedAt(articleList => [...articleList, data2.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                const answerData = await firebase.firestore().collection('articles').doc(doc.path.substring(9, 29)).collection('answers').doc(doc.id).get();
+                                setList(list => [...list, answerData.data()]);
+                                setArticleCreatedAt(list => [...list, answerData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
                             })
                         } else if (collection === "votings" && voting === "upVotings") {
+                            setIsAnswer(false);
                             data.data().upVotingRefs.forEach(async (doc) => {
-                                const data2 = await firebase.firestore().collection('articles').doc(doc.id).get();
-                                setArticleList(articleList => [...articleList, data2.data()]);
-                                setArticleCreatedAt(articleList => [...articleList, data2.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                const articleData = await firebase.firestore().collection('articles').doc(doc.id).get();
+                                setList(list => [...list, articleData.data()]);
+                                setArticleCreatedAt(list => [...list, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
                             })
                         } else if (collection === "votings" && voting === "downVotings") {
+                            setIsAnswer(false);
                             data.data().downVotingRefs.forEach(async (doc) => {
-                                const data2 = await firebase.firestore().collection('articles').doc(doc.id).get();
-                                setArticleList(articleList => [...articleList, data2.data()]);
-                                setArticleCreatedAt(articleList => [...articleList, data2.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                const articleData = await firebase.firestore().collection('articles').doc(doc.id).get();
+                                setList(list => [...list, articleData.data()]);
+                                setArticleCreatedAt(list => [...list, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
                             })
                         }
-                        setData(data.data());
                         console.log(data.data());
                     })
                 }
@@ -113,7 +96,7 @@ function UserActivityPage() {
                 </ButtonGroup>
                 {
                     isAnswer === false ?
-                        articleList.map((article, index) => (
+                        list.map((article, index) => (
                             <div key={index}>
                                 <Listitem id={article.id}
                                     title={article.title}
@@ -127,7 +110,7 @@ function UserActivityPage() {
                             </div>
                         ))
                     : 
-                    articleList.map((answer, index) => (
+                    list.map((answer, index) => (
                         <div key={index}>
                             {/*<p>{answer.id}</p>*/}
                             <p>{answer.answerText}</p>
