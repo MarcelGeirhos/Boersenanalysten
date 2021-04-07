@@ -173,7 +173,10 @@ function RegisterPage() {
                     error={usernameError}
                     helperText={usernameErrorText}
                     autoFocus
-                    inputProps={{ style: { color: 'white'}}}
+                    inputProps={{ 
+                        style: { color: 'white'},
+                        maxLength: 30,
+                    }}
                     InputLabelProps={{
                         style: { color: 'white' },
                     }} />

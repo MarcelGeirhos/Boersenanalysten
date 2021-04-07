@@ -52,14 +52,14 @@ function ArticlePage() {
             setAnswerCreatedAt(answerData.docs.map(doc => (doc.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions))));
             setAnswerList(answerData.docs.map(doc => ({ ...doc.data() })));
 
-            // TODO Text mit richtiger Formatierung anzeigen lassen.
+            // TODO Text mit richtiger Formatierung anzeigen lassen (probieren mit match, indexOf oder search)
             const articleTextWithHTML = articleData.data().articleText;
             console.log(articleTextWithHTML);
-            let div = document.createElement("div");
-            div.innerHTML = articleTextWithHTML;
-            let text = div.textContent || div.innerText || "";
-            console.log(text);
-            setArticleText(text);
+            if (articleTextWithHTML.match('<b>')) {
+                document.execCommand('bold', false);
+                console.log('Test');
+            }
+            setArticleText(articleTextWithHTML);
 
             // Aktuelle Benutzer Daten werden ausgelesen und gesetzt, wenn Benutzer eingeloggt ist.
             const user = firebase.auth().currentUser;

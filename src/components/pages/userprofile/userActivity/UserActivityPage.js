@@ -97,12 +97,19 @@ function UserActivityPage() {
             <div className="user-activity-page">
                 <div className="user-activity-selection">
                     <h2>Aktivität</h2>
-                    <ButtonGroup color="primary">
-                        <Button onClick={() => setListValues("articles")} color={selectedButton === 0 ? "secondary" : "primary"}>Beiträge</Button>
-                        <Button onClick={() => setListValues("answers")} color={selectedButton === 1 ? "secondary" : "primary"}>Antworten</Button>
-                        <Button onClick={() => setListValues("votings", "upVotings")} color={selectedButton === 2 ? "secondary" : "primary"}>Up Votings</Button>
-                        <Button onClick={() => setListValues("votings", "downVotings")} color={selectedButton === 3 ? "secondary" : "primary"}>Down Votings</Button>
-                    </ButtonGroup>
+                    <div className="button-groups">
+                        <ButtonGroup color="primary">
+                            <Button onClick={() => setListValues("articles")} color={selectedButton === 0 ? "secondary" : "primary"}>Beiträge</Button>
+                            <Button onClick={() => setListValues("answers")} color={selectedButton === 1 ? "secondary" : "primary"}>Antworten</Button>
+                            <Button onClick={() => setListValues("votings", "upVotings")} color={selectedButton === 2 ? "secondary" : "primary"}>Up Votings</Button>
+                            <Button onClick={() => setListValues("votings", "downVotings")} color={selectedButton === 3 ? "secondary" : "primary"}>Down Votings</Button>
+                        </ButtonGroup>
+                        <ButtonGroup color="primary">
+                            {/* TODO hier weitermachen Sortierung implementieren */}
+                            <Button onClick={() => setListValues("articles")} color={selectedButton === 0 ? "secondary" : "primary"}>Neuste</Button>
+                            <Button onClick={() => setListValues("answers")} color={selectedButton === 1 ? "secondary" : "primary"}>Bestes Voting</Button>
+                        </ButtonGroup>
+                    </div>
                 </div>
                 {
                     isAnswer === false ?
@@ -118,7 +125,7 @@ function UserActivityPage() {
                                     creatorId={article.creatorId}
                                     createdAt={createdAt[index]} />
                             </div>
-                        ))
+                        )) 
                     : 
                     listData.map((answer, index) => (
                         <div key={index}>

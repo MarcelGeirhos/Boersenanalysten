@@ -4,7 +4,11 @@
 
 .user-activity-selection {
     margin: 0 auto;
-    text-align: left;
+}
+
+.button-groups {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Tablet und Handy */
