@@ -12,7 +12,9 @@ import './ArticleListPage.css';
 import { 
     Accordion,
     AccordionSummary,
-    AccordionDetails
+    AccordionDetails,
+    Button,
+    ButtonGroup
 } from '@material-ui/core';
 
 // material-ui icon imports
@@ -24,6 +26,7 @@ import firebase from 'firebase/app';
 function ArticleListPage() {
     const [articleList, setArticleList] = useState([]);
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
+    const [selectedSortButton, setSelectedSortButton] = useState(0);
     const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
     useEffect(() => {
@@ -64,6 +67,27 @@ function ArticleListPage() {
         setArticleList(filteredList.docs.map(doc => ({...doc.data()})));
     }
 
+    const sortArticleList = async (selectedButton) => {
+        let sortCriteria = "";
+        if (selectedButton === 0) {
+            setSelectedSortButton(0);
+            sortCriteria = "createdAt";
+        } else if (selectedButton === 1) {
+            setSelectedSortButton(1);
+            sortCriteria = "voting";
+        } else if (selectedButton === 2) {
+            setSelectedSortButton(2);
+            sortCriteria = "answerCounter";
+        } else if (selectedButton === 3) {
+            setSelectedSortButton(3);
+            sortCriteria = "views";
+        }
+        const sortedArticleList = await firebase.firestore().collection('articles')
+                            .orderBy(sortCriteria, "desc")
+                            .limit(5).get();
+        setArticleList(sortedArticleList.docs.map(doc => ({...doc.data()})));
+    }
+
     return (
         <div>
             <div className="articlelist-header">
@@ -81,6 +105,14 @@ function ArticleListPage() {
                         <FilterSettings filteredArticleList={callbackFilteredList} />
                     </AccordionDetails>
                 </Accordion>
+            </div>
+            <div className="articlelist-button-group">
+                <ButtonGroup color="primary" size="small" variant="text">
+                    <Button onClick={() => sortArticleList(0)} color={selectedSortButton === 0 ? "secondary" : "primary"}>Neuste</Button>
+                    <Button onClick={() => sortArticleList(1)} color={selectedSortButton === 1 ? "secondary" : "primary"}>Voting</Button>
+                    <Button onClick={() => sortArticleList(2)} color={selectedSortButton === 2 ? "secondary" : "primary"}>Antworten</Button>
+                    <Button onClick={() => sortArticleList(3)} color={selectedSortButton === 3 ? "secondary" : "primary"}>Ansichten</Button>
+                </ButtonGroup>
             </div>
             {  
             articleList.map((article, index) => (

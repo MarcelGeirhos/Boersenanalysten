@@ -23,7 +23,8 @@ function UserActivityPage() {
     const [articleListData, setArticleListData] = useState([]);
     const [createdAt, setCreatedAt] = useState("");
     const [isAnswer, setIsAnswer] = useState(false);
-    const [selectedButton, setSelectedButton] = useState(0);
+    const [selectedSortButton, setSelectedSortButton] = useState(0);
+    const [selectedFilterButton, setSelectedFilterButton] = useState(0);
     const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
     useEffect(() => {
@@ -42,6 +43,7 @@ function UserActivityPage() {
     }, [])
 
     const setListValues = async (collection, voting = "") => {
+        const sortCriteria = sortList();
         firebaseConfig.getUserState().then(user => {
             const fetchData = async () => {
                 await firebase.firestore().collection('users').doc(user.uid).get();
@@ -51,7 +53,7 @@ function UserActivityPage() {
                         const data = await firebase.firestore().collection('users').doc(user.uid).collection(collection).doc(doc.data().id).get();
                         if (collection === "articles") {
                             setIsAnswer(false);
-                            setSelectedButton(0);
+                            setSelectedFilterButton(0);
                             data.data().articleRefs.forEach(async (doc) => {
                                 const articleData = await firebase.firestore().collection('articles').doc(doc.id).get();
                                 setListData(listData => [...listData, articleData.data()]);
@@ -59,7 +61,7 @@ function UserActivityPage() {
                             })
                         } else if (collection === "answers") {
                             setIsAnswer(true);
-                            setSelectedButton(1);
+                            setSelectedFilterButton(1);
                             data.data().answerRefs.forEach(async (doc) => {
                                 const articleData = await firebase.firestore().collection('articles').doc(doc.path.substring(9, 29)).get();
                                 setArticleListData(articleListData => [...articleListData, articleData.data()]);                       
@@ -69,7 +71,7 @@ function UserActivityPage() {
                             })
                         } else if (collection === "votings" && voting === "upVotings") {
                             setIsAnswer(false);
-                            setSelectedButton(2);
+                            setSelectedFilterButton(2);
                             data.data().upVotingRefs.forEach(async (doc) => {
                                 const articleData = await firebase.firestore().collection('articles').doc(doc.id).get();
                                 setListData(listData => [...listData, articleData.data()]);
@@ -77,7 +79,7 @@ function UserActivityPage() {
                             })
                         } else if (collection === "votings" && voting === "downVotings") {
                             setIsAnswer(false);
-                            setSelectedButton(3);
+                            setSelectedFilterButton(3);
                             data.data().downVotingRefs.forEach(async (doc) => {
                                 const articleData = await firebase.firestore().collection('articles').doc(doc.id).get();
                                 setListData(listData => [...listData, articleData.data()]);
@@ -85,10 +87,23 @@ function UserActivityPage() {
                             })
                         }
                         console.log(data.data());
+                        // TODO hier weitermachen und Liste sortiert ausgeben
+                        //console.log(listData[0].createdAt.seconds);
+                        //listData.sort((a, b) => new Date(a.createdAt).getSeconds() - new Date(b.createdAt).getSeconds());
                     })
                 }
                 fetchData();
             })
+    }
+
+    const sortList = (selectedButton) => {
+        if (selectedButton === 0) {
+            setSelectedSortButton(0);
+            return "createdAt";
+        } else if (selectedButton === 1) {
+            setSelectedSortButton(1);
+            return "voting";
+        }
     }
 
     return (
@@ -99,15 +114,14 @@ function UserActivityPage() {
                     <h2>Aktivität</h2>
                     <div className="button-groups">
                         <ButtonGroup color="primary" size="small">
-                            <Button onClick={() => setListValues("articles")} color={selectedButton === 0 ? "secondary" : "primary"}>Beiträge</Button>
-                            <Button onClick={() => setListValues("answers")} color={selectedButton === 1 ? "secondary" : "primary"}>Antworten</Button>
-                            <Button onClick={() => setListValues("votings", "upVotings")} color={selectedButton === 2 ? "secondary" : "primary"}>Up Votings</Button>
-                            <Button onClick={() => setListValues("votings", "downVotings")} color={selectedButton === 3 ? "secondary" : "primary"}>Down Votings</Button>
+                            <Button onClick={() => setListValues("articles")} color={selectedFilterButton === 0 ? "secondary" : "primary"}>Beiträge</Button>
+                            <Button onClick={() => setListValues("answers")} color={selectedFilterButton === 1 ? "secondary" : "primary"}>Antworten</Button>
+                            <Button onClick={() => setListValues("votings", "upVotings")} color={selectedFilterButton === 2 ? "secondary" : "primary"}>Up Votings</Button>
+                            <Button onClick={() => setListValues("votings", "downVotings")} color={selectedFilterButton === 3 ? "secondary" : "primary"}>Down Votings</Button>
                         </ButtonGroup>
                         <ButtonGroup color="primary" size="small" variant="text">
-                            {/* TODO hier weitermachen Sortierung implementieren */}
-                            <Button onClick={() => setListValues("articles")} color={selectedButton === 0 ? "secondary" : "primary"}>Neuste</Button>
-                            <Button onClick={() => setListValues("answers")} color={selectedButton === 1 ? "secondary" : "primary"}>Voting</Button>
+                            <Button onClick={() => sortList(0)} color={selectedSortButton === 0 ? "secondary" : "primary"}>Neuste</Button>
+                            <Button onClick={() => sortList(1)} color={selectedSortButton === 1 ? "secondary" : "primary"}>Voting</Button>
                         </ButtonGroup>
                     </div>
                 </div>

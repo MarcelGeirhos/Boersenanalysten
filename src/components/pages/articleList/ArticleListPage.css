@@ -5,20 +5,6 @@
     margin: 20px auto 0 auto;
 }
 
-/* Tablet und Handy */
-@media (max-width: 1281px) {
-    .articlelist-header {
-        width: 90%;
-    }
-}
-
-/* Desktop */
-@media (min-width: 1280px) {
-    .articlelist-header {
-        width: 60%;
-    }
-}
-
 .articlelist-header h1 {
     color: white;
 }
@@ -26,21 +12,7 @@
 .articlelist-filter {
     display: flex;
     justify-content: flex-start;
-    margin: 0 auto;
-}
-
-/* Tablet und Handy */
-@media (max-width: 1281px) {
-    .articlelist-filter {
-        width: 90%;
-    }
-}
-
-/* Desktop */
-@media (min-width: 1280px) {
-    .articlelist-filter {
-        width: 60%;
-    }
+    margin: 0 auto 10px auto;
 }
 
 .articlelist-filter button {
@@ -58,6 +30,12 @@
 
 .articlelist-filter button:focus {
     outline: none;
+}
+
+.articlelist-button-group {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
 }
 
 .load-more-articles a {
@@ -81,4 +59,30 @@
 
 .accordion-content > * {
     color: #698FAE !important;
+}
+
+/* Tablet und Handy */
+@media (max-width: 1281px) {
+    .articlelist-header {
+        width: 90%;
+    }
+    .articlelist-filter {
+        width: 90%;
+    }
+    .articlelist-button-group {
+        width: 90%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+    .articlelist-header {
+        width: 60%;
+    }
+    .articlelist-filter {
+        width: 60%;
+    }
+    .articlelist-button-group {
+        width: 60%;
+    }
 }

@@ -29,12 +29,3 @@
     display: block;
     color: white;
 }
-
-.filter-settings a button {
-    margin-top: 16px;
-}
-
-.filter-settings fieldset label {
-    margin: 0 12px 0 2px;
-    display: inline;
-}
