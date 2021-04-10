@@ -82,7 +82,10 @@ function ProfileSettingsPage() {
                         focused
                         error={usernameError}
                         helperText={usernameErrorText}
-                        inputProps={{ style: { color: 'white'}}}
+                        inputProps={{
+                            style: { color: 'white'},
+                            maxLength: 30,
+                        }}
                         InputLabelProps={{
                             style: { color: 'white' },
                         }} />
@@ -95,7 +98,10 @@ function ProfileSettingsPage() {
                         variant="filled"
                         className="register-text-field"
                         focused
-                        inputProps={{ style: { color: 'white'}}}
+                        inputProps={{
+                            style: { color: 'white'},
+                            maxLength: 40,
+                        }}
                         InputLabelProps={{
                             style: { color: 'white' },
                         }} />

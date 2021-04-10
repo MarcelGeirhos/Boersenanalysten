@@ -98,16 +98,16 @@ function UserActivityPage() {
                 <div className="user-activity-selection">
                     <h2>Aktivität</h2>
                     <div className="button-groups">
-                        <ButtonGroup color="primary">
+                        <ButtonGroup color="primary" size="small">
                             <Button onClick={() => setListValues("articles")} color={selectedButton === 0 ? "secondary" : "primary"}>Beiträge</Button>
                             <Button onClick={() => setListValues("answers")} color={selectedButton === 1 ? "secondary" : "primary"}>Antworten</Button>
                             <Button onClick={() => setListValues("votings", "upVotings")} color={selectedButton === 2 ? "secondary" : "primary"}>Up Votings</Button>
                             <Button onClick={() => setListValues("votings", "downVotings")} color={selectedButton === 3 ? "secondary" : "primary"}>Down Votings</Button>
                         </ButtonGroup>
-                        <ButtonGroup color="primary">
+                        <ButtonGroup color="primary" size="small" variant="text">
                             {/* TODO hier weitermachen Sortierung implementieren */}
                             <Button onClick={() => setListValues("articles")} color={selectedButton === 0 ? "secondary" : "primary"}>Neuste</Button>
-                            <Button onClick={() => setListValues("answers")} color={selectedButton === 1 ? "secondary" : "primary"}>Bestes Voting</Button>
+                            <Button onClick={() => setListValues("answers")} color={selectedButton === 1 ? "secondary" : "primary"}>Voting</Button>
                         </ButtonGroup>
                     </div>
                 </div>

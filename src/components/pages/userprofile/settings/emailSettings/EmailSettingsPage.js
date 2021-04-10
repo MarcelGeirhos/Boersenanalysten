@@ -132,7 +132,10 @@ function EmailSettingsPage() {
                     error={emailError}
                     value={email}
                     helperText={emailErrorText}
-                    inputProps={{ style: { color: 'white'}}}
+                    inputProps={{
+                        style: { color: 'white'},
+                        maxLength: 50,
+                    }}
                     InputLabelProps={{
                         style: { color: 'white' },
                     }} />
@@ -145,7 +148,10 @@ function EmailSettingsPage() {
                     className="register-text-field"
                     error={passwordError}
                     helperText={passwordErrorText}
-                    inputProps={{ style: { color: 'white'}}}
+                    inputProps={{
+                        style: { color: 'white'},
+                        maxLength: 40,
+                    }}
                     InputLabelProps={{
                         style: { color: 'white' },
                     }} />

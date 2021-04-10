@@ -124,7 +124,10 @@ function DeleteProfileSettingsPage() {
                     className="register-text-field"
                     error={passwordError}
                     helperText={passwordErrorText}
-                    inputProps={{ style: { color: 'white'}}}
+                    inputProps={{
+                        style: { color: 'white'},
+                        maxLength: 40,
+                    }}
                     InputLabelProps={{
                         style: { color: 'white' },
                     }} />

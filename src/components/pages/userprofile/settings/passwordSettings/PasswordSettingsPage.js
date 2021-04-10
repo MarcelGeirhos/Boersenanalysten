@@ -126,7 +126,10 @@ function PasswordSettingsPage() {
                     className="register-text-field"
                     error={oldPasswordError}
                     helperText={oldPasswordErrorText}
-                    inputProps={{ style: { color: 'white'}}}
+                    inputProps={{
+                        style: { color: 'white'},
+                        maxLength: 40,
+                    }}
                     InputLabelProps={{
                         style: { color: 'white' },
                     }} />
@@ -139,7 +142,10 @@ function PasswordSettingsPage() {
                     className="register-text-field"
                     error={newPasswordError}
                     helperText={newPasswordErrorText}
-                    inputProps={{ style: { color: 'white'}}}
+                    inputProps={{
+                        style: { color: 'white'},
+                        maxLength: 40,
+                    }}
                     InputLabelProps={{
                         style: { color: 'white' },
                     }} />
@@ -152,7 +158,10 @@ function PasswordSettingsPage() {
                     className="register-text-field"
                     error={newRepeatedPasswordError}
                     helperText={newRepeatedPasswordErrorText}
-                    inputProps={{ style: { color: 'white'}}}
+                    inputProps={{
+                        style: { color: 'white'},
+                        maxLength: 40,
+                    }}
                     InputLabelProps={{
                         style: { color: 'white' },
                     }} />

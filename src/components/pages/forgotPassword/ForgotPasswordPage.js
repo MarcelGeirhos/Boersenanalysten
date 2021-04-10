@@ -56,7 +56,10 @@ function ForgotPasswordPage() {
                     error={emailError}
                     helperText={emailErrorText}
                     autoFocus
-                    inputProps={{ style: { color: 'white'}}}
+                    inputProps={{ 
+                        style: { color: 'white'},
+                        maxLength: 50,
+                    }}
                     InputLabelProps={{
                         style: { color: 'white' },
                     }} />
