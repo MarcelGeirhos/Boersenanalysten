@@ -26,8 +26,10 @@ import firebase from 'firebase/app';
 function ArticleListPage() {
     const [articleList, setArticleList] = useState([]);
     const [sortCriteria, setSortCriteria] = useState("createdAt");
+    const [filterCriteria, setFilterCriteria] = useState("");
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
     const [selectedSortButton, setSelectedSortButton] = useState(0);
+    const [selectedFilterButton, setSelectedFilterButton] = useState(0);
     const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
     useEffect(() => {
@@ -40,12 +42,29 @@ function ArticleListPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useEffect(async () => {
+    // TODO hier weitermachen und bei allen Filtern und Sortierungen die richtige Liste anzeigen lassen.
+    /*useEffect(async () => {
         const sortedArticleList = await firebase.firestore().collection('articles')
             .orderBy(sortCriteria, "desc")
             .limit(10).get();
         setArticleList(sortedArticleList.docs.map(doc => ({...doc.data()})));
-    }, [sortCriteria])
+    }, [sortCriteria])*/
+
+    useEffect(async () => {
+        let filteredArticleList = "";
+        console.log(sortCriteria);
+        if (filterCriteria === "") {
+            filteredArticleList = await firebase.firestore().collection('articles')
+                .orderBy(sortCriteria, "desc")
+                .limit(10).get();
+        } else {
+            filteredArticleList = await firebase.firestore().collection('articles')
+                .where("isPortfolioArticle", "==", filterCriteria)
+                .orderBy(sortCriteria, "desc")
+                .limit(10).get();
+        }
+        setArticleList(filteredArticleList.docs.map(doc => ({...doc.data()})));
+    }, [filterCriteria, sortCriteria])
 
     const loadMoreArticles = () => {
         const currentArticleData = firebase.firestore().collection('articles')
@@ -76,7 +95,7 @@ function ArticleListPage() {
         setArticleList(filteredList.docs.map(doc => ({...doc.data()})));
     }
 
-    const sortArticleList = async (selectedButton) => {
+    const sortArticleList = (selectedButton) => {
         if (selectedButton === 0) {
             setSelectedSortButton(0);
             setSortCriteria("createdAt");
@@ -89,6 +108,19 @@ function ArticleListPage() {
         } else if (selectedButton === 3) {
             setSelectedSortButton(3);
             setSortCriteria("views");
+        }
+    }
+
+    const filterArticleList = (selectedButton) => {
+        if (selectedButton === 0) {
+            setSelectedFilterButton(0);
+            setFilterCriteria("");
+        } else if (selectedButton === 1) {
+            setSelectedFilterButton(1);
+            setFilterCriteria(false);
+        } else if (selectedButton === 2) {
+            setSelectedFilterButton(2);
+            setFilterCriteria(true);
         }
     }
 
@@ -110,7 +142,12 @@ function ArticleListPage() {
                     </AccordionDetails>
                 </Accordion>
             </div>
-            <div className="articlelist-button-group">
+            <div className="articlelist-button-groups">
+                <ButtonGroup color="primary" size="small">
+                    <Button onClick={() => filterArticleList(0)} color={selectedFilterButton === 0 ? "secondary" : "primary"}>Alle</Button>
+                    <Button onClick={() => filterArticleList(1)} color={selectedFilterButton === 1 ? "secondary" : "primary"}>Beiträge</Button>
+                    <Button onClick={() => filterArticleList(2)} color={selectedFilterButton === 2 ? "secondary" : "primary"}>Portfoliobeiträge</Button>
+                </ButtonGroup>
                 <ButtonGroup color="primary" size="small" variant="text">
                     <Button onClick={() => sortArticleList(0)} color={selectedSortButton === 0 ? "secondary" : "primary"}>Neuste</Button>
                     <Button onClick={() => sortArticleList(1)} color={selectedSortButton === 1 ? "secondary" : "primary"}>Voting</Button>

@@ -32,9 +32,9 @@
     outline: none;
 }
 
-.articlelist-button-group {
+.articlelist-button-groups {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin: 0 auto;
 }
 
@@ -69,7 +69,7 @@
     .articlelist-filter {
         width: 90%;
     }
-    .articlelist-button-group {
+    .articlelist-button-groups {
         width: 90%;
     }
 }
@@ -82,7 +82,7 @@
     .articlelist-filter {
         width: 60%;
     }
-    .articlelist-button-group {
+    .articlelist-button-groups {
         width: 60%;
     }
 }

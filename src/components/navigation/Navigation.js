@@ -22,10 +22,14 @@ import { useSelector } from 'react-redux';
 // material-ui icon imports
 import {
     Person,
+    Search,
     Message,
     ExitToApp,
     ContactSupport,
 } from '@material-ui/icons';
+
+// material-ui imports
+import { TextField } from '@material-ui/core';
 
 function Navigation() {
     const loginSelector = useSelector((state) => state.logIn);
@@ -82,7 +86,7 @@ function Navigation() {
         userState != null) {
         buttons = (
             <div className="navbar-right">
-                <Link to={{pathname: `/userprofile/${userState.uid}`}} id="username">{userData.shareCounter} {userData.username}</Link>
+                {/*<Link to={{pathname: `/userprofile/${userState.uid}`}} id="username">{userData.shareCounter} {userData.username}</Link>*/}
                 <Iconbutton link={{pathname: `/userprofile/${userState.uid}`}}><Person /></Iconbutton>
                 <Iconbutton link={{pathname: `/messages/${userState.uid}`}}><Message /></Iconbutton>
                 <Iconbutton link="/help"><ContactSupport /></Iconbutton>
@@ -115,8 +119,24 @@ function Navigation() {
                 <div className="search">
                     <Secondbutton link="/tags">Tags</Secondbutton>
                     <Mainbutton link="/articleList">Beiträge</Mainbutton>
-                    <InputfieldDark type="text" placeholder="Suchen..." />
-                    <Secondbutton link="/">Suchen</Secondbutton>
+                    <TextField
+                        label="Suche..."
+                        type="text"
+                        size="small"
+                        //onChange={(e) => setEmail(e.target.value)}
+                        variant="filled"
+                        //className="register-text-field"
+                        //error={emailError}
+                        //value={email}
+                        //helperText={emailErrorText}
+                        inputProps={{
+                            style: { color: 'white'},
+                            maxLength: 100,
+                        }}
+                        InputLabelProps={{
+                            style: { color: 'white' },
+                        }} />
+                    <Secondbutton link="/" id="search-button">Suchen</Secondbutton>
                 </div>
                 {buttons}
             </nav>
