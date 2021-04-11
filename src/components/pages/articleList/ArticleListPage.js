@@ -25,13 +25,14 @@ import firebase from 'firebase/app';
 
 function ArticleListPage() {
     const [articleList, setArticleList] = useState([]);
+    const [sortCriteria, setSortCriteria] = useState("createdAt");
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
     const [selectedSortButton, setSelectedSortButton] = useState(0);
     const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
     useEffect(() => {
         const fetchData = async () => {
-            const articleData = await firebase.firestore().collection('articles').orderBy("createdAt", "desc").limit(5).get();
+            const articleData = await firebase.firestore().collection('articles').orderBy(sortCriteria, "desc").limit(10).get();
             setArticleList(articleData.docs.map(doc => ({...doc.data()})));
             setArticleCreatedAt(articleData.docs.map(doc => (doc.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions))));
         }
@@ -39,23 +40,31 @@ function ArticleListPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    useEffect(async () => {
+        const sortedArticleList = await firebase.firestore().collection('articles')
+            .orderBy(sortCriteria, "desc")
+            .limit(10).get();
+        setArticleList(sortedArticleList.docs.map(doc => ({...doc.data()})));
+    }, [sortCriteria])
+
     const loadMoreArticles = () => {
         const currentArticleData = firebase.firestore().collection('articles')
-                                .orderBy("createdAt", "desc")
-                                .limit(5);
+                                .orderBy(sortCriteria, "desc")
+                                .limit(10);
         return currentArticleData.get().then(async (documentSnapshots) => {
             // Letzter sichtbare Beitrag
             // TODO funktioniert nur 1x danach werden nicht die nächsten Beiträge in
-            // die Liste geladen.
+            // die Liste geladen. Voting, Antworten und Ansichten Sortierung funktioniert
+            // Erstellungsdatum noch nicht.
             const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
             console.log("last", lastVisible.data());
           
             // Neue Abfrage die mit dem letzten sichtbaren Dokument beginnt und
-            // die nächsten 5 Beiträge lädt
+            // die nächsten 10 Beiträge lädt
             const next = await firebase.firestore().collection('articles')
-                    .orderBy("createdAt", "desc")
+                    .orderBy(sortCriteria, "desc")
                     .startAfter(lastVisible)
-                    .limit(5).get();
+                    .limit(10).get();
             setArticleList(next.docs.map(doc => ({...doc.data()})));
         });
     }
@@ -68,24 +77,19 @@ function ArticleListPage() {
     }
 
     const sortArticleList = async (selectedButton) => {
-        let sortCriteria = "";
         if (selectedButton === 0) {
             setSelectedSortButton(0);
-            sortCriteria = "createdAt";
+            setSortCriteria("createdAt");
         } else if (selectedButton === 1) {
             setSelectedSortButton(1);
-            sortCriteria = "voting";
+            setSortCriteria("voting");
         } else if (selectedButton === 2) {
             setSelectedSortButton(2);
-            sortCriteria = "answerCounter";
+            setSortCriteria("answerCounter");
         } else if (selectedButton === 3) {
             setSelectedSortButton(3);
-            sortCriteria = "views";
+            setSortCriteria("views");
         }
-        const sortedArticleList = await firebase.firestore().collection('articles')
-                            .orderBy(sortCriteria, "desc")
-                            .limit(5).get();
-        setArticleList(sortedArticleList.docs.map(doc => ({...doc.data()})));
     }
 
     return (
