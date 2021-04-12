@@ -29,62 +29,66 @@ function ArticleListPage() {
     const [filterCriteria, setFilterCriteria] = useState("");
     const [articleCreatedAt, setArticleCreatedAt] = useState("");
     const [selectedSortButton, setSelectedSortButton] = useState(0);
+    let [lastVisibleArticle, setLastVisibleArticle] = useState("");
     const [selectedFilterButton, setSelectedFilterButton] = useState(0);
     const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
     useEffect(() => {
-        const fetchData = async () => {
-            const articleData = await firebase.firestore().collection('articles').orderBy(sortCriteria, "desc").limit(10).get();
-            setArticleList(articleData.docs.map(doc => ({...doc.data()})));
-            setArticleCreatedAt(articleData.docs.map(doc => (doc.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions))));
+        const setArticleListValues = async () => {
+            let articleList = "";
+            if (filterCriteria === "") {
+                articleList = await firebase.firestore().collection('articles')
+                    .orderBy(sortCriteria, "desc")
+                    .limit(5).get();
+            } else {
+                articleList = await firebase.firestore().collection('articles')
+                    .where("isPortfolioArticle", "==", filterCriteria)
+                    .orderBy(sortCriteria, "desc")
+                    .limit(5).get();
+            }
+            setArticleList(articleList.docs.map(doc => ({...doc.data()})));
+            setArticleCreatedAt(articleList.docs.map(doc => (doc.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions))));
         }
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+        setArticleListValues();
+    }, [filterCriteria, sortCriteria])  // eslint-disable-line react-hooks/exhaustive-deps
 
-    // TODO hier weitermachen und bei allen Filtern und Sortierungen die richtige Liste anzeigen lassen.
-    /*useEffect(async () => {
-        const sortedArticleList = await firebase.firestore().collection('articles')
-            .orderBy(sortCriteria, "desc")
-            .limit(10).get();
-        setArticleList(sortedArticleList.docs.map(doc => ({...doc.data()})));
-    }, [sortCriteria])*/
-
-    useEffect(async () => {
-        let filteredArticleList = "";
-        console.log(sortCriteria);
+    const loadMoreArticles = async () => {
+        let currentArticleData = "";
         if (filterCriteria === "") {
-            filteredArticleList = await firebase.firestore().collection('articles')
+            currentArticleData = await firebase.firestore().collection('articles')
                 .orderBy(sortCriteria, "desc")
-                .limit(10).get();
+                .limit(5);
         } else {
-            filteredArticleList = await firebase.firestore().collection('articles')
+            currentArticleData = await firebase.firestore().collection('articles')
                 .where("isPortfolioArticle", "==", filterCriteria)
                 .orderBy(sortCriteria, "desc")
-                .limit(10).get();
+                .limit(5);
         }
-        setArticleList(filteredArticleList.docs.map(doc => ({...doc.data()})));
-    }, [filterCriteria, sortCriteria])
-
-    const loadMoreArticles = () => {
-        const currentArticleData = firebase.firestore().collection('articles')
-                                .orderBy(sortCriteria, "desc")
-                                .limit(10);
+        console.log(currentArticleData);
         return currentArticleData.get().then(async (documentSnapshots) => {
             // Letzter sichtbare Beitrag
             // TODO funktioniert nur 1x danach werden nicht die nächsten Beiträge in
-            // die Liste geladen. Voting, Antworten und Ansichten Sortierung funktioniert
-            // Erstellungsdatum noch nicht.
-            const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
-            console.log("last", lastVisible.data());
-          
+            // die Liste geladen.
+            console.log(documentSnapshots.docs.length);
+            lastVisibleArticle = documentSnapshots.docs[documentSnapshots.docs.length - 1];
+            console.log("last", lastVisibleArticle.data());
             // Neue Abfrage die mit dem letzten sichtbaren Dokument beginnt und
             // die nächsten 10 Beiträge lädt
-            const next = await firebase.firestore().collection('articles')
+            let nextArticles = "";
+            if (filterCriteria === "") {
+                nextArticles = await firebase.firestore().collection('articles')
                     .orderBy(sortCriteria, "desc")
-                    .startAfter(lastVisible)
-                    .limit(10).get();
-            setArticleList(next.docs.map(doc => ({...doc.data()})));
+                    .startAfter(lastVisibleArticle)
+                    .limit(5).get();
+            } else {
+                nextArticles = await firebase.firestore().collection('articles')
+                    .where("isPortfolioArticle", "==", filterCriteria)
+                    .orderBy(sortCriteria, "desc")
+                    .startAfter(lastVisibleArticle)
+                    .limit(5).get();
+            }
+            setArticleList(nextArticles.docs.map(doc => ({...doc.data()})));
+            setArticleCreatedAt(nextArticles.docs.map(doc => (doc.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions))));
         });
     }
 
