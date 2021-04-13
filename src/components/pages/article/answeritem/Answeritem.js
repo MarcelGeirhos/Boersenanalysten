@@ -27,7 +27,15 @@ const Answeritem = (props) => {
     };
 
     const deleteAnswer = async () => {
+        const articleData = await firebase.firestore().collection("articles").doc(props.articleId).get();
+        const userData = await firebase.firestore().collection("users").doc(props.creatorId).get();
         await firebase.firestore().collection("articles").doc(props.articleId).collection("answers").doc(props.id).delete();
+        await firebase.firestore().collection("articles").doc(props.articleId).update({
+            answerCounter: articleData.data().answerCounter - 1
+        });
+        await firebase.firestore().collection("users").doc(props.creatorId).update({
+             answerCounter: userData.data().answerCounter - 1
+        });
         setOpenDialog(false);
         alert('Antwort wurde erfolgreich gelöscht.');
         setRedirect(true);
@@ -46,7 +54,7 @@ const Answeritem = (props) => {
                 <Button onClick={handleClickOpen}>Löschen</Button>
                 <ChoiceDialog 
                     openDialog={openDialog}
-                    title="Antwot löschen"
+                    title="Antwort löschen"
                     content="Wollen Sie Ihre Antwort wirklich löschen?"
                     onYesClick={deleteAnswer}
                     onNoClick={handleClose} />

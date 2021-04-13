@@ -148,6 +148,29 @@ function ArticlePage() {
             });
         });
         await firebase.firestore().collection('articles').doc(id).delete();
+        if (articleData.isPortfolioArticle === true) {
+            await firebase.firestore().collection("users").doc(userData.uid).update({
+                portfolioArticleCounter: userData.portfolioArticleCounter - 1
+            });
+            const portfolioArticleDataList = await firebase.firestore().collection('users').doc(userData.uid).collection("portfolioArticles").get();
+            portfolioArticleDataList.forEach(async (doc) => {
+                console.log(doc.data().id);
+                const data = await firebase.firestore().collection('users').doc(userData.uid).collection("portfolioArticles").doc(doc.data().id).get();
+                data.data().portfolioArticleRefs.forEach(async (doc) => {
+                    console.log("Doc Id: " + doc.id);
+                    console.log("Array Id for deletion: " + id);
+                    await firebase.firestore().collection("users").doc(userData.uid).collection("portfolioArticles").doc(data.data().id).update({
+                        portfolioArticleRefs: firebase.firestore.FieldValue.arrayRemove(firebase.firestore().doc(`/articles/${doc.id}`))
+                    })
+                })
+            })
+        } else {
+            await firebase.firestore().collection("users").doc(userData.uid).update({
+                articleCounter: userData.articleCounter - 1
+            });
+            // TODO hier weitermachen und für Beiträge gleich implementieren wie für Portfoliobeiträge siehe ein paar Zeilen weiter oben
+            // um die articleRefs richtig aus dem Array zu entfernen + Code sauber hinterlassen loggings ausbauen + Fehler in Consolen langsame entfernen.
+        }
         setOpenDialog(false);
         alert('Beitrag wurde erfolgreich gelöscht.');
         setRedirect(true);

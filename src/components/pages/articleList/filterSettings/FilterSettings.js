@@ -7,6 +7,9 @@ import Mainbutton from '../../../gui/buttons/mainbutton/Mainbutton';
 // css imports
 import './FilterSettings.css';
 
+// material-ui imports
+import { TextField } from '@material-ui/core';
+
 // third party imports
 //import firebase from 'firebase/app';
 
@@ -26,10 +29,23 @@ const FilterSettings = (/*{ filteredArticleList }*/) => {
         <div className="filter-settings">
             <div>
                 <TagInput parentCallbackTags={callbackTags} />
-                <label>Zeitraum:</label>
-                <input type="date" id="filter-start-date" min="01.01.2021" max="04.01.2021" />
-                <p>bis</p>
-                <input type="date" id="filter-end-date" min="01.01.2021" max="04.01.2021" />
+                <TextField
+                    label="Benutzername"
+                    type="text"
+                    //onChange={(e) => setUsername(e.target.value)}
+                    variant="standard"
+                    className="register-text-field"
+                    //error={usernameError}
+                    //helperText={usernameErrorText}
+                    autoFocus
+                    inputProps={{ 
+                        style: { color: 'white'},
+                        maxLength: 30,
+                    }}
+                    InputLabelProps={{
+                        style: { color: 'white' },
+                    }} />
+                    <br />
                 <Mainbutton onClick={filterArticleList}>Filter anwenden</Mainbutton>
             </div>
         </div>

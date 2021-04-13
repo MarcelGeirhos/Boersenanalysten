@@ -139,7 +139,7 @@ function ArticleListPage() {
                     <AccordionSummary
                         className="accordion-summary"
                         expandIcon={<ExpandMore />}>
-                        <p>Filter</p>
+                        <b>Filter</b>
                     </AccordionSummary>
                     <AccordionDetails className="accordion-content">
                         <FilterSettings filteredArticleList={callbackFilteredList} />
