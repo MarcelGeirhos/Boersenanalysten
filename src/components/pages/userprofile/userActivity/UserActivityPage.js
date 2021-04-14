@@ -64,6 +64,8 @@ function UserActivityPage() {
                             setSelectedFilterButton(1);
                             data.data().answerRefs.forEach(async (doc) => {
                                 const articleData = await firebase.firestore().collection('articles').doc(doc.path.substring(9, 29)).get();
+                                // TODO hier weitermachen if (articleData == undefined) ... dann soll List Item als Beitrag gelöscht angezeigt werden.
+                                // Das gleiche bei Up- und Down Votings + Refs nicht rauslöschen, wenn Beitrag enfernt wurde + bei Antwort und Votings genauso
                                 setArticleListData(articleListData => [...articleListData, articleData.data()]);                       
                                 const answerData = await firebase.firestore().collection('articles').doc(doc.path.substring(9, 29)).collection('answers').doc(doc.id).get();
                                 setListData(listData => [...listData, answerData.data()]);
