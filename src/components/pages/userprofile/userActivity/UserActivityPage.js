@@ -17,14 +17,13 @@ import {
     Button,
     ButtonGroup
 } from '@material-ui/core';
-import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 
 function UserActivityPage() {
     const [listData, setListData] = useState([]);
     const [articleListData, setArticleListData] = useState([]);
     const [createdAt, setCreatedAt] = useState("");
     const [isAnswer, setIsAnswer] = useState(false);
-    const [selectedSortButton, setSelectedSortButton] = useState(0);
+    //const [selectedSortButton, setSelectedSortButton] = useState(0);
     const [selectedFilterButton, setSelectedFilterButton] = useState(0);
     const dateOptions = { year: '2-digit', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'};
 
@@ -44,7 +43,7 @@ function UserActivityPage() {
     }, [])
 
     const setListValues = async (collection, voting = "") => {
-        const sortCriteria = sortList();
+        //const sortCriteria = sortList();
         firebaseConfig.getUserState().then(user => {
             const fetchData = async () => {
                 await firebase.firestore().collection('users').doc(user.uid).get();
@@ -57,8 +56,10 @@ function UserActivityPage() {
                             setSelectedFilterButton(0);
                             data.data().articleRefs.forEach(async (doc) => {
                                 const articleData = await firebase.firestore().collection('articles').doc(doc.id).get();
-                                setListData(listData => [...listData, articleData.data()]);
-                                setCreatedAt(listData => [...listData, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                if (articleData.data() != null) {
+                                    setListData(listData => [...listData, articleData.data()]);
+                                    setCreatedAt(listData => [...listData, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                }
                             })
                         } else if (collection === "answers") {
                             setIsAnswer(true);
@@ -103,7 +104,7 @@ function UserActivityPage() {
             })
     }
 
-    const sortList = (selectedButton) => {
+    /*const sortList = (selectedButton) => {
         if (selectedButton === 0) {
             setSelectedSortButton(0);
             return "createdAt";
@@ -111,7 +112,7 @@ function UserActivityPage() {
             setSelectedSortButton(1);
             return "voting";
         }
-    }
+    }*/
 
     return (
         <div className="user-profile-grid-container">
@@ -127,8 +128,8 @@ function UserActivityPage() {
                             <Button onClick={() => setListValues("votings", "downVotings")} color={selectedFilterButton === 3 ? "secondary" : "primary"}>Down Votings</Button>
                         </ButtonGroup>
                         <ButtonGroup color="primary" size="small" variant="text">
-                            <Button onClick={() => sortList(0)} color={selectedSortButton === 0 ? "secondary" : "primary"}>Neuste</Button>
-                            <Button onClick={() => sortList(1)} color={selectedSortButton === 1 ? "secondary" : "primary"}>Voting</Button>
+                            <Button /*onClick={() => sortList(0)} color={selectedSortButton === 0 ? "secondary" : "primary"}*/>Neuste</Button>
+                            <Button /*onClick={() => sortList(1)} color={selectedSortButton === 1 ? "secondary" : "primary"}*/>Voting</Button>
                         </ButtonGroup>
                     </div>
                 </div>

@@ -152,28 +152,10 @@ function ArticlePage() {
             await firebase.firestore().collection("users").doc(userData.uid).update({
                 portfolioArticleCounter: userData.portfolioArticleCounter - 1
             });
-            const portfolioArticleDataList = await firebase.firestore().collection('users').doc(userData.uid).collection("portfolioArticles").get();
-            portfolioArticleDataList.forEach(async (doc) => {
-                const data = await firebase.firestore().collection('users').doc(userData.uid).collection("portfolioArticles").doc(doc.data().id).get();
-                data.data().portfolioArticleRefs.forEach(async (doc) => {
-                    await firebase.firestore().collection("users").doc(userData.uid).collection("portfolioArticles").doc(data.data().id).update({
-                        portfolioArticleRefs: firebase.firestore.FieldValue.arrayRemove(firebase.firestore().doc(`/articles/${doc.id}`))
-                    })
-                })
-            })
         } else {
             await firebase.firestore().collection("users").doc(userData.uid).update({
                 articleCounter: userData.articleCounter - 1
             });
-            const articleDataList = await firebase.firestore().collection('users').doc(userData.uid).collection("articles").get();
-            articleDataList.forEach(async (doc) => {
-                const data = await firebase.firestore().collection('users').doc(userData.uid).collection("articles").doc(doc.data().id).get();
-                data.data().articleRefs.forEach(async (doc) => {
-                    await firebase.firestore().collection("users").doc(userData.uid).collection("articles").doc(data.data().id).update({
-                        articleRefs: firebase.firestore.FieldValue.arrayRemove(firebase.firestore().doc(`/articles/${doc.id}`))
-                    })
-                })
-            })
         }
         setOpenDialog(false);
         alert('Beitrag wurde erfolgreich gelöscht.');

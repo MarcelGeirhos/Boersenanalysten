@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Mainbutton from '../gui/buttons/mainbutton/Mainbutton';
 import Iconbutton from '../gui/buttons/iconbutton/Iconbutton';
 import Secondbutton from '../gui/buttons/secondbutton/Secondbutton';
-import InputfieldDark from '../gui/inputs/inputfieldDark/InputfieldDark';
 import ChoiceDialog from '../gui/outputs/dialogs/choiceDialog/ChoiceDialog';
 import firebaseConfig from '../../firebase/Config';
 
@@ -22,7 +21,6 @@ import { useSelector } from 'react-redux';
 // material-ui icon imports
 import {
     Person,
-    Search,
     Message,
     ExitToApp,
     ContactSupport,
@@ -40,15 +38,12 @@ function Navigation() {
     const [userData, setUserData] = useState("");
 
     useEffect(() => {
-        firebaseConfig.getUserState().then(user => {
-            const getUser = async () => {
-                setUserState(user);
-                if (userState != null) {
-                    const userData = await firebase.firestore().collection('users').doc(user.uid).get();
-                    setUserData(userData.data());
-                }
+        firebaseConfig.getUserState().then(async (user) => {
+            setUserState(user);
+            if (user != null) {
+                const userData = await firebase.firestore().collection('users').doc(user.uid).get();
+                setUserData(userData.data());
             }
-            getUser();
         })
     }, [])
 
@@ -86,7 +81,7 @@ function Navigation() {
         userState != null) {
         buttons = (
             <div className="navbar-right">
-                {/*<Link to={{pathname: `/userprofile/${userState.uid}`}} id="username">{userData.shareCounter} {userData.username}</Link>*/}
+                <Link to={{pathname: `/userprofile/${userState.uid}`}} id="username">{userData.shareCounter} {userData.username}</Link>
                 <Iconbutton link={{pathname: `/userprofile/${userState.uid}`}}><Person /></Iconbutton>
                 <Iconbutton link={{pathname: `/messages/${userState.uid}`}}><Message /></Iconbutton>
                 <Iconbutton link="/help"><ContactSupport /></Iconbutton>

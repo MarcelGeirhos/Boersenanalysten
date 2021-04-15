@@ -89,6 +89,7 @@ function ArticleListPage() {
             }
             setArticleList(nextArticles.docs.map(doc => ({...doc.data()})));
             setArticleCreatedAt(nextArticles.docs.map(doc => (doc.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions))));
+            setLastVisibleArticle(lastVisibleArticle);
         });
     }
 

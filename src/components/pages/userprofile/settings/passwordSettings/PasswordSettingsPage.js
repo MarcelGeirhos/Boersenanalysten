@@ -173,15 +173,3 @@ function PasswordSettingsPage() {
 }
 
 export default PasswordSettingsPage;
-
-{/*
-<label>Altes Passwort:</label>
-    <InputfieldDark type="password" onChange={(e) => setOldPassword(e.target.value)} />
-    <ErrorText id="old-password-error-text">{oldPasswordErrorText}</ErrorText>
-    <label>Neues Passwort:</label>
-    <InputfieldDark type="password" onChange={(e) => setNewPassword(e.target.value)} />
-    <ErrorText id="new-password-error-text">{newPasswordErrorText}</ErrorText>
-    <label>Neues Passwort wiederholen:</label>
-    <InputfieldDark type="password" onChange={(e) => setNewRepeatedPassword(e.target.value)} />
-    <ErrorText id="new-repeated-password-error-text">{newRepeatedPasswordErrorText}</ErrorText>
-*/}

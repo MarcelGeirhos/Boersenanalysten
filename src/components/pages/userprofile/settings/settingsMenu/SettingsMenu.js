@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 // own module imports
 import firebaseConfig from '../../../../../firebase/Config';
@@ -13,14 +13,11 @@ import { Link, useParams } from "react-router-dom";
 const SettingsMenu = ({ parentCallbackUserData }) => {
     const { id } = useParams();
 
-    const [userData, setUserData] = useState([]);
-
     useEffect(() => {
         firebaseConfig.getUserState().then(user => {
             const fetchData = async () => {
                 await firebase.firestore().collection('users').doc(id).get().then(
                     snapshot => {
-                        setUserData(snapshot.data());
                         parentCallbackUserData(snapshot.data());
                     }).catch(error => {
                         console.log('Error getting userData ', error);

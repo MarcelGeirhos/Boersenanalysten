@@ -28,8 +28,10 @@ function PortfolioHistoryPage() {
                 const portfolioArticles = await firebase.firestore().collection('users').doc(id).collection('portfolioArticles').doc(doc.data().id).get();
                 portfolioArticles.data().portfolioArticleRefs.forEach(async (doc) => {
                     const portfolioArticle = await firebase.firestore().collection('articles').doc(doc.id).get();
-                    setPortfolioArticleList(portfolioArticleList => [...portfolioArticleList, portfolioArticle.data()]);
-                    setArticleCreatedAt(portfolioArticleList => [...portfolioArticleList, portfolioArticle.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                    if (portfolioArticle.data() != null) {
+                        setPortfolioArticleList(portfolioArticleList => [...portfolioArticleList, portfolioArticle.data()]);
+                        setArticleCreatedAt(portfolioArticleList => [...portfolioArticleList, portfolioArticle.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                    } 
                 })
             })
         }
