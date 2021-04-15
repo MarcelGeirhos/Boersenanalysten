@@ -17,7 +17,7 @@ const ArticleListitem = (props) => {
     }, [props.tags])
 
     return (
-        <div className="listitem">
+        <div className="listitem" key={props.key}>
             {/* TODO key={props.key} implementieren in li Element? */}
             <div className="listitem-left-section">
                 <p>{props.voting}<br/>Voting</p>
@@ -29,8 +29,8 @@ const ArticleListitem = (props) => {
                     <p>{props.title}</p>
                 </Link>
                 {
-                tagList.map(tag => (
-                    <Tagbutton>{tag}</Tagbutton>
+                tagList.map((tag, index) => (
+                    <Tagbutton key={index}>{tag}</Tagbutton>
                 ))
                 }
                 <div className="creator-info-section">

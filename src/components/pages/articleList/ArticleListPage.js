@@ -163,6 +163,7 @@ function ArticleListPage() {
             articleList.map((article, index) => (
                 <div key={index}>
                     <ArticleListitem id={article.id}
+                        key={index}
                         title={article.title}
                         tags={article.tags}
                         voting={article.voting}

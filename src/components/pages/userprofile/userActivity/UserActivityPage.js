@@ -17,6 +17,7 @@ import {
     Button,
     ButtonGroup
 } from '@material-ui/core';
+import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 
 function UserActivityPage() {
     const [listData, setListData] = useState([]);
@@ -64,28 +65,32 @@ function UserActivityPage() {
                             setSelectedFilterButton(1);
                             data.data().answerRefs.forEach(async (doc) => {
                                 const articleData = await firebase.firestore().collection('articles').doc(doc.path.substring(9, 29)).get();
-                                // TODO hier weitermachen if (articleData == undefined) ... dann soll List Item als Beitrag gelöscht angezeigt werden.
-                                // Das gleiche bei Up- und Down Votings + Refs nicht rauslöschen, wenn Beitrag enfernt wurde + bei Antwort und Votings genauso
-                                setArticleListData(articleListData => [...articleListData, articleData.data()]);                       
-                                const answerData = await firebase.firestore().collection('articles').doc(doc.path.substring(9, 29)).collection('answers').doc(doc.id).get();
-                                setListData(listData => [...listData, answerData.data()]);
-                                setCreatedAt(listData => [...listData, answerData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                if (articleData.data() != null) {
+                                    setArticleListData(articleListData => [...articleListData, articleData.data()]);                       
+                                    const answerData = await firebase.firestore().collection('articles').doc(doc.path.substring(9, 29)).collection('answers').doc(doc.id).get();
+                                    setListData(listData => [...listData, answerData.data()]);
+                                    setCreatedAt(listData => [...listData, answerData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                }
                             })
                         } else if (collection === "votings" && voting === "upVotings") {
                             setIsAnswer(false);
                             setSelectedFilterButton(2);
                             data.data().upVotingRefs.forEach(async (doc) => {
                                 const articleData = await firebase.firestore().collection('articles').doc(doc.id).get();
-                                setListData(listData => [...listData, articleData.data()]);
-                                setCreatedAt(listData => [...listData, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                if (articleData.data() != null) {
+                                    setListData(listData => [...listData, articleData.data()]);
+                                    setCreatedAt(listData => [...listData, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                }
                             })
                         } else if (collection === "votings" && voting === "downVotings") {
                             setIsAnswer(false);
                             setSelectedFilterButton(3);
                             data.data().downVotingRefs.forEach(async (doc) => {
                                 const articleData = await firebase.firestore().collection('articles').doc(doc.id).get();
-                                setListData(listData => [...listData, articleData.data()]);
-                                setCreatedAt(listData => [...listData, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                if (articleData.data() != null) {
+                                    setListData(listData => [...listData, articleData.data()]);
+                                    setCreatedAt(listData => [...listData, articleData.data().createdAt.toDate().toLocaleDateString("de-DE", dateOptions)]);
+                                }
                             })
                         }
                         console.log(data.data());

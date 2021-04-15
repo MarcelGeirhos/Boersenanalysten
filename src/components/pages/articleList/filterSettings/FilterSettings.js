@@ -46,7 +46,7 @@ const FilterSettings = (/*{ filteredArticleList }*/) => {
                         style: { color: 'white' },
                     }} />
                     <br />
-                <Mainbutton onClick={filterArticleList}>Filter anwenden</Mainbutton>
+                <Mainbutton link="/articleList" onClick={filterArticleList}>Filter anwenden</Mainbutton>
             </div>
         </div>
     )
