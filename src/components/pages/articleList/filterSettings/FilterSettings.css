@@ -1,6 +1,16 @@
+.filter a button {
+    margin-top: 12px;
+    padding: 6px 16px;
+}
+
 .filter-settings {
     display: flex;
+    flex-direction: row;
     justify-content: flex-start;
+}
+
+.filter-settings button {
+    margin-right: 40px;
 }
 
 /* Tablet und Handy */

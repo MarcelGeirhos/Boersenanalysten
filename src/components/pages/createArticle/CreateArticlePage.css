@@ -20,7 +20,11 @@
     font-size: 18px;
     font-weight: bold;
     letter-spacing: 0.5px;
-    display: block;
+    width: 170px;
+}
+
+.create-article svg {
+    cursor: pointer;
 }
 
 .create-article-title input {

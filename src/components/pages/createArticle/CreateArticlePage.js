@@ -17,9 +17,16 @@ import firebase from 'firebase/app';
 
 // material-ui imports
 import {
+    Fade,
+    Tooltip,
     Checkbox,
     FormControlLabel
 } from '@material-ui/core';
+
+// material-ui icon imports
+import {
+    Help,
+} from '@material-ui/icons';
 
 function CreateArticlePage() {
     const [title, setTitle] = useState("");
@@ -166,12 +173,17 @@ function CreateArticlePage() {
             </div>
             <TextEditor title="Beitrag:" parentCallbackText={callbackEditorText}/>
             <ErrorText id="editor-error-text">{editorErrorText}</ErrorText>
-            <FormControlLabel 
-                control={<Checkbox
-                    checked={isPortfolioArticle}
-                    onChange={handleIsPortfolioArticle}
-                    color="primary"/>}
-                label="Portfolio Beitrag" />
+            <div className="create-article-portfolio">
+                <FormControlLabel
+                    control={<Checkbox
+                        checked={isPortfolioArticle}
+                        onChange={handleIsPortfolioArticle}
+                        color="primary"/>}
+                        label="Portfolio Beitrag" />
+                    <Tooltip title="Wenn der Beitrag als Portfolio Beitrag erstellt wird wird dieser in deiner persönlichen Portfolio Historie angezeigt." arrow TransitionComponent={Fade}>
+                        <Help />
+                    </Tooltip>
+            </div>
             <TagInput parentCallbackTags={callbackTags} />
             <ErrorText id="tag-error-text">{tagErrorText}</ErrorText>
             <div>
